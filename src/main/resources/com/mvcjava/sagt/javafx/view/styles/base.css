@@ -21,98 +21,96 @@
     -fx-cursor: hand;
 }
 
-/* =========================================
-   GHOST BTN (Intacto según tu petición)
-   ========================================= */
 .ghostBtn {
-    -fx-background-color: -primary-bg-color;
+    -fx-background-color: -base-bg-color;
+    -fx-border: 1px;
+    -fx-border-color: -border-color-dark;
 }
-.ghostBtn:hover{
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.15), 10, 0, 0px, 5px);
+.ghostBtn:hover {
+    -fx-background-color: -primary-bg-color;
+    -fx-border-color: -primary-color;
+    -fx-text-fill: -primary-color;
+}
+.ghostBtn:hover .glyph-icon {
+    -fx-fill: -primary-color;
 }
 
 .btnPrimary {
-    -fx-background-color: -secondary-bg-color;
-    -fx-border-color: -secondary-bg-color;
+    -fx-background-color: -primary-color;
+    -fx-border-color: -primary-color;
     -fx-border-width: 1px;
     -fx-text-fill: white;
+}
+
+.btnPrimary .glyph-icon {
+    -fx-fill: white;
 }
 
 .btnPrimary:hover {
-    -fx-background-color: #1976D2;
-    -fx-border-color: #1976D2;
-}
-
-.btnPrimary:pressed {
-    -fx-background-color: -primary-dark; /* Un azul aún más profundo al hacer clic */
+    -fx-background-color: -primary-dark;
+    -fx-border-color: -primary-dark;
 }
 
 .btnDanger {
-    -fx-background-color: transparent;
-    -fx-border-color: -primary-danger;
+    -fx-background-color: -danger-light;
+    -fx-border-color: -danger-primary;
     -fx-border-width: 1px;
-    -fx-text-fill: -primary-danger;
+    -fx-text-fill: -danger-primary;
+}
+.btnDanger .glyph-icon {
+    -fx-fill: -danger-primary;
 }
 
 .btnDanger:hover {
-    -fx-background-color: -primary-danger;
+    -fx-background-color: -danger-primary;
     -fx-text-fill: white;
 }
-
-.btnDanger:pressed {
-    -fx-background-color: -danger-dark;
-    -fx-border-color: -danger-dark;
+.btnDanger:hover .glyph-icon {
+    -fx-fill: white;
 }
 
 .btnWarning {
-    -fx-background-color: transparent;
-    -fx-border-color: -primary-warning;
+    -fx-background-color: -warning-primary;
+    -fx-border-color: -warning-primary;
     -fx-border-width: 1px;
-    -fx-text-fill: -warning-dark; /* Usamos el dark para que lea bien sobre fondo claro */
+    -fx-text-fill: white;
+}
+.btnWarning .glyph-icon{
+    -fx-fill: white;
 }
 
 .btnWarning:hover {
-    -fx-background-color: -primary-warning;
-    -fx-text-fill: white;
-}
-
-.btnWarning:pressed {
     -fx-background-color: -warning-dark;
-    -fx-border-color: -warning-dark;
 }
 
 .btnSuccess {
-    -fx-background-color: transparent;
-    -fx-border-color: -primary-success;
+    -fx-background-color: -save-light;
+    -fx-border-color: -save-primary;
     -fx-border-width: 1px;
-    -fx-text-fill: -primary-success;
+    -fx-text-fill: -save-primary;
+}
+.btnSuccess .glyph-icon{
+    -fx-fill: -save-primary;
 }
 
 .btnSuccess:hover {
-    -fx-background-color: -primary-success;
+    -fx-background-color: -save-primary;
     -fx-text-fill: white;
 }
-
-.btnSuccess:pressed {
-    -fx-background-color: -success-dark;
-    -fx-border-color: -success-dark;
+.btnSuccess:hover .glyph-icon {
+    -fx-fill: white;
 }
 
 .btnSecondary {
     -fx-background-color: transparent;
-    -fx-border-color: -secondary-bg-color;
+    -fx-border-color: -primary-color;
     -fx-border-width: 1px;
-    -fx-text-fill: -secondary-bg-color;    
+    -fx-text-fill: -primary-color;    
 }
 
 .btnSecondary:hover {
-    -fx-background-color: -secondary-bg-color;
+    -fx-background-color: -primary-color;
     -fx-text-fill: white;
-}
-
-.btnSecondary:pressed {
-    -fx-background-color: -primary-dark;
-    -fx-border-color: -primary-dark;
 }
 
 .menu-button .context-menu {
@@ -147,4 +145,7 @@
     -fx-text-fill: -secondary-bg-color;
 }
 
+.button {
+    -fx-graphic-text-gap: 8px; /* Espaciado interno horizontal */
+}
 

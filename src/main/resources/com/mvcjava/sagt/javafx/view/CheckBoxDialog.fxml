@@ -6,16 +6,19 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.geometry.Insets?>
+<?import java.net.URL?>
 
 <DialogPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml">
+            xmlns:fx="http://javafx.com/fxml"
+            styleClass="formDialogPane"
+            prefWidth="500">
+    
+    <stylesheets>
+        <URL value="@styles/form.css" /> 
+    </stylesheets>    
     
     <content>
-        <VBox spacing="15" alignment="TOP_LEFT">
-            <padding>
-                <Insets top="20" right="20" bottom="20" left="20"/>
-            </padding>
-            
+        <VBox styleClass="formContainer" alignment="TOP_LEFT">
             <Label fx:id="instructionLabel" />
 
             <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" prefHeight="200">

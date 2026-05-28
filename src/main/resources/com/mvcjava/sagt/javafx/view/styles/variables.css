@@ -1,18 +1,25 @@
 .root {
-    -base-bg-color: #E9ECEF;
-    -primary-bg-color: #F8F9FA;
-    -secondary-bg-color: #1E88E5;
+    -base-bg-color: #F7F8FB;
+    -primary-bg-color: #FAFBFC;
     
-    -primary-light: #E3F2FD;
-    -primary-dark: #1565C0;
-    -primary-danger: #E63946;
-    -danger-dark: #C1121F;
-    -primary-warning: #F59E0B;
-    -warning-dark: #D97706;
-    -primary-success: #2A9D8F;
-    -success-dark: #264653;
+    -primary-color: #296FF7;
+    -primary-light: #EFF3FC;
+    -primary-dark: #2963d8;
     
-    -border-primary-color: #BBDEFB;
+    -danger-primary: #e92d36;
+    -danger-dark: #d12028;
+    -danger-light: #FBF2F4;
+    
+    -warning-primary: #F99318;
+    -warning-dark: #ea8100;
+    -warning-light: #F99318;
+    
+    -save-primary: #26c167;
+    -save-light: #EFF9F5;
+    -save-dark: #26b361;
+    
+    -border-color: #F0F2F5;
+    -border-color-dark: #dedede;
     
     -base-text-color: #2d3436;
     -text-muted: #535e42;

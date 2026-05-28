@@ -3,19 +3,21 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <DialogPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            prefWidth="480">
+            styleClass="formDialogPane"
+            prefWidth="500">
+    
+    <stylesheets>
+        <URL value="@styles/form.css" />
+    </stylesheets>
 
     <headerText>Agregar ítem a la venta</headerText>
 
     <content>
-        <VBox spacing="20">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
-
+        <VBox styleClass="formContainer">
             <Label text="Seleccione un producto y complete la cantidad.&#10;Los campos con * son obligatorios."
                    wrapText="true"/>
 
@@ -27,29 +29,29 @@
 
                 <!-- Producto -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2">
-                    <Label text="* Producto"/>
+                    <Label text="* Producto" styleClass="fieldLabel"/>
                     <ComboBox fx:id="productComboBox" maxWidth="Infinity" promptText="Seleccione un producto..."/>
-                    <Label fx:id="errorProduct" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorProduct" styleClass="error"/>
                 </VBox>
 
                 <!-- Precio unitario (readonly, se llena al seleccionar producto) -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                    <Label text="Precio de venta (unitario)"/>
+                    <Label text="Precio de venta (unitario)" styleClass="fieldLabel"/>
                     <TextField fx:id="unitPriceField" promptText="0.00" editable="false"
                                style="-fx-background-color: #F0F0F0;"/>
-                    <Label fx:id="errorUnitPrice" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorUnitPrice" styleClass="error"/>
                 </VBox>
 
                 <!-- Cantidad -->
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                    <Label text="* Cantidad"/>
+                    <Label text="* Cantidad" styleClass="fieldLabel"/>
                     <TextField fx:id="ammountField" promptText="1"/>
-                    <Label fx:id="errorAmmount" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorAmmount" styleClass="error"/>
                 </VBox>
 
                 <!-- Subtotal (readonly, calculado) -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
-                    <Label text="Subtotal"/>
+                    <Label text="Subtotal" styleClass="fieldLabel"/>
                     <TextField fx:id="subtotalField" promptText="0.00" editable="false"
                                style="-fx-background-color: #F0F0F0; -fx-font-weight: bold;"/>
                 </VBox>

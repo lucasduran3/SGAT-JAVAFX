@@ -10,9 +10,12 @@
 <?import javafx.geometry.Insets?>
 <?import java.net.URL?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.mvcjava.sagt.javafx.controller.SupplierController"
+            styleClass="tableContainer"
             spacing="15">
     
     <stylesheets>
@@ -23,11 +26,35 @@
         <TextField promptText="Buscar ...." prefWidth="250" styleClass="searchInput"/>
         <Region HBox.hgrow="ALWAYS" />
                             
-        <Button text="Agregar Proveedor" styleClass="btnPrimary" onAction="#handleAddSupplier"/>
-        <Button text="Eliminar" styleClass="btnDanger" onAction="#handleDeleteSupplier"/>
-        <Button text="Guardar cambios" styleClass="btnSuccess" onAction="#handleSaveChanges"/>
-        <Button text="Recargar" styleClass="btnWarning"/>
-        <Button text="Filtrar" styleClass="ghostBtn"/>
+        <Button text="Agregar Proveedor" styleClass="btnPrimary" onAction="#handleAddSupplier">
+            <graphic>
+                <FontAwesomeIconView glyphName="PLUS" glyphSize="14"/>
+            </graphic>    
+        </Button>
+        
+        <Button text="Guardar cambios" styleClass="btnSuccess" onAction="#handleSaveChanges">
+            <graphic>
+                <FontAwesomeIconView glyphName="SAVE" glyphSize="14"/>
+            </graphic>    
+        </Button>
+        
+        <Button text="Eliminar" styleClass="btnDanger" onAction="#handleDeleteSupplier">
+            <graphic>
+                <FontAwesomeIconView glyphName="TRASH" glyphSize="14"/>
+            </graphic>
+        </Button>
+        
+        <Button text="Recargar" styleClass="btnWarning">
+            <graphic>
+                <FontAwesomeIconView glyphName="REFRESH" glyphSize="14"/>
+            </graphic>
+        </Button>
+        
+        <Button text="Filtrar" styleClass="ghostBtn">
+            <graphic>
+                <FontAwesomeIconView glyphName="FILTER" glyphSize="14"/> 
+            </graphic>
+        </Button>
     </HBox>
 
     <TableView fx:id="suppliersTable" VBox.vgrow="ALWAYS">

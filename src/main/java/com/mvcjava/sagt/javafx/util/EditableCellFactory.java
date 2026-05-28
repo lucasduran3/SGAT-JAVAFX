@@ -4,7 +4,6 @@
  */
 package com.mvcjava.sagt.javafx.util;
 
-import com.mvcjava.sagt.javafx.viewmodel.ProductViewModel;
 import java.util.function.BiConsumer;
 import java.util.function.Predicate;
 import javafx.scene.control.TableCell;

@@ -3,19 +3,21 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <DialogPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            prefWidth="520">
+            styleClass="formDialogPane"
+            prefWidth="620">
+    
+    <stylesheets>
+        <URL value="@styles/form.css" />
+    </stylesheets>
 
     <headerText>Crear Proveedor</headerText>
 
     <content>
-        <VBox spacing="20">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
-
+        <VBox styleClass="formContainer">
             <Label text="Complete todos los campos para crear un proveedor.&#10;Los campos con * son obligatorios."
                    wrapText="true"/>
 
@@ -27,51 +29,51 @@
 
                 <!-- Nombre -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <Label text="* Nombre"/>
+                    <Label text="* Nombre" styleClass="fieldLabel"/>
                     <TextField fx:id="nameField"/>
-                    <Label fx:id="errorName" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorName" styleClass="error"/>
                 </VBox>
 
                 <!-- Teléfono -->
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                    <Label text="* Teléfono"/>
+                    <Label text="* Teléfono" styleClass="fieldLabel"/>
                     <TextField fx:id="phoneField" promptText="Solo números, sin espacios"/>
-                    <Label fx:id="errorPhone" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorPhone" styleClass="error"/>
                 </VBox>
 
                 <!-- Email -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
-                    <Label text="* Email"/>
+                    <Label text="* Email" styleClass="fieldLabel"/>
                     <TextField fx:id="emailField"/>
-                    <Label fx:id="errorEmail" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorEmail" styleClass="error"/>
                 </VBox>
 
                 <!-- Dirección -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
-                    <Label text="* Dirección"/>
+                    <Label text="* Dirección" styleClass="fieldLabel"/>
                     <TextField fx:id="addressField"/>
-                    <Label fx:id="errorAddress" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorAddress" styleClass="error"/>
                 </VBox>
 
                 <!-- Web -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
-                    <Label text="* Sitio web"/>
+                    <Label text="* Sitio web" styleClass="fieldLabel"/>
                     <TextField fx:id="webField" promptText="Ej: www.proveedor.com"/>
-                    <Label fx:id="errorWeb" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorWeb" styleClass="error"/>
                 </VBox>
 
                 <!-- Localidad -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                    <Label text="* Localidad"/>
+                    <Label text="* Localidad" styleClass="fieldLabel"/>
                     <TextField fx:id="locationField"/>
-                    <Label fx:id="errorLocation" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorLocation" styleClass="error"/>
                 </VBox>
 
                 <!-- Provincia -->
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                    <Label text="* Provincia"/>
+                    <Label text="* Provincia" styleClass="fieldLabel"/>
                     <TextField fx:id="provinceField"/>
-                    <Label fx:id="errorProvince" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorProvince" styleClass="error"/>
                 </VBox>
 
             </GridPane>

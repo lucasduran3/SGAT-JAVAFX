@@ -67,12 +67,12 @@ public class CategoryServiceImpl implements CategoryService {
             updateCategory(c);
         }
         
-        for (Category c : newCategories) {
-            createCategory(c);
-        }
-        
         for (Category c : categoriesToDelete) {
             deleteCategory(c.getId());
+        }
+        
+        for (Category c : newCategories) {
+            createCategory(c);
         }
     }
 }

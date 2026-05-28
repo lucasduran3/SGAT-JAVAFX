@@ -30,6 +30,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Window;
 
 /**
  *
@@ -78,7 +79,7 @@ public class ProductFormController {
     
     private Map<Category, CheckBox> checkboxMap = new HashMap<>();
     
-    public static ProductViewModel showProductForm(Set<Category> avaibleCategories, List<Supplier> avaibleSuppliers) {
+    public static ProductViewModel showProductForm(Set<Category> avaibleCategories, List<Supplier> avaibleSuppliers, Window owner) {
         try {
             FXMLLoader loader = new FXMLLoader(ProductFormController.class.getResource("/com/mvcjava/sagt/javafx/view/productForm.fxml"));
             
@@ -87,6 +88,7 @@ public class ProductFormController {
             
             DialogPane dialogPane = loader.load();
             Dialog<ProductViewModel> dialog = new Dialog();
+            dialog.initOwner(owner);
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Formulario de producto");
             

@@ -169,6 +169,14 @@ public class SaleServiceImpl implements SaleService {
             updateDetail(entry.getKey(), entry.getValue());
         }
         
+        //Eliminacion
+        for(UUID id: detailsToDelete) {
+            deleteDetail(id);
+        }
+        for (UUID id: headersToDelete) {
+            deleteHeader(id);
+        }
+        
         //Insercion
         for (SaleHeader header : newSales) {
             createHeader(header);
@@ -177,12 +185,5 @@ public class SaleServiceImpl implements SaleService {
             createDetail(detail);
         }
         
-        //Eliminacion
-        for(UUID id: detailsToDelete) {
-            deleteDetail(id);
-        }
-        for (UUID id: headersToDelete) {
-            deleteHeader(id);
-        }
     }
 }

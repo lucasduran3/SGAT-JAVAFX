@@ -93,17 +93,17 @@ public class Product {
     
     public void setName(String name) {
         BasicStringValidator.validate(name, 3, 100, "nombre");
-        this.name = name.trim().toLowerCase(); 
+        this.name = name.trim(); 
     }
     
     public void setBrand(String brand) {
         BasicStringValidator.validate(brand, 1, 100, "marca");
-        this.brand = brand.trim().toLowerCase();
+        this.brand = brand.trim();
     }
     
     public void setModel(String model) {
         BasicStringValidator.validate(model, 1, 100, "modelo");
-        this.model = model.trim().toLowerCase();
+        this.model = model.trim();
     }
     
     public void setPurchasePrice(float purchasePrice) {
@@ -179,9 +179,9 @@ public class Product {
         if (obj == null || getClass() != obj.getClass()) return false;
         Product other = (Product) obj;
         
-        return Objects.equals(name, other.name) &&
-                Objects.equals(brand, other.brand) &&
-                Objects.equals(model, other.model);
+        return Objects.equals(name.toLowerCase(), other.name.toLowerCase()) &&
+                Objects.equals(brand.toLowerCase(), other.brand.toLowerCase()) &&
+                Objects.equals(model.toLowerCase(), other.model.toLowerCase());
     }
 
     @Override

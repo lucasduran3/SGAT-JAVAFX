@@ -104,12 +104,14 @@ public class ClientServiceImpl implements ClientService {
             updateClient(entry.getKey(), entry.getValue());
         }
         
-        for (Client newClient : newClients) {
-            createClient(newClient);
+        for (Client client: clientsToDelete) {
+            System.out.println("Eliminando clientes");
+            deleteClient(client.getId());
         }
         
-        for (Client client: clientsToDelete) {
-            deleteClient(client.getId());
+        for (Client newClient : newClients) {
+            System.out.println("Creando clientes");
+            createClient(newClient);
         }
     }
 }

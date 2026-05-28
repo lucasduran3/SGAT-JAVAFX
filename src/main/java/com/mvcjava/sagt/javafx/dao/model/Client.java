@@ -7,7 +7,6 @@ package com.mvcjava.sagt.javafx.dao.model;
 import com.mvcjava.sagt.javafx.enums.ClientType;
 import com.mvcjava.sagt.javafx.util.BasicStringValidator;
 import java.sql.Date;
-import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -56,13 +55,13 @@ public class Client {
     }
     
     public void setCuitCuil(String cuit_cuil) {
-        cuit_cuil = cuit_cuil.trim().toLowerCase();
+        cuit_cuil = cuit_cuil.trim();
         BasicStringValidator.validate(cuit_cuil, 11, 11, "cuit/cuil");
         this.cuit_cuil = cuit_cuil;
     }
     
     public void setCompanyName(String companyName) {
-        companyName = companyName.trim().toLowerCase();
+        companyName = companyName.trim();
         BasicStringValidator.validate(companyName, 1, 100, "razon social");
         this.companyName = companyName;
     }
@@ -76,33 +75,33 @@ public class Client {
     }
     
     public void setPhone(String phone) {
-        phone = phone.trim().toLowerCase();
+        phone = phone.trim();
         BasicStringValidator.validate(phone, 8, 20, "telefono");
         this.phone = phone;
     }
     
     public void setEmail(String email) {
-        email = email.trim().toLowerCase();
+        email = email.trim();
         BasicStringValidator.validate(email, 4, 255, "email");
         this.email = email;
     }
     
     public void setAddress(String address) {
-        address = address.trim().toLowerCase();
+        address = address.trim();
         BasicStringValidator.validate(address, 3, 100, "direccion");
-        this.address = address.toLowerCase();        
+        this.address = address;        
     }
     
     public void setLocation(String location) {
-        location = location.trim().toLowerCase();
+        location = location.trim();
         BasicStringValidator.validate(location, 3, 50, "localidad");
-        this.location = location.toLowerCase();        
+        this.location = location;        
     }
     
     public void setProvince(String province) {
-        province = province.trim().toLowerCase();
+        province = province.trim();
         BasicStringValidator.validate(province, 3, 50, "provincia");
-        this.province = province.toLowerCase();            
+        this.province = province;            
     }
     
     public void setEntryDate(Date entryDate) {

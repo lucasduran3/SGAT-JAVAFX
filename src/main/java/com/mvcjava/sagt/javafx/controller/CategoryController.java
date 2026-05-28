@@ -131,7 +131,7 @@ public class CategoryController {
     
     @FXML
     protected void handleAddCategory() {
-        CategoryViewModel vm = CategoryFormController.showForm();
+        CategoryViewModel vm = CategoryFormController.showForm(categoriesTable.getScene().getWindow());
         
         if (vm != null) {
             vm.setIsNew(true);
@@ -156,7 +156,9 @@ public class CategoryController {
                 Set<CategoryViewModel> selected = categoryViewModels.stream().filter(CategoryViewModel::isSelected).collect(Collectors.toSet());
                 
                 for (CategoryViewModel vm : selected) {
-                    categoriesToDelete.add(vm.getModel());
+                    if (!vm.getIsNew()) {
+                        categoriesToDelete.add(vm.getModel());   
+                    }
                     categoryViewModels.remove(vm);
                 }
             }

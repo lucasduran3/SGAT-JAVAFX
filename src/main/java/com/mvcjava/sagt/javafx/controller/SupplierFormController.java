@@ -19,6 +19,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Window;
 
 public class SupplierFormController {
     @FXML private TextField nameField;
@@ -37,7 +38,7 @@ public class SupplierFormController {
     @FXML private Label errorLocation;
     @FXML private Label errorProvince;
 
-    public static SupplierViewModel showSupplierForm() {
+    public static SupplierViewModel showSupplierForm(Window owner) {
         try {
             FXMLLoader loader = new FXMLLoader(
                     SupplierFormController.class.getResource("/com/mvcjava/sagt/javafx/view/supplierForm.fxml"));
@@ -47,6 +48,7 @@ public class SupplierFormController {
 
             DialogPane dialogPane = loader.load();
             Dialog<SupplierViewModel> dialog = new Dialog<>();
+            dialog.initOwner(owner);
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Formulario de proveedor");
 

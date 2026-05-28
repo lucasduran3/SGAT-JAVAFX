@@ -11,9 +11,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import java.net.URL?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.mvcjava.sagt.javafx.controller.SalesController"
+      styleClass="tableContainer"
       spacing="15">
 
     <stylesheets>
@@ -24,30 +27,49 @@
     <HBox spacing="10" alignment="CENTER_LEFT">
         <TextField promptText="Buscar venta..." prefWidth="250" styleClass="searchInput"/>
         <Region HBox.hgrow="ALWAYS"/>
-        <Button text="Agregar venta"   styleClass="btnPrimary" onAction="#handleAddSale"/>
-        <Button text="Recargar"        styleClass="btnWarning" onAction="#handleReload"/>
-        <Button text="Guardar cambios" styleClass="btnSuccess" onAction="#handleSaveChanges"/>
-        <Button text="Eliminar" styleClass="btnDanger" onAction="#handleDeleteSale"/>
+        <Button text="Agregar venta"   styleClass="btnPrimary" onAction="#handleAddSale">
+            <graphic>
+                <FontAwesomeIconView glyphName="PLUS" glyphSize="14"/>
+            </graphic>    
+        </Button>
+        
+        <Button text="Guardar cambios" styleClass="btnSuccess" onAction="#handleSaveChanges">
+            <graphic>
+                <FontAwesomeIconView glyphName="SAVE" glyphSize="14"/>
+            </graphic>
+        </Button>
+        
+        <Button text="Eliminar" styleClass="btnDanger" onAction="#handleDeleteSale">
+            <graphic>
+                <FontAwesomeIconView glyphName="TRASH" glyphSize="14"/>
+            </graphic>
+        </Button>
+        
+        <Button text="Recargar" styleClass="btnWarning" onAction="#handleReload">
+            <graphic>
+                <FontAwesomeIconView glyphName="REFRESH" glyphSize="14"/>
+            </graphic>    
+        </Button>
+        
     </HBox>
 
-    <SplitPane orientation="VERTICAL" VBox.vgrow="ALWAYS" dividerPositions="0.5">
+    <SplitPane orientation="VERTICAL" VBox.vgrow="ALWAYS" dividerPositions="0.5" styleClass="splitTableContainer">
 
         <!-- ── MASTER ──────────────────────────────────────────────────────── -->
         <TableView fx:id="salesTable" VBox.vgrow="ALWAYS">
-            <columns/>
             <placeholder>
                 <Label text="No hay ventas registradas"/>
             </placeholder>
         </TableView>
 
         <!-- ── DETAIL ──────────────────────────────────────────────────────── -->
-        <VBox spacing="10">
-            <padding>
-                <Insets top="8" right="0" bottom="0" left="0"/>
-            </padding>
-
+        <VBox>
             <!-- Barra de herramientas DETAIL -->
             <HBox spacing="10" alignment="CENTER_LEFT">
+                <padding>
+                    <Insets top="20" right="10" bottom="20" left="10"/>
+                </padding>
+                
                 <Label fx:id="detailsLabel"
                        text="Seleccioná una venta para ver su detalle"
                        styleClass="sectionTitle"
@@ -61,20 +83,25 @@
                         text="Agregar ítem"
                         styleClass="btnPrimary"
                         onAction="#handleAddDetail"
-                        disable="true"/>
+                        disable="true">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="PLUS" glyphSize="14"/>
+                    </graphic>    
+                </Button>
                 
                 <Button fx:id="deleteDetailBtn"
                         text="Eliminar ítem"
                         styleClass="btnDanger"
                         onAction="#handleDeleteDetail"
-                        disable="true"/>
+                        disable="true">
+                    <graphic>
+                        <FontAwesomeIconView glyphName="TRASH" glyphSize="14"/>
+                    </graphic>
+                </Button>
+                
             </HBox>
 
             <TableView fx:id="detailTable" VBox.vgrow="ALWAYS">
-                <columns/>
-                <placeholder>
-                    <Label text="Seleccioná una venta para cargar sus ítems"/>
-                </placeholder>
             </TableView>
         </VBox>
 

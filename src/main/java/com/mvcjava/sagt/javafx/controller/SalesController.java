@@ -697,7 +697,9 @@ public class SalesController {
                 List<SaleViewModel> selected = saleViewModels.stream().filter(s -> s.isSelected()).collect(Collectors.toList());
                 
                 for (SaleViewModel sale : selected) {
-                    headersToDelete.add(sale.getId());
+                    if (!sale.getIsNew()) {
+                        headersToDelete.add(sale.getId());
+                    }
                     saleViewModels.remove(sale);
                 }
             }
@@ -714,7 +716,9 @@ public class SalesController {
                 List<DetailSaleViewModel> selected = detailViewModels.stream().filter(s -> s.isSelected()).collect(Collectors.toList());
                 
                 for (DetailSaleViewModel detail : selected) {
-                    detailsToDelete.add(detail.getId());
+                    if (!detail.getIsNew()) {
+                        detailsToDelete.add(detail.getId());    
+                    }
                     detailViewModels.remove(detail);
                 }
                 

@@ -6,7 +6,6 @@
 }
 
 /*SIDEBAR*/
-
 .sidebarContainer {
     -fx-background-color: -primary-bg-color;
     -fx-pref-width: 270px; 
@@ -44,25 +43,31 @@
 
 .sidebarContainer .menu-button:hover {
     -fx-background-color: -primary-light;
-    -fx-text-fill: -secondary-bg-color;
+    -fx-text-fill: -primary-color;
     -fx-cursor: hand;
 }
 
 .sidebarContainer .menu-button:selected {
     -fx-background-color: -primary-light;
-    -fx-text-fill: -secondary-bg-color;
-    -fx-border-color: -secondary-bg-color;
+    -fx-text-fill: -primary-color;
+    -fx-border-color: -primary-color;
     -fx-border-width: 0 0 0 5;
 }
 
 /*MAIN CONTENT*/
-
 .topHeader {
     -fx-padding: 20 25 20 25;
 }
 
 .pageTitle {
     -fx-font-size: 18px;
+}
+
+.tableContainer {
+    -fx-background-color: -primary-bg-color;
+    -fx-effect: -soft-shadow-sm;
+    -fx-padding: 20;
+    -fx-background-radius: 7px;
 }
 
 .searchInput {
@@ -75,5 +80,51 @@
 }
 
 .searchInput:focused {
-    -fx-border-color: -border-primary-color;
+    -fx-border-color: -border-color;
+}
+
+/*TABLAS*/
+.table-view {
+    -fx-background-color: transparent;
+    -fx-effect: -soft-shadow-sm;
+}
+
+.table-view .column-header {
+    -fx-background-color: -base-bg-color;
+    -fx-size: 45px;
+    -fx-border-color: -border-color
+}
+
+.table-view .table-row-cell:even {
+    -fx-background-color: -primary-bg-color;
+}
+.table-view .table-row-cell:odd {
+    -fx-background-color: #FEFEFE;
+}
+
+.table-view .column-header-background .filler {
+    -fx-background-color: -base-bg-color;
+}
+
+.table-view .column-header-background .filler {
+    -fx-border-color: transparent;
+}
+
+.table-view .table-row-cell:selected {
+    -fx-background-color: -primary-light;
+    -fx-background-insets: 0;      
+    -fx-background-radius: 0;
+}
+
+.table-view .table-cell.highlited-text-green, .highlited-text-green{
+    -fx-text-fill: -save-dark;
+}
+
+.table-view .table-cell.highlited-text-blue, .highlited-text-blue {
+    -fx-text-fill: -primary-color;
+}
+
+.splitTableContainer {
+    -fx-background-color: transparent;
+    -fx-effect: -soft-shadow-sm;    
 }

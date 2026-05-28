@@ -173,6 +173,7 @@ public class ProductController {
         );
         purchasePriceColumn.setEditable(true);
         purchasePriceColumn.setOnEditCommit(this::handleNumberEdit);
+        purchasePriceColumn.getStyleClass().add("highlited-text-blue");
         
         salePriceColumn = new TableColumn<>("Precio de venta");
         salePriceColumn.setUserData("precio_venta");
@@ -185,6 +186,7 @@ public class ProductController {
         );
         salePriceColumn.setEditable(true);
         salePriceColumn.setOnEditCommit(this::handleNumberEdit);
+        salePriceColumn.getStyleClass().add("highlited-text-green");
         
         stockColumn = new TableColumn<>("Stock");
         stockColumn.setUserData("stock");
@@ -316,7 +318,8 @@ public class ProductController {
     protected void handleAddProduct(ActionEvent e) {
         ProductViewModel newProduct = ProductFormController.showProductForm(
                 avaibleCategories, 
-                avaibleSuppliers
+                avaibleSuppliers,
+                productsTable.getScene().getWindow()
         );
         
         if (newProduct != null) {

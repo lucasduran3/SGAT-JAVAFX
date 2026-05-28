@@ -33,7 +33,7 @@ public class Supplier {
 
     public void setName(String name) {
         BasicStringValidator.validate(name, 3, 30, "nombre");
-        this.name = name.trim().toLowerCase();
+        this.name = name.trim();
     }
     
     public void setPhone(String phone) {
@@ -43,27 +43,27 @@ public class Supplier {
     
     public void setEmail(String email) {
         BasicStringValidator.validate(email, 4, 255, "email");
-        this.email = email.trim().toLowerCase();
+        this.email = email.trim();
     }
     
     public void setAddress(String direction) {
         BasicStringValidator.validate(direction, 3, 100, "direccion");
-        this.address = direction.trim().toLowerCase();
+        this.address = direction.trim();
     }
     
     public void setWeb(String web) {
         BasicStringValidator.validate(web, 4, 255, "web");
-        this.web = web.trim().toLowerCase();
+        this.web = web.trim();
     }
     
     public void setLocation(String location) {
         BasicStringValidator.validate(location, 3, 50, "localidad");
-        this.location = location.trim().toLowerCase();
+        this.location = location.trim();
     }
     
     public void setProvince(String province) {
         BasicStringValidator.validate(province, 3, 50, "provincia");
-        this.province = province.trim().toLowerCase();
+        this.province = province.trim();
     }
     
     //GETTERS

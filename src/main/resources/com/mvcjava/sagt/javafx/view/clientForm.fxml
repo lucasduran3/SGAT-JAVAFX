@@ -4,74 +4,78 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import java.net.URL?>
 
 <DialogPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            prefWidth="500">
+            styleClass="formDialogPane"
+            prefWidth="620">
 
+    <stylesheets>
+        <URL value="@styles/form.css" />
+    </stylesheets>
+    
     <headerText>
         Crear Cliente
     </headerText>
 
     <content>
-        <VBox spacing="20">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
-
+        <VBox styleClass="formContainer">
             <Label text="Complete todos los campos para crear un cliente&#10;Los campos con * son obligatorios" 
                    wrapText="true"/>
 
-            <GridPane hgap="30" vgap="15">
+            <GridPane hgap="20" vgap="14">
                 <columnConstraints>
-                    <ColumnConstraints percentWidth="100" hgrow="ALWAYS"/>
+                    <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+                    <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
                 </columnConstraints>
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <Label text="* CUIT/CUIL"/>
+                    <Label text="* CUIT/CUIL" styleClass="fieldLabel"/>
                     <TextField fx:id="cuitField"/>                    
-                    <Label fx:id="errorCuit"></Label>
+                    <Label fx:id="errorCuit" styleClass="error"></Label>
                 </VBox>
                 
-                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                    <Label text="* Razón Social"/>
+                <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <Label text="* Razón Social" styleClass="fieldLabel"/>
                     <TextField fx:id="companyNameField"/>
-                    <Label fx:id="errorCompanyName"></Label>
+                    <Label fx:id="errorCompanyName" styleClass="error"></Label>
+                </VBox>
+                
+                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
+                    <Label text="* Tipo" styleClass="fieldLabel"/>
+                    <ComboBox fx:id="typeComboBox" maxWidth="Infinity"/>
+                    <Label fx:id="errorType" styleClass="error"></Label>
                 </VBox>
                 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                    <Label text="* Tipo"/>
-                    <ComboBox fx:id="typeComboBox" maxWidth="Infinity"/>
-                    <Label fx:id="errorType"></Label>
-                </VBox>
-                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                    <Label text="* Teléfono"/>
+                    <Label text="* Teléfono" styleClass="fieldLabel"/>
                     <TextField fx:id="phoneField"/>
-                    <Label fx:id="errorPhone"></Label>
+                    <Label fx:id="errorPhone" styleClass="error"></Label>
                 </VBox>
 
-                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                    <Label text="* Email"/>
+                <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <Label text="* Email" styleClass="fieldLabel"/>
                     <TextField fx:id="emailField"/>
-                    <Label fx:id="errorEmail"></Label>
+                    <Label fx:id="errorEmail" styleClass="error"></Label>
                 </VBox>
 
-                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="5">
-                    <Label text="* Localidad"/>
+                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                    <Label text="* Localidad" styleClass="fieldLabel"/>
                     <TextField fx:id="locationField"/>
-                    <Label fx:id="errorLocation"></Label>
+                    <Label fx:id="errorLocation" styleClass="error"></Label>
                 </VBox>
 
-                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="6">
-                    <Label text="* Provincia"/>
+                <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <Label text="* Provincia" styleClass="fieldLabel"/>
                     <TextField fx:id="provinceField" />
-                    <Label fx:id="errorProvince"></Label>
+                    <Label fx:id="errorProvince" styleClass="error"></Label>
                 </VBox>
                 
-                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="7">
-                    <Label text="* Dirección"/>
-                    <TextField fx:id="addressField" />
-                    <Label fx:id="errorAddress"></Label>
+                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2">
+                    <Label text="* Dirección" styleClass="fieldLabel"/>
+                    <TextField fx:id="addressField"/>
+                    <Label fx:id="errorAddress" styleClass="error"></Label>
                 </VBox>
 
                 </GridPane>

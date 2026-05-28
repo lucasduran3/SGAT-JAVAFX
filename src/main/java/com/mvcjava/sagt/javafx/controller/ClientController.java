@@ -243,7 +243,7 @@ public class ClientController {
     
     @FXML
     protected void handleAddClient() {
-        ClientViewModel newClient = ClientFormController.showClientForm();
+        ClientViewModel newClient = ClientFormController.showClientForm(clientsTable.getScene().getWindow());
         
         if (newClient != null) {
             newClient.setIsNew(true);
@@ -270,7 +270,9 @@ public class ClientController {
                 Set<ClientViewModel> selected = clientViewModels.stream().filter(c -> c.isSelected()).collect(Collectors.toSet());
                 
                 for (ClientViewModel vm : selected) {
-                    clientsToDelete.add(vm);
+                    if (!vm.getIsNew()) {
+                        clientsToDelete.add(vm);
+                    }
                     clientViewModels.remove(vm);
                 }
             }

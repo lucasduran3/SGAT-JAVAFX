@@ -148,14 +148,15 @@ public class ProductServiceImpl implements ProductService {
         
         updateProductCategories(updatedCategories);
         
+        //Eliminación
+        for (UUID id : deletedProducts) {
+            deleteProduct(id);
+        }
+        
         //Creacion
         for (Map.Entry<Product, Set<UUID>> entry : newProducts.entrySet()) {
             createProductWithCategories(entry.getKey(), entry.getValue());
         }
         
-        //Eliminación
-        for (UUID id : deletedProducts) {
-            deleteProduct(id);
-        }
     }
 }

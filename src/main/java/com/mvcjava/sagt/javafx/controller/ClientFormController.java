@@ -22,6 +22,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Window;
 
 /**
  *
@@ -83,7 +84,7 @@ public class ClientFormController {
         typeComboBox.getItems().addAll(ClientType.values());
     }
     
-    public static ClientViewModel showClientForm() {
+    public static ClientViewModel showClientForm(Window owner) {
         try {
             FXMLLoader loader = new FXMLLoader(ProductFormController.class.getResource("/com/mvcjava/sagt/javafx/view/clientForm.fxml"));
             
@@ -92,6 +93,7 @@ public class ClientFormController {
             
             DialogPane dialogPane = loader.load();
             Dialog<ClientViewModel> dialog = new Dialog();
+            dialog.initOwner(owner);
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Formulario de cliente");
             

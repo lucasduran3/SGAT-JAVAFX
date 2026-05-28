@@ -4,21 +4,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import java.net.URL?>
 
 <DialogPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
+            styleClass="formDialogPane"
             prefWidth="800">
 
+    <stylesheets>
+        <URL value="@styles/form.css" />    
+    </stylesheets>
+    
     <headerText>
         Crear Producto
     </headerText>
 
     <content>
-        <VBox spacing="20">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
-
+        <VBox styleClass="formContainer">
             <Label text="Complete todos los campos para crear un producto.&#10;Los campos con * son obligatorios" 
                    wrapText="true"/>
 
@@ -29,13 +31,13 @@
                 </columnConstraints>
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <Label text="* Nombre"/>
+                    <Label text="* Nombre" styleClass="fieldLabel"/>
                     <TextField fx:id="nameField"/>                    
-                    <Label fx:id="errorName"></Label>
+                    <Label fx:id="errorName" styleClass="error"></Label>
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="3">
-                    <Label text="Categorias"/>
+                    <Label text="Categorias" styleClass="fieldLabel"/>
                     <ScrollPane fx:id="categoriesScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS">
                         <content>
                             <VBox fx:id="categoriesContainer" spacing="5">
@@ -49,43 +51,43 @@
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
-                    <Label text="* Marca"/>
+                    <Label text="* Marca" styleClass="fieldLabel"/>
                     <TextField fx:id="brandField"/>
-                    <Label fx:id="errorBrand"></Label>
+                    <Label fx:id="errorBrand" styleClass="error"></Label>
                 </VBox>
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2">
-                    <Label text="* Modelo"/>
+                    <Label text="* Modelo" styleClass="fieldLabel"/>
                     <TextField fx:id="modelField"/>
-                    <Label fx:id="errorModel"></Label>
+                    <Label fx:id="errorModel" styleClass="error"></Label>
                 </VBox>
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="3">
-                    <Label text="* Precio de compra"/>
+                    <Label text="* Precio de compra" styleClass="fieldLabel"/>
                     <TextField fx:id="purchasePriceField"/>
-                    <Label fx:id="errorPurchasePrice"></Label>
+                    <Label fx:id="errorPurchasePrice" styleClass="error"></Label>
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="3">
-                    <Label text="* Precio de venta"/>
+                    <Label text="* Precio de venta" styleClass="fieldLabel"/>
                     <TextField fx:id="salePriceField"/>
-                    <Label fx:id="errorSalePrice"></Label>
+                    <Label fx:id="errorSalePrice" styleClass="error"></Label>
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="4">
                     <Label text="* Stock"/>
-                    <TextField fx:id="stockField"/>
-                    <Label fx:id="errorStock"></Label>
+                    <TextField fx:id="stockField" styleClass="fieldLabel"/>
+                    <Label fx:id="errorStock" styleClass="error"></Label>
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                    <Label text="* Stock mínimo"/>
+                    <Label text="* Stock mínimo" styleClass="fieldLabel"/>
                     <TextField fx:id="minStockField"/>
-                    <Label fx:id="errorMinStock"></Label>
+                    <Label fx:id="errorMinStock" styleClass="error"></Label>
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="5">
-                    <Label text="* Proveedor"/>
+                    <Label text="* Proveedor" styleClass="fieldLabel"/>
                     <ComboBox fx:id="supplierComboBox" maxWidth="Infinity"/>
-                    <Label fx:id="errorSupplier"></Label>
+                    <Label fx:id="errorSupplier" styleClass="error"></Label>
                 </VBox>
                 </GridPane>
         </VBox>

@@ -42,7 +42,7 @@ public class SupplierController {
     private ObservableList<SupplierViewModel> supplierViewModels;
 
     private Map<UUID, Map<String, Object>> suppliersToUpdate;
-    private Set<SupplierViewModel> suppliersToDelete;
+    private Set<Supplier> suppliersToDelete;
 
     private SupplierLoadService loadService;
     private SupplierSaveService saveService;
@@ -182,7 +182,6 @@ public class SupplierController {
                 .collect(Collectors.toList());
 
         List<Supplier> deleted = suppliersToDelete.stream()
-                .map(SupplierViewModel::getModel)
                 .collect(Collectors.toList());
 
         saveService.setData(newSuppliers, suppliersToUpdate, deleted);
@@ -214,7 +213,7 @@ public class SupplierController {
 
     @FXML
     protected void handleAddSupplier() {
-        SupplierViewModel newSupplier = SupplierFormController.showSupplierForm();
+        SupplierViewModel newSupplier = SupplierFormController.showSupplierForm(suppliersTable.getScene().getWindow());
 
         if (newSupplier != null) {
             newSupplier.setIsNew(true);
@@ -246,7 +245,9 @@ public class SupplierController {
                         .collect(Collectors.toSet());
 
                 for (SupplierViewModel vm : selected) {
-                    suppliersToDelete.add(vm);
+                    if (!vm.getIsNew()) {
+                        suppliersToDelete.add(vm.getModel());   
+                    }
                     supplierViewModels.remove(vm);
                 }
             }

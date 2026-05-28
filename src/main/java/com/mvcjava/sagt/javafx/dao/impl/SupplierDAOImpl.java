@@ -141,7 +141,7 @@ public class SupplierDAOImpl implements SupplierDAO{
 
     @Override
     public boolean alreadyExists(String name, String phone) {
-        String sql = "SELECT 1 FROM app.proveedores WHERE nombre = ? AND telefono = ?";
+        String sql = "SELECT 1 FROM app.proveedores WHERE nombre LIKE ? AND telefono = ?";
         
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {

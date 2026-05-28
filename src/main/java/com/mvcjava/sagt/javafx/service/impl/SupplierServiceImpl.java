@@ -50,7 +50,8 @@ public class SupplierServiceImpl implements SupplierService {
 
     @Override
     public void deleteSupplier(UUID id) throws BusinessException {
-        Supplier currentSupplier = supplierDAO.getSupplier(id);
+        System.out.println("Eliminando dese service");
+        Supplier currentSupplier = getSupplier(id);
         if (currentSupplier == null) {
             throw new BusinessException("El proveedor que desea eliminar no existe.");
         }
@@ -106,12 +107,12 @@ public class SupplierServiceImpl implements SupplierService {
             updateSupplier(entry.getKey(), entry.getValue());
         }
         
-        for (Supplier supplier : newSuppliers) {
-            createSupplier(supplier);
-        }
-        
         for (Supplier supplier : suppliersToDelete) {
             deleteSupplier(supplier.getId());
+        }
+        
+        for (Supplier supplier : newSuppliers) {
+            createSupplier(supplier);
         }
     }
 }

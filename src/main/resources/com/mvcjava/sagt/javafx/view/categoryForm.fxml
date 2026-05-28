@@ -4,21 +4,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
+<?import java.net.URL?>
 
 <DialogPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
+            styleClass="formDialogPane"
             prefWidth="500">
+    <stylesheets>
+        <URL value="@styles/form.css" />
+    </stylesheets>
 
     <headerText>
         Crear Categoría
     </headerText>
 
     <content>
-        <VBox spacing="20">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
-
+        <VBox styleClass="formContainer">
             <Label text="Complete el siguiente campo para crear una nueva categoría" 
                    wrapText="true"/>
 
@@ -28,9 +29,9 @@
                 </columnConstraints>
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <Label text="* Nombre"/>
+                    <Label text="* Nombre" styleClass="fieldLabel"/>
                     <TextField fx:id="nameField"/>                    
-                    <Label fx:id="errorName"></Label>
+                    <Label fx:id="errorName" styleClass="error"></Label>
                 </VBox>
 
                 </GridPane>

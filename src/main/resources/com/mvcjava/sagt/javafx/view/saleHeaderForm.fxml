@@ -3,19 +3,21 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <DialogPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            prefWidth="480">
+            styleClass="formDialogPane"
+            prefWidth="500">
+    
+    <stylesheets>
+        <URL value="@styles/form.css" />
+    </stylesheets>
 
     <headerText>Nueva Venta</headerText>
 
     <content>
-        <VBox spacing="20">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
-
+        <VBox styleClass="formContainer">
             <Label text="Complete los datos para registrar una nueva venta.&#10;Los campos con * son obligatorios."
                    wrapText="true"/>
 
@@ -27,30 +29,30 @@
 
                 <!-- Número de factura -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
-                    <Label text="* Número de factura"/>
+                    <Label text="* Número de factura" styleClass="fieldLabel"/>
                     <TextField fx:id="billNumberField" promptText="Ej: 0001-00000001"/>
-                    <Label fx:id="errorBillNumber" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorBillNumber" styleClass="error"/>
                 </VBox>
 
                 <!-- Fecha -->
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
-                    <Label text="* Fecha"/>
+                    <Label text="* Fecha" styleClass="fieldLabel"/>
                     <DatePicker fx:id="datePicker" maxWidth="Infinity"/>
-                    <Label fx:id="errorDate" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorDate" styleClass="error"/>
                 </VBox>
 
                 <!-- Cliente -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
-                    <Label text="* Cliente"/>
+                    <Label text="* Cliente" styleClass="fieldLabel"/>
                     <ComboBox fx:id="clientComboBox" maxWidth="Infinity" promptText="Seleccione un cliente..."/>
-                    <Label fx:id="errorClient" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorClient" styleClass="error"/>
                 </VBox>
 
                 <!-- Método de pago -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
-                    <Label text="* Método de pago"/>
+                    <Label text="* Método de pago" styleClass="fieldLabel"/>
                     <ComboBox fx:id="paymentMethodComboBox" maxWidth="Infinity" promptText="Seleccione un método..."/>
-                    <Label fx:id="errorPaymentMethod" style="-fx-text-fill: #E63946; -fx-font-size: 11px;"/>
+                    <Label fx:id="errorPaymentMethod" styleClass="error"/>
                 </VBox>
 
             </GridPane>

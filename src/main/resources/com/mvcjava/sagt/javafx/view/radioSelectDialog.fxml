@@ -3,30 +3,30 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import java.net.URL?>
 
 <DialogPane xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
-            prefWidth="500"
-            prefHeight="420">
+            styleClass="formDialogPane"
+            prefWidth="500">
 
+    <stylesheets>
+        <URL value="@styles/form.css" />
+    </stylesheets>
     <headerText>Seleccionar Cliente</headerText>
 
     <content>
-        <VBox spacing="12">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
-
+        <VBox styleClass="formContainer">
             <!-- Search bar -->
             <TextField fx:id="searchField"
-                       promptText="Buscar por razón social o ID..."
+                       promptText="Buscar por nombre o ID..."
                        styleClass="searchInput"/>
 
             <!-- Table header -->
             <HBox styleClass="selectHeader" spacing="0">
                 <Label text="" prefWidth="40"/>
-                <Label text="Razón Social" prefWidth="250" style="-fx-font-weight: bold;"/>
-                <Label text="ID" HBox.hgrow="ALWAYS" style="-fx-font-weight: bold;"/>
+                <Label text="Razón Social" prefWidth="250" styleClass="fieldLabel"/>
+                <Label text="ID" HBox.hgrow="ALWAYS" styleClass="fieldLabel"/>
             </HBox>
 
             <!-- Client list inside a scroll pane -->

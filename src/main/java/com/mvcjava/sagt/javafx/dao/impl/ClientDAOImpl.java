@@ -140,7 +140,7 @@ public class ClientDAOImpl implements ClientDAO{
 
     @Override
     public boolean alreadyExists(UUID id, String cuit_cuil) {
-        String sql = "SELECT 1 FROM app.clientes WHERE cuit_cuil = ? AND id <> ? LIMIT 1";
+        String sql = "SELECT 1 FROM app.clientes WHERE cuit_cuil LIKE ? AND id <> ? LIMIT 1";
         
         try (Connection conn = DatabaseManager.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {

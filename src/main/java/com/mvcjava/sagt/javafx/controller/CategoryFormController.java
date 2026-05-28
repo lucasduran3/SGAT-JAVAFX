@@ -19,6 +19,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Window;
 
 /**
  *
@@ -35,7 +36,7 @@ public class CategoryFormController {
         
     }
     
-    public static CategoryViewModel showForm() {
+    public static CategoryViewModel showForm(Window owner) {
         try {
             FXMLLoader loader = new FXMLLoader(CategoryFormController.class.getResource("/com/mvcjava/sagt/javafx/view/categoryForm.fxml"));
             
@@ -44,6 +45,7 @@ public class CategoryFormController {
             
             DialogPane dialogPane = loader.load();
             Dialog<CategoryViewModel> dialog = new Dialog();
+            dialog.initOwner(owner);
             dialog.setDialogPane(dialogPane);
             dialog.setTitle("Formulario de categoria");
             
