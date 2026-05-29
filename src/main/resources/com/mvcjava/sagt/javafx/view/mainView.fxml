@@ -17,6 +17,8 @@
 <?import javafx.geometry.Insets?>
 <?import java.net.URL?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.mvcjava.sagt.javafx.controller.MainController"
@@ -27,7 +29,13 @@
     
     <left>
         <VBox styleClass="sidebarContainer">
-            <Label text="SGAT" styleClass="sidebarLogo, primaryTitle" ></Label>
+            <Label text="SGAT" styleClass="sidebarLogo, primaryTitle" >
+                <graphic>
+                    <StackPane styleClass="sideIconContainer">
+                        <FontAwesomeIconView glyphName="DATABASE" glyphSize="16" fx:id="titleIcon" styleClass="mainIcon"/>
+                    </StackPane>
+                </graphic>
+            </Label>
         
             <VBox styleClass="sidebarLinksContainer">
                 <fx:define>
@@ -50,7 +58,13 @@
             <top>
                 <BorderPane styleClass="topHeader">
                     <left>
-                        <Label fx:id="pageTitleLabel" text="Productos" styleClass="pageTitle, primaryTitle"/>
+                        <Label fx:id="pageTitle" text="" styleClass="pageTitle, primaryTitle">
+                            <graphic>
+                                <StackPane styleClass="mainIconContainer">
+                                    <FontAwesomeIconView glyphName="" glyphSize="20" fx:id="titleIcon" styleClass="mainIcon"/>
+                                </StackPane>
+                            </graphic>
+                        </Label>     
                     </left>
                     
                     <right>

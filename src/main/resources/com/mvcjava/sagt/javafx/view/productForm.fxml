@@ -73,8 +73,8 @@
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="4">
-                    <Label text="* Stock"/>
-                    <TextField fx:id="stockField" styleClass="fieldLabel"/>
+                    <Label text="* Stock" styleClass="fieldLabel"/>
+                    <TextField fx:id="stockField"/>
                     <Label fx:id="errorStock" styleClass="error"></Label>
                 </VBox>
 

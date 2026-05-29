@@ -8,7 +8,8 @@
 .primaryTitle {
     -fx-padding: 6 10;
     -fx-font-weight: bold;
-    -fx-font-size: 16px;    
+    -fx-font-size: 18px;    
+    -fx-graphic-text-gap: 8px;
 }
 
 /*Estilos generales para todos los botones*/
@@ -146,6 +147,6 @@
 }
 
 .button {
-    -fx-graphic-text-gap: 8px; /* Espaciado interno horizontal */
+        -fx-graphic-text-gap: 8px; /* Espaciado interno horizontal */
 }
 

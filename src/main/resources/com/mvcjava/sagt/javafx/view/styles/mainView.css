@@ -16,18 +16,22 @@
     -fx-effect: -soft-shadow-sm;
 }
 
-.sidebarLogo {
-    -fx-text-fill: -primary-bg-color;
-    -fx-background-radius: 7px;
-    -fx-background-color: linear-gradient(to bottom, #1976D2, #0D47A1);
-}
-
 .sidebarLinksContainer {
     -fx-spacing: 15;
 }
 
 .sidebarLinksContainer .title {
     -fx-text-fill: -text-muted;
+}
+
+.sideIconContainer {
+    -fx-background-color: -primary-color;    
+    -fx-background-radius: 7px;
+    -fx-alignment: CENTER;
+    -fx-min-width: 32px;
+    -fx-max-width: 32px;
+    -fx-min-height: 32px;
+    -fx-max-height: 32px;    
 }
 
 .sidebarContainer .menu-button {
@@ -61,6 +65,19 @@
 
 .pageTitle {
     -fx-font-size: 18px;
+}
+
+.mainIconContainer {
+    -fx-background-color: -primary-color;    
+    -fx-background-radius: 7px;
+    -fx-alignment: CENTER;
+    -fx-min-width: 40px;
+    -fx-max-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+}
+.mainIcon {
+    -fx-fill: white;
 }
 
 .tableContainer {

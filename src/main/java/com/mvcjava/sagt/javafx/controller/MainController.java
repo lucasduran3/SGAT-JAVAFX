@@ -5,12 +5,14 @@
 package com.mvcjava.sagt.javafx.controller;
 
 import com.mvcjava.sagt.javafx.util.AlertUtils;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.StackPane;
@@ -20,13 +22,18 @@ import javafx.scene.layout.StackPane;
  * @author lucas
  */
 public class MainController {
-    private Map<String, String> routes;
+    private Map<String, Route> routes;
     
     @FXML
     private ToggleGroup menuGroup;
     
     @FXML
     private StackPane dynamicContentContainer;
+    
+    @FXML 
+    private Label pageTitle;
+    @FXML
+    private FontAwesomeIconView titleIcon;
     
     @FXML
     public void initialize() {
@@ -36,11 +43,11 @@ public class MainController {
     
     private void initializeRoutes() {
         routes = new HashMap<>();
-        routes.put("productos", "/com/mvcjava/sagt/javafx/view/productsView.fxml");
-        routes.put("clientes", "/com/mvcjava/sagt/javafx/view/clientsView.fxml");
-        routes.put("ventas", "/com/mvcjava/sagt/javafx/view/salesView.fxml");
-        routes.put("proveedores", "/com/mvcjava/sagt/javafx/view/suppliersView.fxml");
-        routes.put("categorias", "/com/mvcjava/sagt/javafx/view/categoriesView.fxml");
+        routes.put("productos", new Route("/com/mvcjava/sagt/javafx/view/productsView.fxml", "Productos", "ARCHIVE"));
+        routes.put("clientes", new Route("/com/mvcjava/sagt/javafx/view/clientsView.fxml", "Clientes", "USER"));
+        routes.put("ventas", new Route("/com/mvcjava/sagt/javafx/view/salesView.fxml", "Ventas", "DOLLAR"));
+        routes.put("proveedores", new Route("/com/mvcjava/sagt/javafx/view/suppliersView.fxml", "Proveedores", "TRUCK"));
+        routes.put("categorias", new Route("/com/mvcjava/sagt/javafx/view/categoriesView.fxml", "Categorías", "LIST"));
     }
     
     private void setupSideMenuListener() {
@@ -50,10 +57,12 @@ public class MainController {
                 menuGroup.selectToggle(oldToggle);
             } else {
                 String routeKey = ((ToggleButton)newToggle).getText().toLowerCase();
-                String route = routes.get(routeKey);
+                String route = routes.get(routeKey).path;
                 
                 try {
                     loadView(route);
+                    pageTitle.setText(routes.get(routeKey).title);
+                    titleIcon.setGlyphName(routes.get(routeKey).icon);
                 } catch (IOException ex) {
                     ex.printStackTrace();
                     AlertUtils.showError("Error al cargar vista " + routeKey);
@@ -67,7 +76,19 @@ public class MainController {
         if (route != null && !route.trim().isEmpty()) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(route));
             Node view = loader.load();
-            dynamicContentContainer.getChildren().setAll(view);    
+            dynamicContentContainer.getChildren().setAll(view);
+        }
+    }
+    
+    private class Route {
+        String path;
+        String title;
+        String icon;
+        
+        public Route(String path, String title, String icon) {
+            this.path = path;
+            this.title = title;
+            this.icon = icon;
         }
     }
 }

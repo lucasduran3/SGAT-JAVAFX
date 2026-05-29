@@ -4,18 +4,11 @@
 .formContainer {
     -fx-padding: 20;
     -fx-spacing: 20;
-    -fx-background-color: -base-bg-color;
-}
-
-.formDialogPane {
-    -fx-background-color: -base-bg-color;
 }
 
 .formDialogPane > .header-panel {
-    -fx-background-color: -base-bg-color;
     -fx-padding: 20;
     -fx-border: 0 0 1px 0;
-    -fx-border-color: -border-color-dark;
 }
 
 .formDialogPane > .header-panel > .label {

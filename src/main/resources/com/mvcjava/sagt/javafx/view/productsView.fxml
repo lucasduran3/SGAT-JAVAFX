@@ -24,6 +24,11 @@
     
     <HBox spacing="10" alignment="CENTER_LEFT">
         <TextField promptText="Buscar ...." prefWidth="250" styleClass="searchInput"/>
+        <Button text="Filtrar" styleClass="ghostBtn">
+            <graphic>
+                <FontAwesomeIconView glyphName="FILTER" glyphSize="14"/> 
+            </graphic>
+        </Button>
         <Region HBox.hgrow="ALWAYS" />
                         
         <Button text="Agregar producto" styleClass="btnPrimary" onAction="#handleAddProduct">
@@ -47,12 +52,6 @@
         <Button text="Recargar" styleClass="btnWarning">
             <graphic>
                 <FontAwesomeIconView glyphName="REFRESH" glyphSize="14"/>
-            </graphic>
-        </Button>
-
-        <Button text="Filtrar" styleClass="ghostBtn">
-            <graphic>
-                <FontAwesomeIconView glyphName="FILTER" glyphSize="14"/> 
             </graphic>
         </Button>
     </HBox>
