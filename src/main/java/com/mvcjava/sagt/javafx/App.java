@@ -1,47 +1,69 @@
 package com.mvcjava.sagt.javafx;
 
+import com.mvcjava.sagt.javafx.auth.SessionContext;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 /**
  * JavaFX App
  */
 public class App extends Application {
-
-    private static Scene scene;
+    private static Stage primaryStage;
+    
+    private static final double AUTH_WIDTH = 860;
+    private static final double AUTH_HEIGHT = 600;
+    private static final double MAIN_WIDTH = 1280;
+    private static final double MAIN_HEIGTH = 760;
 
     @Override
     public void start(Stage stage) throws IOException {
-        /*scene = new Scene(loadFXML("primary"), 640, 480);
-        stage.setScene(scene);
-        stage.show();*/
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/mvcjava/sagt/javafx/view/mainView.fxml"));
+        primaryStage = stage;
+        primaryStage.setTitle("SGAT");
+        primaryStage.setResizable(false);
         
+        showAuthView();
+        primaryStage.show();
+    }
+    
+    public static void showAuthView() throws IOException {
+        FXMLLoader loader = new FXMLLoader(
+                App.class.getResource("/com/mvcjava/sagt/javafx/view/authView.fxml")
+        );
         
-        Scene scene = new Scene(loader.load());
+        Scene scene  = new Scene(loader.load(), AUTH_WIDTH, AUTH_HEIGHT);
         
-        //stage.setMaximized(true);
-        stage.setTitle("mi app");
-        stage.setScene(scene);
-        stage.show();
+        primaryStage.setScene(scene);
+        primaryStage.setWidth(AUTH_WIDTH);
+        primaryStage.setHeight(AUTH_HEIGHT);
+        primaryStage.centerOnScreen();
     }
-
-    public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
+    
+    public static void showMainView() throws IOException {
+        if (!SessionContext.isLoggedIn()) {
+            throw new IllegalStateException("No hay usuario autenticado. Inicie sesión antes de cargar la vista principal.");
+        }
+        
+        FXMLLoader loader = new FXMLLoader(App.class.getResource("/com/mvcjava/sagt/javafx/view/mainView.fxml"));
+        
+        Scene scene = new Scene(loader.load(), MAIN_WIDTH, MAIN_HEIGTH);
+        
+        primaryStage.setScene(scene);
+        primaryStage.setWidth(MAIN_WIDTH);
+        primaryStage.setHeight(MAIN_HEIGTH);
+        primaryStage.centerOnScreen();
     }
-
-    private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+    
+    public static void logout() throws IOException {
+        SessionContext.clear();
+        primaryStage.setResizable(false);
+        showAuthView();
     }
-
-    public static void main(String[] args) throws SQLException {
+    
+    public static void main(String[] args) {
         launch(args);
     }
 }
