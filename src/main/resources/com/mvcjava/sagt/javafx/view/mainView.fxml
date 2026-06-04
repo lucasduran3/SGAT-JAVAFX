@@ -26,52 +26,58 @@
     <stylesheets>
         <URL value="@styles/mainView.css" />
     </stylesheets>
-    
+
     <left>
         <VBox styleClass="sidebarContainer">
-            <Label text="SGAT" styleClass="sidebarLogo, primaryTitle" >
+            <Label text="SGAT" styleClass="sidebarLogo, primaryTitle">
                 <graphic>
                     <StackPane styleClass="sideIconContainer">
-                        <FontAwesomeIconView glyphName="DATABASE" glyphSize="16" fx:id="titleIcon" styleClass="mainIcon"/>
+                        <FontAwesomeIconView glyphName="DATABASE" glyphSize="16"
+                                             styleClass="mainIcon"/>
                     </StackPane>
                 </graphic>
             </Label>
-        
+
             <VBox styleClass="sidebarLinksContainer">
                 <fx:define>
                     <ToggleGroup fx:id="menuGroup"/>
                 </fx:define>
-    
-                <ToggleButton text="Dashboard" toggleGroup="$menuGroup" styleClass="menu-button" selected="true" />
-                <ToggleButton text="Productos" toggleGroup="$menuGroup" styleClass="menu-button" />
-                <ToggleButton text="Ventas" toggleGroup="$menuGroup" styleClass="menu-button" />
-                <ToggleButton text="Clientes" toggleGroup="$menuGroup" styleClass="menu-button" />
-                <ToggleButton text="Proveedores" toggleGroup="$menuGroup" styleClass="menu-button" />
-                <ToggleButton text="Categorias" toggleGroup="$menuGroup" styleClass="menu-button" />
-                <ToggleButton text="Reportes" toggleGroup="$menuGroup" styleClass="menu-button" />
+
+                <ToggleButton text="Dashboard"   toggleGroup="$menuGroup" styleClass="menu-button" selected="true"/>
+                <ToggleButton text="Productos"   toggleGroup="$menuGroup" styleClass="menu-button"/>
+                <ToggleButton text="Ventas"      toggleGroup="$menuGroup" styleClass="menu-button"/>
+                <ToggleButton text="Clientes"    toggleGroup="$menuGroup" styleClass="menu-button"/>
+                <ToggleButton text="Proveedores" toggleGroup="$menuGroup" styleClass="menu-button"/>
+                <ToggleButton text="Categorias"  toggleGroup="$menuGroup" styleClass="menu-button"/>
+                <ToggleButton text="Reportes"    toggleGroup="$menuGroup" styleClass="menu-button"/>
             </VBox>
         </VBox>
     </left>
+
     <center>
         <BorderPane styleClass="contentWrapper">
-            
+
             <top>
                 <BorderPane styleClass="topHeader">
                     <left>
                         <Label fx:id="pageTitle" text="" styleClass="pageTitle, primaryTitle">
                             <graphic>
                                 <StackPane styleClass="mainIconContainer">
-                                    <FontAwesomeIconView glyphName="" glyphSize="20" fx:id="titleIcon" styleClass="mainIcon"/>
+                                    <FontAwesomeIconView glyphName="ANCHOR" glyphSize="20"
+                                                         fx:id="titleIcon" styleClass="mainIcon"/>
                                 </StackPane>
                             </graphic>
-                        </Label>     
+                        </Label>
                     </left>
-                    
+
                     <right>
-                        <MenuButton text="Mi Perfil" styleClass="userMenu, ghostBtn">
+                        <!-- fx:id en el MenuButton para exponer el label al controlador -->
+                        <MenuButton fx:id="userMenuLabel" text="Mi Perfil"
+                                    styleClass="userMenu, ghostBtn">
                             <items>
-                                <MenuItem text="Ver perfil" />
-                                <MenuItem text="Logout" />
+                                <MenuItem fx:id="menuItemPerfil" text="Ver perfil"/>
+                                <MenuItem fx:id="menuItemLogout" text="Cerrar sesión"
+                                          onAction="#handleLogout"/>
                             </items>
                         </MenuButton>
                     </right>
@@ -83,11 +89,10 @@
                     <padding>
                         <Insets top="20" right="25" bottom="20" left="25"/>
                     </padding>
-                    
                 </StackPane>
             </center>
-            
+
         </BorderPane>
     </center>
-    
+
 </BorderPane>

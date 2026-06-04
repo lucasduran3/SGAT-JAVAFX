@@ -28,11 +28,11 @@ public class SessionContext {
         currentUserName = name;
     }
     
-    @Deprecated
+    /*@Deprecated
     public static void setCurrentUser() {
         currentUserId = UUID.fromString("a6bbb40c-76a2-4a66-8805-a42a58392122");
         currentUserName = "Ana Administradora";
-    }   
+    }*/
     
     public static void clear() {
         currentUserId = null;

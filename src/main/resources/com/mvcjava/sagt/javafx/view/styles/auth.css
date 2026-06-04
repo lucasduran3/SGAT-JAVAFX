@@ -1,0 +1,172 @@
+@import "variables.css";
+@import "base.css";
+
+/* ── Fondo y contenedor raíz ─────────────────────────────────────── */
+
+.authRoot {
+    -fx-background-color: -base-bg-color;
+}
+
+/* Banda decorativa lateral izquierda */
+.authBackground {
+    -fx-background-color: linear-gradient(
+        to bottom right,
+        -primary-color,
+        -primary-dark
+    );
+    -fx-pref-width: 380px;
+    -fx-max-width: 380px;
+    -fx-alignment: CENTER_LEFT;
+}
+
+/* ── Tarjeta ─────────────────────────────────────────────────────── */
+
+.authCard {
+    -fx-background-color: -primary-bg-color;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.18), 24, 0, 0, 6);
+    -fx-padding: 0 0 32 0;
+    -fx-spacing: 0;
+}
+
+/* ── Marca ───────────────────────────────────────────────────────── */
+
+.authBrand {
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 12px 12px 0 0;
+    -fx-padding: 32 0 28 0;
+    -fx-spacing: 6;
+}
+
+.authBrandTitle {
+    -fx-text-fill: white;
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-letter-spacing: 6px;
+}
+
+.authBrandSubtitle {
+    -fx-text-fill: rgba(255,255,255,0.80);
+    -fx-font-size: 12px;
+    -fx-text-alignment: center;
+}
+
+/* ── Tabs ────────────────────────────────────────────────────────── */
+
+.authTabs {
+    -fx-padding: 20 28 0 28;
+    -fx-spacing: 0;
+    -fx-border-color: transparent transparent -border-color-dark transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.authTab {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-padding: 10 20;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-text-fill: -text-muted;
+    -fx-cursor: hand;
+    -fx-pref-width: 160px;
+}
+
+.authTab:hover {
+    -fx-text-fill: -primary-color;
+    -fx-background-color: -primary-light;
+}
+
+.authTab:selected {
+    -fx-text-fill: -primary-color;
+    -fx-border-color: transparent transparent -primary-color transparent;
+    -fx-border-width: 0 0 3 0;
+    -fx-background-color: transparent;
+}
+
+/* ── Paneles de formulario ───────────────────────────────────────── */
+
+.authFormPanel {
+    -fx-padding: 28 32 0 32;
+}
+
+/* ── Campos de texto ─────────────────────────────────────────────── */
+
+.authFieldLabel {
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-muted;
+}
+
+.authField {
+    -fx-background-color: -base-bg-color;
+    -fx-background-radius: 6px;
+    -fx-border-color: -border-color-dark;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px;
+    -fx-padding: 9 12;
+    -fx-font-size: 13px;
+    -fx-pref-height: 38px;
+}
+
+.authField:focused {
+    -fx-border-color: -primary-color;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(41,111,247,0.15), 6, 0, 0, 0);
+}
+
+/* ── Errores ─────────────────────────────────────────────────────── */
+
+.authError {
+    -fx-text-fill: -danger-primary;
+    -fx-font-size: 11px;
+    -fx-min-height: 14px;
+}
+
+.authErrorGeneral {
+    -fx-text-fill: -danger-primary;
+    -fx-background-color: -danger-light;
+    -fx-background-radius: 6px;
+    -fx-border-color: -danger-primary;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px;
+    -fx-padding: 8 12;
+    -fx-font-size: 12px;
+    -fx-min-height: 0;
+}
+
+/* ── Botón de submit ─────────────────────────────────────────────── */
+
+.authSubmitBtn {
+    -fx-background-color: -primary-color;
+    -fx-background-radius: 7px;
+    -fx-border-radius: 7px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 11 0;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(41,111,247,0.30), 8, 0, 0, 3);
+}
+
+.authSubmitBtn:hover {
+    -fx-background-color: -primary-dark;
+}
+
+.authSubmitBtn:pressed {
+    -fx-background-color: -primary-dark;
+    -fx-effect: none;
+}
+
+.authSubmitBtn:disabled {
+    -fx-opacity: 0.6;
+    -fx-effect: none;
+}
+
+/* ── Indicador de progreso ───────────────────────────────────────── */
+
+.authProgress {
+    -fx-progress-color: -primary-color;
+    -fx-alignment: CENTER;
+}

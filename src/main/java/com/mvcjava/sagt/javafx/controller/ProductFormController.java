@@ -154,9 +154,6 @@ public class ProductFormController {
             }
         });
         
-        //Temporal
-        SessionContext.setCurrentUser();
-        
         Product product = new Product(
                 id,
                 name,

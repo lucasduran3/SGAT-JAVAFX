@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="com.mvcjava.sagt.javafx.controller.AuthController"
+           styleClass="authRoot">
+
+    <stylesheets>
+        <URL value="@styles/auth.css" />
+    </stylesheets>
+
+    <!-- Fondo decorativo -->
+    <HBox styleClass="authBackground" mouseTransparent="true"/>
+
+    <!-- Tarjeta central -->
+    <VBox styleClass="authCard" alignment="TOP_CENTER" maxWidth="440" maxHeight="620">
+
+        <!-- Logo / Título de la app -->
+        <VBox styleClass="authBrand" alignment="CENTER">
+            <Label text="SAGT" styleClass="authBrandTitle"/>
+            <Label text="Sistema de Administración y Gestión" styleClass="authBrandSubtitle" wrapText="true"/>
+        </VBox>
+
+        <!-- Tabs LOGIN / REGISTRO -->
+        <HBox styleClass="authTabs" alignment="CENTER">
+            <ToggleButton fx:id="loginTab"    text="Iniciar Sesión"  styleClass="authTab" selected="true"
+                          onAction="#handleTabChange"/>
+            <ToggleButton fx:id="registerTab" text="Registrarse"    styleClass="authTab"
+                          onAction="#handleTabChange"/>
+        </HBox>
+
+        <!-- ── PANEL LOGIN ───────────────────────────────────────────────── -->
+        <VBox fx:id="loginPanel" styleClass="authFormPanel" spacing="14">
+
+            <!-- Email -->
+            <VBox spacing="4">
+                <Label text="Email" styleClass="authFieldLabel"/>
+                <TextField fx:id="loginEmail" promptText="usuario@empresa.com"
+                           styleClass="authField"/>
+                <Label fx:id="loginEmailError" styleClass="authError"/>
+            </VBox>
+
+            <!-- Contraseña -->
+            <VBox spacing="4">
+                <Label text="Contraseña" styleClass="authFieldLabel"/>
+                <PasswordField fx:id="loginPassword" promptText="••••••••"
+                               styleClass="authField"/>
+                <Label fx:id="loginPasswordError" styleClass="authError"/>
+            </VBox>
+
+            <!-- Mensaje de error general -->
+            <Label fx:id="loginGeneralError" styleClass="authErrorGeneral" wrapText="true"/>
+
+            <!-- Botón -->
+            <Button fx:id="loginBtn" text="Ingresar" styleClass="authSubmitBtn"
+                    maxWidth="Infinity" onAction="#handleLogin"/>
+
+            <!-- Indicador de carga -->
+            <ProgressIndicator fx:id="loginProgress" styleClass="authProgress"
+                               visible="false" maxWidth="32" maxHeight="32"/>
+
+        </VBox>
+
+        <!-- ── PANEL REGISTRO ────────────────────────────────────────────── -->
+        <VBox fx:id="registerPanel" styleClass="authFormPanel" spacing="12" visible="false"
+              managed="false">
+
+            <!-- Nombre y Apellido en fila -->
+            <HBox spacing="12">
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Nombre" styleClass="authFieldLabel"/>
+                    <TextField fx:id="regName" promptText="Juan" styleClass="authField"/>
+                    <Label fx:id="regNameError" styleClass="authError"/>
+                </VBox>
+                <VBox spacing="4" HBox.hgrow="ALWAYS">
+                    <Label text="Apellido" styleClass="authFieldLabel"/>
+                    <TextField fx:id="regLastname" promptText="García" styleClass="authField"/>
+                    <Label fx:id="regLastnameError" styleClass="authError"/>
+                </VBox>
+            </HBox>
+
+            <!-- Email -->
+            <VBox spacing="4">
+                <Label text="Email" styleClass="authFieldLabel"/>
+                <TextField fx:id="regEmail" promptText="usuario@empresa.com"
+                           styleClass="authField"/>
+                <Label fx:id="regEmailError" styleClass="authError"/>
+            </VBox>
+
+            <!-- Contraseña -->
+            <VBox spacing="4">
+                <Label text="Contraseña" styleClass="authFieldLabel"/>
+                <PasswordField fx:id="regPassword" promptText="Mínimo 8 caracteres"
+                               styleClass="authField"/>
+                <Label fx:id="regPasswordError" styleClass="authError"/>
+            </VBox>
+
+            <!-- Confirmar contraseña -->
+            <VBox spacing="4">
+                <Label text="Confirmar contraseña" styleClass="authFieldLabel"/>
+                <PasswordField fx:id="regPasswordConfirm" promptText="Repetir contraseña"
+                               styleClass="authField"/>
+                <Label fx:id="regPasswordConfirmError" styleClass="authError"/>
+            </VBox>
+
+            <!-- Mensaje de error general -->
+            <Label fx:id="regGeneralError" styleClass="authErrorGeneral" wrapText="true"/>
+
+            <!-- Botón -->
+            <Button fx:id="registerBtn" text="Crear cuenta" styleClass="authSubmitBtn"
+                    maxWidth="Infinity" onAction="#handleRegister"/>
+
+            <!-- Indicador de carga -->
+            <ProgressIndicator fx:id="registerProgress" styleClass="authProgress"
+                               visible="false" maxWidth="32" maxHeight="32"/>
+
+        </VBox>
+
+    </VBox>
+
+</StackPane>

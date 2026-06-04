@@ -19,7 +19,7 @@ import org.mindrot.jbcrypt.BCrypt;
  */
 public class AuthServiceImpl implements AuthService {
     
-    private static final int BCRYPT_LOG_ROUNDS = 12;
+    private static final int BCRYPT_LOG_ROUNDS = 10;
     private static final int MIN_PASSWORD_LEN = 8;
     private static final int MAX_PASSWORD_LEN = 72;
     
@@ -86,6 +86,7 @@ public class AuthServiceImpl implements AuthService {
         String hash = BCrypt.hashpw(password, BCrypt.gensalt(BCRYPT_LOG_ROUNDS));
         
         try {
+            System.out.println("Información desde service: " + name + "-" + lastname);
             authDAO.registerUser(email.trim().toLowerCase(), hash, 
                     name != null ? name.trim() : null,
                     lastname != null ? lastname.trim() : null);

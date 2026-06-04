@@ -4,15 +4,21 @@
  */
 package com.mvcjava.sagt.javafx.controller;
 
+import com.mvcjava.sagt.javafx.App;
+import com.mvcjava.sagt.javafx.auth.SessionContext;
 import com.mvcjava.sagt.javafx.util.AlertUtils;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.StackPane;
@@ -26,19 +32,22 @@ public class MainController {
     
     @FXML
     private ToggleGroup menuGroup;
-    
     @FXML
     private StackPane dynamicContentContainer;
-    
     @FXML 
     private Label pageTitle;
     @FXML
     private FontAwesomeIconView titleIcon;
     
+    @FXML private MenuButton userMenuLabel;
+    @FXML private MenuItem menuItemProfile;
+    @FXML private MenuItem menuItemLogout;
+    
     @FXML
     public void initialize() {
         initializeRoutes();
         setupSideMenuListener();
+        setupUserMenu();
     }
     
     private void initializeRoutes() {
@@ -67,6 +76,28 @@ public class MainController {
                     ex.printStackTrace();
                     AlertUtils.showError("Error al cargar vista " + routeKey);
                     menuGroup.selectToggle(oldToggle);
+                }
+            }
+        });
+    }
+    
+    private void setupUserMenu() {
+        if (SessionContext.isLoggedIn()) {
+            userMenuLabel.setText(SessionContext.getCurrentUserName());
+        }
+    }
+    
+    @FXML
+    public void handleLogout() {
+        Optional<ButtonType> confirm = AlertUtils.showConfirmAlert("Cerrar sesión", "¿Está seguro que desea cerrar la sesión?");
+        
+        confirm.ifPresent(btn -> {
+            if (btn == ButtonType.OK) {
+                try {
+                    App.logout();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    AlertUtils.showError("Error al cerrar sesión.");
                 }
             }
         });

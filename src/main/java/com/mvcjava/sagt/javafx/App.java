@@ -1,6 +1,7 @@
 package com.mvcjava.sagt.javafx;
 
 import com.mvcjava.sagt.javafx.auth.SessionContext;
+import com.mvcjava.sagt.javafx.config.DatabaseManager;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,8 +15,8 @@ import java.io.IOException;
 public class App extends Application {
     private static Stage primaryStage;
     
-    private static final double AUTH_WIDTH = 860;
-    private static final double AUTH_HEIGHT = 600;
+    private static final double AUTH_WIDTH = 1280;
+    private static final double AUTH_HEIGHT = 760;
     private static final double MAIN_WIDTH = 1280;
     private static final double MAIN_HEIGTH = 760;
 
@@ -23,7 +24,11 @@ public class App extends Application {
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
         primaryStage.setTitle("SGAT");
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
+        
+        Thread warmupThread = new Thread(DatabaseManager::warmUp, "db-warmup");
+        warmupThread.setDaemon(true);
+        warmupThread.start();
         
         showAuthView();
         primaryStage.show();

@@ -14,10 +14,10 @@ import java.sql.SQLException;
  * @author lucas
  */
 public class DatabaseManager {
-    private static final HikariConfig config = new HikariConfig("com/mvcjava/sagt/javafx/database.properties");
     private static final HikariDataSource ds;
     
     static {
+        HikariConfig config = new HikariConfig("com/mvcjava/sagt/javafx/database.properties");
         ds = new HikariDataSource(config);
     }
     
@@ -25,5 +25,13 @@ public class DatabaseManager {
     
     public static Connection getConnection() throws SQLException {
         return ds.getConnection();
+    }
+    
+    public static void warmUp() {
+        try (Connection conn = ds.getConnection()) {
+            conn.createStatement().execute("SELECT 1");
+        } catch (SQLException ex) {
+            System.err.println("DB warmup warning: " + ex.getMessage());
+        }
     }
 }

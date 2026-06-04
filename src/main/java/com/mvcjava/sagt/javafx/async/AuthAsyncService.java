@@ -54,14 +54,11 @@ public class AuthAsyncService extends Service<AuthResult> {
         return new Task<>() {
             @Override
             protected AuthResult call() throws Exception {
-                switch (taskMode) {
-                    case LOGIN: 
-                        return authService.login(taskEmail, taskPassword);
-                    case REGISTER:
-                        authService.register(taskEmail, taskPassword, taskName, taskLastname);
-                        return authService.login(taskEmail, taskPassword);//login automatico despues de registro
-                    default:
-                        return null;
+                if (taskMode == Mode.LOGIN) {
+                    return authService.login(taskEmail, taskPassword);
+                } else {
+                    authService.register(taskEmail, taskPassword ,taskName, taskLastname);
+                    return authService.login(taskEmail, taskPassword);
                 }
             };
         };

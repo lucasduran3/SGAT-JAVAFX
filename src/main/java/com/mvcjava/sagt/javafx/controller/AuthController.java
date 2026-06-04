@@ -65,11 +65,12 @@ public class AuthController {
     }
     
     @FXML 
-    public void handleTableChange() { 
+    public void handleTabChange() { 
         boolean showLogin = loginTab.isSelected();
         
         loginPanel.setVisible(showLogin);
         loginPanel.setManaged(showLogin);
+        
         registerPanel.setVisible(!showLogin);
         registerPanel.setManaged(!showLogin);
         
@@ -126,6 +127,7 @@ public class AuthController {
     
     @FXML
     public void handleRegister() {
+        System.out.println("Handle register btn pressed");
         clearRegisterErrors();
         
         String name = regName.getText().trim();
@@ -171,6 +173,7 @@ public class AuthController {
             authService.cancel();
         }
         authService.reset();
+        System.out.println("Información desde controller: " + name + "-" + lastname);
         authService.configureRegister(email, password, name, lastname);
         
         authService.setOnSucceeded(e -> {
@@ -185,13 +188,14 @@ public class AuthController {
             regGeneralError.setText(ex != null ? ex.getMessage() : "Error desconocido al registrarse.");
         });
         
-        authService.reset();
+        authService.start();
     }
     
     private void onAuthSuccess(AuthResult result) {
         SessionContext.setCurrentUser(result);
         
         try {
+            System.out.println("Registro exitoso, dirigiendo a main");
             App.showMainView();
         } catch (Exception ex) {
             ex.printStackTrace();

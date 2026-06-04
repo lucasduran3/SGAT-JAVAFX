@@ -50,53 +50,22 @@ public class AuthDAOImpl implements AuthDAO {
 
     @Override
     public void registerUser(String email, String passwordHash, String name, String lastname) {
-        Connection conn = null;
+        String sql = "SELECT auth.registrar_usuario(?, ?, ?, ?)";
         
-        try {
-            conn = DatabaseManager.getConnection();
-            conn.setAutoCommit(false);
+        try (Connection conn = DatabaseManager.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, email.trim().toLowerCase());
+            stmt.setString(2, passwordHash);
+            stmt.setString(3, name != null && !name.isBlank() ? name.trim() : null);
+            stmt.setString(4, lastname != null && !lastname.isBlank() ? lastname.trim() : null);
             
-            String registerSql = "SELECT auth.registrar_usuario(?, ?)";
-            UUID userId;
-            try (PreparedStatement stmt = conn.prepareStatement(registerSql)) {
-                stmt.setString(1, email.trim().toLowerCase());
-                stmt.setString(2, passwordHash);
-                try(ResultSet rs = stmt.executeQuery()) {
-                    rs.next();
-                    userId = (UUID) rs.getObject(1);
-                }
-            }
-            
-            if ((name != null && !name.isBlank()) || (lastname != null && !lastname.isBlank())) {
-                String updateProfileSql = "UPDATE app.perfiles SET nombre = ?, apellido = ? WHERE id = ?";
-                try (PreparedStatement stmt = conn.prepareStatement(updateProfileSql)) {
-                    stmt.setString(1, name);
-                    stmt.setString(2, lastname);
-                    stmt.setObject(3, userId);
-                }
-            }
-            
-            conn.commit();
-            
+            stmt.execute();
+            System.out.println("st ejecutado en dao");
         } catch (SQLException ex) {
-            if (conn != null) {
-                try { conn.rollback(); } catch (SQLException rb) {
-                    System.err.println("Error en rollback de registro: " + rb.getMessage());
-                }
-            }
-            
             if (ex.getSQLState() != null && ex.getSQLState().startsWith("23")) {
                 throw new DataAccessException("El email ya está registrado.", ex);
             }
             throw new DataAccessException("Error al registrar usuario.", ex);
-            
-        } finally {
-            if (conn != null) {
-                try { conn.setAutoCommit(true); conn.close(); }
-                catch (SQLException ex) {
-                    System.err.println("Error al cerrar conexión: " + ex.getMessage());
-                }
-            }
         }
     }
 

@@ -135,16 +135,10 @@ public class Product {
     }
     
     public void setIdSupplier(UUID idSupplier) {
-        if (idSupplier == null) {
-            throw new IllegalArgumentException("El id de proveedor no puede ser null.");
-        }
         this.idSupplier = idSupplier; 
     }
     
     public void setLoadedBy(UUID loadedBy) {
-        if (loadedBy == null) {
-            throw new IllegalArgumentException("El id del usuario que cargo el producto no puede ser null.");
-        }
         this.loadedBy = loadedBy;
     }
     

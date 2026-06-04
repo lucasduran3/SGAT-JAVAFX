@@ -134,9 +134,6 @@ public class ClientFormController {
         String province = provinceField.getText();
         String address = addressField.getText();
         
-        //Temporal
-        SessionContext.setCurrentUser();
-        
         Client client = new Client(id, cuit, companyName, type, phone, email, location, province, address);
         
         return new ClientViewModel(client);
