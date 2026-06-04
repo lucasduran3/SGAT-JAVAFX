@@ -16,6 +16,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 
 /**
@@ -25,6 +26,7 @@ import javafx.scene.layout.VBox;
 public class AuthController {
     @FXML private ToggleButton loginTab;
     @FXML private ToggleButton registerTab;
+    @FXML private ToggleGroup tabGroup;
     
     @FXML private VBox loginPanel;
     @FXML private TextField loginEmail;
@@ -61,12 +63,19 @@ public class AuthController {
         
         regPasswordConfirm.setOnAction(e -> handleRegister());
         
+        tabGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle)-> {
+            if (newToggle == null) {
+                tabGroup.selectToggle(oldToggle);
+            }
+        });
+        
         clearAllErrors();
     }
     
     @FXML 
     public void handleTabChange() { 
         boolean showLogin = loginTab.isSelected();
+        System.out.println("Mostrando login? " + showLogin);
         
         loginPanel.setVisible(showLogin);
         loginPanel.setManaged(showLogin);
@@ -173,7 +182,6 @@ public class AuthController {
             authService.cancel();
         }
         authService.reset();
-        System.out.println("Información desde controller: " + name + "-" + lastname);
         authService.configureRegister(email, password, name, lastname);
         
         authService.setOnSucceeded(e -> {
@@ -195,7 +203,6 @@ public class AuthController {
         SessionContext.setCurrentUser(result);
         
         try {
-            System.out.println("Registro exitoso, dirigiendo a main");
             App.showMainView();
         } catch (Exception ex) {
             ex.printStackTrace();

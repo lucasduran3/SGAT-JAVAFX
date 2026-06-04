@@ -28,10 +28,13 @@
 
         <!-- Tabs LOGIN / REGISTRO -->
         <HBox styleClass="authTabs" alignment="CENTER">
-            <ToggleButton fx:id="loginTab"    text="Iniciar Sesión"  styleClass="authTab" selected="true"
-                          onAction="#handleTabChange"/>
-            <ToggleButton fx:id="registerTab" text="Registrarse"    styleClass="authTab"
-                          onAction="#handleTabChange"/>
+            <fx:define>
+                <ToggleGroup fx:id="tabGroup"/>
+            </fx:define>
+            <ToggleButton fx:id="loginTab" text="Iniciar Sesión"  styleClass="authTab" selected="true" 
+                          onAction="#handleTabChange" toggleGroup="$tabGroup"/>
+            <ToggleButton fx:id="registerTab" text="Registrarse" selected="false" styleClass="authTab"
+                          onAction="#handleTabChange" toggleGroup="$tabGroup"/>
         </HBox>
 
         <!-- ── PANEL LOGIN ───────────────────────────────────────────────── -->

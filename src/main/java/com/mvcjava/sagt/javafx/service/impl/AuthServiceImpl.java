@@ -86,7 +86,6 @@ public class AuthServiceImpl implements AuthService {
         String hash = BCrypt.hashpw(password, BCrypt.gensalt(BCRYPT_LOG_ROUNDS));
         
         try {
-            System.out.println("Información desde service: " + name + "-" + lastname);
             authDAO.registerUser(email.trim().toLowerCase(), hash, 
                     name != null ? name.trim() : null,
                     lastname != null ? lastname.trim() : null);
