@@ -81,7 +81,7 @@
                     <Label fx:id="regNameError" styleClass="authError"/>
                 </VBox>
                 <VBox spacing="4" HBox.hgrow="ALWAYS">
-                    <Label text="Apellido" styleClass="authFieldLabel"/>
+                    <Label text="Apellido" styleClass="fieldLabel"/>
                     <TextField fx:id="regLastname" promptText="García" styleClass="formField"/>
                     <Label fx:id="regLastnameError" styleClass="error"/>
                 </VBox>

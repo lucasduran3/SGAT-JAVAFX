@@ -17,6 +17,7 @@ public class App extends Application {
     
     private static final double AUTH_WIDTH = 1280;
     private static final double AUTH_HEIGHT = 760;
+    
     private static final double MAIN_WIDTH = 1280;
     private static final double MAIN_HEIGTH = 760;
 
@@ -44,6 +45,7 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.setWidth(AUTH_WIDTH);
         primaryStage.setHeight(AUTH_HEIGHT);
+        primaryStage.setResizable(false);
         primaryStage.centerOnScreen();
     }
     
@@ -54,12 +56,14 @@ public class App extends Application {
         
         FXMLLoader loader = new FXMLLoader(App.class.getResource("/com/mvcjava/sagt/javafx/view/mainView.fxml"));
         
-        Scene scene = new Scene(loader.load(), MAIN_WIDTH, MAIN_HEIGTH);
+        Scene scene = new Scene(loader.load());
         
         primaryStage.setScene(scene);
-        primaryStage.setWidth(MAIN_WIDTH);
-        primaryStage.setHeight(MAIN_HEIGTH);
+        primaryStage.setMinWidth(MAIN_WIDTH);
+        primaryStage.setMinHeight(MAIN_HEIGTH);
+        primaryStage.setMaximized(true);
         primaryStage.centerOnScreen();
+        primaryStage.setResizable(true);
     }
     
     public static void logout() throws IOException {
