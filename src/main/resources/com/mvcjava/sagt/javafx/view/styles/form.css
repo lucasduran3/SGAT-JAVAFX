@@ -2,28 +2,58 @@
 @import "base.css";
 
 .formContainer {
+    -fx-background-color: -primary-bg-color;
     -fx-padding: 20;
     -fx-spacing: 20;
 }
 
+.formSubtitle {
+    -fx-font-size: 14px;
+    -fx-padding: 0 0 10px 0;
+}
+
 .formDialogPane > .header-panel {
+    -fx-background-color: -primary-color;
     -fx-padding: 20;
     -fx-border: 0 0 1px 0;
 }
 
 .formDialogPane > .header-panel > .label {
+    -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-font-size: 18px;
 }
 
 .fieldLabel {
     -fx-font-weight: bold;
+    -fx-text-fill: -text-muted;
+    -fx-font-size: 12px;
+}
+
+.formField {
+    -fx-background-color: -base-bg-color;
+    -fx-background-radius: 6px;
+    -fx-border-color: -border-color-dark;
+    -fx-border-radius: 6px;
+    -fx-border-width: 1px;
+    -fx-padding: 9 12;
+    -fx-font-size: 13px;
+    -fx-pref-height: 38px;
+}
+
+.formField:focused {
+    -fx-border-color: -primary-color;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(three-pass-box, rgba(41,111,247,0.15), 6, 0, 0, 0);
 }
 
 .error {
     -fx-text-fill: -danger-primary;
+    -fx-font-size: 11px;
+    -fx-min-height: 14px;
 }
 
 .formDialogPane > .button-bar {
+    -fx-background-color: -primary-bg-color;
     -fx-padding: 0 20 20 20;
 }

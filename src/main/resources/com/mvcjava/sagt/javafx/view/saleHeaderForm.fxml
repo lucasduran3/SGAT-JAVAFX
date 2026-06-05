@@ -18,7 +18,7 @@
 
     <content>
         <VBox styleClass="formContainer">
-            <Label text="Complete los datos para registrar una nueva venta.&#10;Los campos con * son obligatorios."
+            <Label styleClass="formSubtitle" text="Complete los datos para registrar una nueva venta.&#10;Los campos con * son obligatorios."
                    wrapText="true"/>
 
             <GridPane hgap="20" vgap="14">
@@ -30,7 +30,7 @@
                 <!-- Número de factura -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <Label text="* Número de factura" styleClass="fieldLabel"/>
-                    <TextField fx:id="billNumberField" promptText="Ej: 0001-00000001"/>
+                    <TextField fx:id="billNumberField" promptText="Ej: 0001-00000001" styleClass="formField"/>
                     <Label fx:id="errorBillNumber" styleClass="error"/>
                 </VBox>
 
@@ -44,14 +44,14 @@
                 <!-- Cliente -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
                     <Label text="* Cliente" styleClass="fieldLabel"/>
-                    <ComboBox fx:id="clientComboBox" maxWidth="Infinity" promptText="Seleccione un cliente..."/>
+                    <ComboBox fx:id="clientComboBox" maxWidth="Infinity" promptText="Seleccione un cliente..." styleClass="formField"/>
                     <Label fx:id="errorClient" styleClass="error"/>
                 </VBox>
 
                 <!-- Método de pago -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
                     <Label text="* Método de pago" styleClass="fieldLabel"/>
-                    <ComboBox fx:id="paymentMethodComboBox" maxWidth="Infinity" promptText="Seleccione un método..."/>
+                    <ComboBox fx:id="paymentMethodComboBox" maxWidth="Infinity" promptText="Seleccione un método..." styleClass="formField"/>
                     <Label fx:id="errorPaymentMethod" styleClass="error"/>
                 </VBox>
 

@@ -21,7 +21,7 @@
 
     <content>
         <VBox styleClass="formContainer">
-            <Label text="Complete todos los campos para crear un cliente&#10;Los campos con * son obligatorios" 
+            <Label styleClass="formSubtitle" text="Complete todos los campos para crear un cliente&#10;Los campos con * son obligatorios" 
                    wrapText="true"/>
 
             <GridPane hgap="20" vgap="14">
@@ -32,49 +32,49 @@
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <Label text="* CUIT/CUIL" styleClass="fieldLabel"/>
-                    <TextField fx:id="cuitField"/>                    
+                    <TextField fx:id="cuitField" styleClass="formField"/>                    
                     <Label fx:id="errorCuit" styleClass="error"></Label>
                 </VBox>
                 
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <Label text="* Razón Social" styleClass="fieldLabel"/>
-                    <TextField fx:id="companyNameField"/>
+                    <TextField fx:id="companyNameField" styleClass="formField"/>
                     <Label fx:id="errorCompanyName" styleClass="error"></Label>
                 </VBox>
                 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
                     <Label text="* Tipo" styleClass="fieldLabel"/>
-                    <ComboBox fx:id="typeComboBox" maxWidth="Infinity"/>
+                    <ComboBox fx:id="typeComboBox" maxWidth="Infinity" styleClass="formField"/>
                     <Label fx:id="errorType" styleClass="error"></Label>
                 </VBox>
                 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2">
                     <Label text="* Teléfono" styleClass="fieldLabel"/>
-                    <TextField fx:id="phoneField"/>
+                    <TextField fx:id="phoneField" styleClass="formField"/>
                     <Label fx:id="errorPhone" styleClass="error"></Label>
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <Label text="* Email" styleClass="fieldLabel"/>
-                    <TextField fx:id="emailField"/>
+                    <TextField fx:id="emailField" styleClass="formField"/>
                     <Label fx:id="errorEmail" styleClass="error"></Label>
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="3">
                     <Label text="* Localidad" styleClass="fieldLabel"/>
-                    <TextField fx:id="locationField"/>
+                    <TextField fx:id="locationField" styleClass="formField"/>
                     <Label fx:id="errorLocation" styleClass="error"></Label>
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <Label text="* Provincia" styleClass="fieldLabel"/>
-                    <TextField fx:id="provinceField" />
+                    <TextField fx:id="provinceField" styleClass="formField"/>
                     <Label fx:id="errorProvince" styleClass="error"></Label>
                 </VBox>
                 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2">
                     <Label text="* Dirección" styleClass="fieldLabel"/>
-                    <TextField fx:id="addressField"/>
+                    <TextField fx:id="addressField" styleClass="formField"/>
                     <Label fx:id="errorAddress" styleClass="error"></Label>
                 </VBox>
 

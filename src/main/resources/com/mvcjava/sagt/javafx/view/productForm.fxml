@@ -21,7 +21,7 @@
 
     <content>
         <VBox styleClass="formContainer">
-            <Label text="Complete todos los campos para crear un producto.&#10;Los campos con * son obligatorios" 
+            <Label styleClass="formSubtitle" text="Complete todos los campos para crear un producto.&#10;Los campos con * son obligatorios" 
                    wrapText="true"/>
 
             <GridPane hgap="30" vgap="15">
@@ -32,13 +32,13 @@
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <Label text="* Nombre" styleClass="fieldLabel"/>
-                    <TextField fx:id="nameField"/>                    
+                    <TextField fx:id="nameField" styleClass="formField"/>                    
                     <Label fx:id="errorName" styleClass="error"></Label>
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="3">
                     <Label text="Categorias" styleClass="fieldLabel"/>
-                    <ScrollPane fx:id="categoriesScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <ScrollPane fx:id="categoriesScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="formField">
                         <content>
                             <VBox fx:id="categoriesContainer" spacing="5">
                                 <padding>
@@ -52,41 +52,41 @@
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
                     <Label text="* Marca" styleClass="fieldLabel"/>
-                    <TextField fx:id="brandField"/>
+                    <TextField fx:id="brandField" styleClass="formField"/>
                     <Label fx:id="errorBrand" styleClass="error"></Label>
                 </VBox>
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2">
                     <Label text="* Modelo" styleClass="fieldLabel"/>
-                    <TextField fx:id="modelField"/>
+                    <TextField fx:id="modelField" styleClass="formField"/>
                     <Label fx:id="errorModel" styleClass="error"></Label>
                 </VBox>
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="3">
                     <Label text="* Precio de compra" styleClass="fieldLabel"/>
-                    <TextField fx:id="purchasePriceField"/>
+                    <TextField fx:id="purchasePriceField" styleClass="formField"/>
                     <Label fx:id="errorPurchasePrice" styleClass="error"></Label>
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <Label text="* Precio de venta" styleClass="fieldLabel"/>
-                    <TextField fx:id="salePriceField"/>
+                    <TextField fx:id="salePriceField" styleClass="formField"/>
                     <Label fx:id="errorSalePrice" styleClass="error"></Label>
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="4">
                     <Label text="* Stock" styleClass="fieldLabel"/>
-                    <TextField fx:id="stockField"/>
+                    <TextField fx:id="stockField" styleClass="formField"/>
                     <Label fx:id="errorStock" styleClass="error"></Label>
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <Label text="* Stock mínimo" styleClass="fieldLabel"/>
-                    <TextField fx:id="minStockField"/>
+                    <TextField fx:id="minStockField" styleClass="formField"/>
                     <Label fx:id="errorMinStock" styleClass="error"></Label>
                 </VBox>
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="5">
                     <Label text="* Proveedor" styleClass="fieldLabel"/>
-                    <ComboBox fx:id="supplierComboBox" maxWidth="Infinity"/>
+                    <ComboBox fx:id="supplierComboBox" maxWidth="Infinity" styleClass="formField"/>
                     <Label fx:id="errorSupplier" styleClass="error"></Label>
                 </VBox>
                 </GridPane>

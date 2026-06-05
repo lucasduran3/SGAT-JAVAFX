@@ -20,7 +20,7 @@
 
     <content>
         <VBox styleClass="formContainer">
-            <Label text="Complete el siguiente campo para crear una nueva categoría" 
+            <Label styleClass="formSubtitle" text="Complete el siguiente campo para crear una nueva categoría" 
                    wrapText="true"/>
 
             <GridPane hgap="30" vgap="15">
@@ -30,7 +30,7 @@
 
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <Label text="* Nombre" styleClass="fieldLabel"/>
-                    <TextField fx:id="nameField"/>                    
+                    <TextField fx:id="nameField" styleClass="formField"/>                    
                     <Label fx:id="errorName" styleClass="error"></Label>
                 </VBox>
 

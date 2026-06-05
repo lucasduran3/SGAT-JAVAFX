@@ -18,7 +18,7 @@
 
     <content>
         <VBox styleClass="formContainer">
-            <Label text="Complete todos los campos para crear un proveedor.&#10;Los campos con * son obligatorios."
+            <Label styleClass="formSubtitle" text="Complete todos los campos para crear un proveedor.&#10;Los campos con * son obligatorios."
                    wrapText="true"/>
 
             <GridPane hgap="20" vgap="14">
@@ -30,49 +30,49 @@
                 <!-- Nombre -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
                     <Label text="* Nombre" styleClass="fieldLabel"/>
-                    <TextField fx:id="nameField"/>
+                    <TextField fx:id="nameField" styleClass="formField"/>
                     <Label fx:id="errorName" styleClass="error"/>
                 </VBox>
 
                 <!-- Teléfono -->
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0">
                     <Label text="* Teléfono" styleClass="fieldLabel"/>
-                    <TextField fx:id="phoneField" promptText="Solo números, sin espacios"/>
+                    <TextField fx:id="phoneField" promptText="Solo números, sin espacios" styleClass="formField"/>
                     <Label fx:id="errorPhone" styleClass="error"/>
                 </VBox>
 
                 <!-- Email -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
                     <Label text="* Email" styleClass="fieldLabel"/>
-                    <TextField fx:id="emailField"/>
+                    <TextField fx:id="emailField" styleClass="formField"/>
                     <Label fx:id="errorEmail" styleClass="error"/>
                 </VBox>
 
                 <!-- Dirección -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
                     <Label text="* Dirección" styleClass="fieldLabel"/>
-                    <TextField fx:id="addressField"/>
+                    <TextField fx:id="addressField" styleClass="formField"/>
                     <Label fx:id="errorAddress" styleClass="error"/>
                 </VBox>
 
                 <!-- Web -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
                     <Label text="* Sitio web" styleClass="fieldLabel"/>
-                    <TextField fx:id="webField" promptText="Ej: www.proveedor.com"/>
+                    <TextField fx:id="webField" promptText="Ej: www.proveedor.com" styleClass="formField"/>
                     <Label fx:id="errorWeb" styleClass="error"/>
                 </VBox>
 
                 <!-- Localidad -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="4">
                     <Label text="* Localidad" styleClass="fieldLabel"/>
-                    <TextField fx:id="locationField"/>
+                    <TextField fx:id="locationField" styleClass="formField"/>
                     <Label fx:id="errorLocation" styleClass="error"/>
                 </VBox>
 
                 <!-- Provincia -->
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <Label text="* Provincia" styleClass="fieldLabel"/>
-                    <TextField fx:id="provinceField"/>
+                    <TextField fx:id="provinceField" styleClass="formField"/>
                     <Label fx:id="errorProvince" styleClass="error"/>
                 </VBox>
 

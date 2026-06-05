@@ -18,7 +18,7 @@
 
     <content>
         <VBox styleClass="formContainer">
-            <Label text="Seleccione un producto y complete la cantidad.&#10;Los campos con * son obligatorios."
+            <Label styleClass="formSubtitle" text="Seleccione un producto y complete la cantidad.&#10;Los campos con * son obligatorios."
                    wrapText="true"/>
 
             <GridPane hgap="20" vgap="14">
@@ -30,14 +30,14 @@
                 <!-- Producto -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2">
                     <Label text="* Producto" styleClass="fieldLabel"/>
-                    <ComboBox fx:id="productComboBox" maxWidth="Infinity" promptText="Seleccione un producto..."/>
+                    <ComboBox fx:id="productComboBox" maxWidth="Infinity" promptText="Seleccione un producto..." styleClass="formField"/>
                     <Label fx:id="errorProduct" styleClass="error"/>
                 </VBox>
 
                 <!-- Precio unitario (readonly, se llena al seleccionar producto) -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
                     <Label text="Precio de venta (unitario)" styleClass="fieldLabel"/>
-                    <TextField fx:id="unitPriceField" promptText="0.00" editable="false"
+                    <TextField fx:id="unitPriceField" promptText="0.00" editable="false" styleClass="formField"
                                style="-fx-background-color: #F0F0F0;"/>
                     <Label fx:id="errorUnitPrice" styleClass="error"/>
                 </VBox>
@@ -45,14 +45,14 @@
                 <!-- Cantidad -->
                 <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <Label text="* Cantidad" styleClass="fieldLabel"/>
-                    <TextField fx:id="ammountField" promptText="1"/>
+                    <TextField fx:id="ammountField" promptText="1" styleClass="formField"/>
                     <Label fx:id="errorAmmount" styleClass="error"/>
                 </VBox>
 
                 <!-- Subtotal (readonly, calculado) -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
                     <Label text="Subtotal" styleClass="fieldLabel"/>
-                    <TextField fx:id="subtotalField" promptText="0.00" editable="false"
+                    <TextField fx:id="subtotalField" promptText="0.00" editable="false" styleClass="formField"
                                style="-fx-background-color: #F0F0F0; -fx-font-weight: bold;"/>
                 </VBox>
 

@@ -42,22 +42,22 @@
 
             <!-- Email -->
             <VBox spacing="4">
-                <Label text="Email" styleClass="authFieldLabel"/>
+                <Label text="Email" styleClass="fieldLabel"/>
                 <TextField fx:id="loginEmail" promptText="usuario@empresa.com"
-                           styleClass="authField"/>
-                <Label fx:id="loginEmailError" styleClass="authError"/>
+                           styleClass="formField"/>
+                <Label fx:id="loginEmailError" styleClass="error"/>
             </VBox>
 
             <!-- Contraseña -->
             <VBox spacing="4">
-                <Label text="Contraseña" styleClass="authFieldLabel"/>
+                <Label text="Contraseña" styleClass="fieldLabel"/>
                 <PasswordField fx:id="loginPassword" promptText="••••••••"
-                               styleClass="authField"/>
-                <Label fx:id="loginPasswordError" styleClass="authError"/>
+                               styleClass="formField"/>
+                <Label fx:id="loginPasswordError" styleClass="error"/>
             </VBox>
 
             <!-- Mensaje de error general -->
-            <Label fx:id="loginGeneralError" styleClass="authErrorGeneral" wrapText="true"/>
+            <Label fx:id="loginGeneralError" styleClass="" wrapText="true"/>
 
             <!-- Botón -->
             <Button fx:id="loginBtn" text="Ingresar" styleClass="authSubmitBtn"
@@ -76,43 +76,43 @@
             <!-- Nombre y Apellido en fila -->
             <HBox spacing="12">
                 <VBox spacing="4" HBox.hgrow="ALWAYS">
-                    <Label text="Nombre" styleClass="authFieldLabel"/>
-                    <TextField fx:id="regName" promptText="Juan" styleClass="authField"/>
+                    <Label text="Nombre" styleClass="fieldLabel"/>
+                    <TextField fx:id="regName" promptText="Juan" styleClass="formField"/>
                     <Label fx:id="regNameError" styleClass="authError"/>
                 </VBox>
                 <VBox spacing="4" HBox.hgrow="ALWAYS">
                     <Label text="Apellido" styleClass="authFieldLabel"/>
-                    <TextField fx:id="regLastname" promptText="García" styleClass="authField"/>
-                    <Label fx:id="regLastnameError" styleClass="authError"/>
+                    <TextField fx:id="regLastname" promptText="García" styleClass="formField"/>
+                    <Label fx:id="regLastnameError" styleClass="error"/>
                 </VBox>
             </HBox>
 
             <!-- Email -->
             <VBox spacing="4">
-                <Label text="Email" styleClass="authFieldLabel"/>
+                <Label text="Email" styleClass="fieldLabel"/>
                 <TextField fx:id="regEmail" promptText="usuario@empresa.com"
-                           styleClass="authField"/>
-                <Label fx:id="regEmailError" styleClass="authError"/>
+                           styleClass="formField"/>
+                <Label fx:id="regEmailError" styleClass="error"/>
             </VBox>
 
             <!-- Contraseña -->
             <VBox spacing="4">
-                <Label text="Contraseña" styleClass="authFieldLabel"/>
+                <Label text="Contraseña" styleClass="fieldLabel"/>
                 <PasswordField fx:id="regPassword" promptText="Mínimo 8 caracteres"
-                               styleClass="authField"/>
-                <Label fx:id="regPasswordError" styleClass="authError"/>
+                               styleClass="formField"/>
+                <Label fx:id="regPasswordError" styleClass="error"/>
             </VBox>
 
             <!-- Confirmar contraseña -->
             <VBox spacing="4">
-                <Label text="Confirmar contraseña" styleClass="authFieldLabel"/>
+                <Label text="Confirmar contraseña" styleClass="fieldLabel"/>
                 <PasswordField fx:id="regPasswordConfirm" promptText="Repetir contraseña"
-                               styleClass="authField"/>
-                <Label fx:id="regPasswordConfirmError" styleClass="authError"/>
+                               styleClass="formField"/>
+                <Label fx:id="regPasswordConfirmError" styleClass="error"/>
             </VBox>
 
             <!-- Mensaje de error general -->
-            <Label fx:id="regGeneralError" styleClass="authErrorGeneral" wrapText="true"/>
+            <Label fx:id="regGeneralError" wrapText="true"/>
 
             <!-- Botón -->
             <Button fx:id="registerBtn" text="Crear cuenta" styleClass="authSubmitBtn"

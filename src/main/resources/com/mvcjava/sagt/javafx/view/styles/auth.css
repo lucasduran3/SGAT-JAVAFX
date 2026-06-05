@@ -1,22 +1,9 @@
-@import "variables.css";
-@import "base.css";
+@import "form.css";
 
 /* ── Fondo y contenedor raíz ─────────────────────────────────────── */
 
 .authRoot {
     -fx-background-color: -base-bg-color;
-}
-
-/* Banda decorativa lateral izquierda */
-.authBackground {
-    -fx-background-color: linear-gradient(
-        to bottom right,
-        -primary-color,
-        -primary-dark
-    );
-    -fx-pref-width: 380px;
-    -fx-max-width: 380px;
-    -fx-alignment: CENTER_LEFT;
 }
 
 /* ── Tarjeta ─────────────────────────────────────────────────────── */
@@ -91,38 +78,7 @@
     -fx-padding: 28 32 0 32;
 }
 
-/* ── Campos de texto ─────────────────────────────────────────────── */
-
-.authFieldLabel {
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
-    -fx-text-fill: -text-muted;
-}
-
-.authField {
-    -fx-background-color: -base-bg-color;
-    -fx-background-radius: 6px;
-    -fx-border-color: -border-color-dark;
-    -fx-border-radius: 6px;
-    -fx-border-width: 1px;
-    -fx-padding: 9 12;
-    -fx-font-size: 13px;
-    -fx-pref-height: 38px;
-}
-
-.authField:focused {
-    -fx-border-color: -primary-color;
-    -fx-background-color: white;
-    -fx-effect: dropshadow(three-pass-box, rgba(41,111,247,0.15), 6, 0, 0, 0);
-}
-
 /* ── Errores ─────────────────────────────────────────────────────── */
-
-.authError {
-    -fx-text-fill: -danger-primary;
-    -fx-font-size: 11px;
-    -fx-min-height: 14px;
-}
 
 .authErrorGeneral {
     -fx-text-fill: -danger-primary;

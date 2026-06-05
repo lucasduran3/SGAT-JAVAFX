@@ -75,7 +75,6 @@ public class AuthController {
     @FXML 
     public void handleTabChange() { 
         boolean showLogin = loginTab.isSelected();
-        System.out.println("Mostrando login? " + showLogin);
         
         loginPanel.setVisible(showLogin);
         loginPanel.setManaged(showLogin);
@@ -128,6 +127,7 @@ public class AuthController {
         authService.setOnFailed(e -> {
             setLoginLoading(false);
             Throwable ex = authService.getException();
+            loginGeneralError.getStyleClass().add("authErrorGeneral");
             loginGeneralError.setText(ex != null ? ex.getMessage() : "Error desconocido al iniciar sesión.");
         });
         
@@ -193,6 +193,7 @@ public class AuthController {
         authService.setOnFailed(e -> {
             setRegisterLoading(false);
             Throwable ex = authService.getException();
+            regGeneralError.getStyleClass().add("authErrorGeneral");
             regGeneralError.setText(ex != null ? ex.getMessage() : "Error desconocido al registrarse.");
         });
         
@@ -206,6 +207,7 @@ public class AuthController {
             App.showMainView();
         } catch (Exception ex) {
             ex.printStackTrace();
+            loginGeneralError.getStyleClass().add("authErrorGeneral");
             loginGeneralError.setText("Error al cargar la aplicación: " + ex.getMessage());
         }
     }
@@ -227,6 +229,7 @@ public class AuthController {
         loginEmailError.setText("");
         loginPasswordError.setText("");
         loginGeneralError.setText("");
+        loginGeneralError.getStyleClass().clear();
     }
     
     private void clearRegisterErrors() {
@@ -236,6 +239,7 @@ public class AuthController {
         regPasswordError.setText("");
         regPasswordConfirmError.setText("");
         regGeneralError.setText("");
+        regGeneralError.getStyleClass().clear();
     }
  
     private void clearAllErrors() {
