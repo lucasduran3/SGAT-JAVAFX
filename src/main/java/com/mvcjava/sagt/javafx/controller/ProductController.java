@@ -353,8 +353,21 @@ public class ProductController {
     }
     
     @FXML
-    protected void refresh(ActionEvent e) {
-        productsTable.refresh();
+    protected void handleRefresh(ActionEvent e) {
+        long newProductsCount = productViewModels.stream().filter(ProductViewModel::getIsNew).count();
+        if (newProductsCount > 0 || !productsToUpdate.isEmpty() || !productsToDelete.isEmpty() || !categoriesToUpdate.isEmpty()) {
+            Optional<ButtonType> confirm = AlertUtils.showConfirmAlert("Hay cambios sin guardar", 
+                    "Si recargás, perderás los cambios no guardados. ¿Continuar?");
+            if (confirm.isEmpty() || confirm.get() != ButtonType.OK) return;
+        }
+        
+        productsTable.getSelectionModel().clearSelection();
+        productViewModels.clear();
+        productsToUpdate.clear();
+        productsToDelete.clear();
+        categoriesToUpdate.clear();
+        
+        loadData();
     }
     
     @FXML

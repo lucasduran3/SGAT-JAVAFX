@@ -638,7 +638,9 @@ public class SalesController {
     
     @FXML
     public void handleReload() {
-        if (!headersToUpdate.isEmpty() || !detailsToUpdate.isEmpty()) {
+        long newSalesCount = saleViewModels.stream().filter(SaleViewModel::getIsNew).count();
+        
+        if (newSalesCount > 0 || !headersToUpdate.isEmpty() || !detailsToUpdate.isEmpty()) {
             Optional<ButtonType> confirm = AlertUtils.showConfirmAlert(
                     "Hay cambios sin guardar",
                     "Si recargás, perderás los cambios no guardados. ¿Continuar?");

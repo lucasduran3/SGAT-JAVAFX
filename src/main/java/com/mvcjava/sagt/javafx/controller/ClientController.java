@@ -290,4 +290,22 @@ public class ClientController {
             }
         });        
     }
+    
+    @FXML
+    protected void handleRefresh() {
+        long newClientsCount = clientViewModels.stream().filter(ClientViewModel::getIsNew).count();
+        if (newClientsCount > 0 || !clientsToUpdate.isEmpty() || !clientsToDelete.isEmpty()) {
+            Optional<ButtonType> confirm = AlertUtils.showConfirmAlert("Hay cambios sin guardar",
+                    "Si recargás, perderás los cambios no guardados. ¿Continuar?");
+            
+            if (confirm.isEmpty() || confirm.get() != ButtonType.OK) return;
+            
+            clientsTable.getSelectionModel().clearSelection();
+            clientViewModels.clear();
+            clientsToUpdate.clear();
+            clientsToDelete.clear();
+            
+            loadData();
+        }
+    }
 }

@@ -18,7 +18,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.StackPane;
@@ -40,18 +39,21 @@ public class MainController {
     private FontAwesomeIconView titleIcon;
     
     @FXML private MenuButton userMenuLabel;
-    @FXML private MenuItem menuItemProfile;
-    @FXML private MenuItem menuItemLogout;
     
     @FXML
     public void initialize() {
         initializeRoutes();
         setupSideMenuListener();
         setupUserMenu();
+    
+        if (menuGroup != null && !menuGroup.getToggles().isEmpty()) {
+            menuGroup.selectToggle(menuGroup.getToggles().get(0));
+        }
     }
     
     private void initializeRoutes() {
         routes = new HashMap<>();
+        routes.put("dashboard", new Route("/com/mvcjava/sagt/javafx/view/productsView.fxml", "Productos", "ARCHIVE"));
         routes.put("productos", new Route("/com/mvcjava/sagt/javafx/view/productsView.fxml", "Productos", "ARCHIVE"));
         routes.put("clientes", new Route("/com/mvcjava/sagt/javafx/view/clientsView.fxml", "Clientes", "USER"));
         routes.put("ventas", new Route("/com/mvcjava/sagt/javafx/view/salesView.fxml", "Ventas", "DOLLAR"));
@@ -62,20 +64,35 @@ public class MainController {
     private void setupSideMenuListener() {
         menuGroup.selectedToggleProperty().addListener((obs, oldToggle, newToggle) -> {
             if (newToggle == null) {
-                //forzar seleccion anterior al deseleccionar
-                menuGroup.selectToggle(oldToggle);
-            } else {
-                String routeKey = ((ToggleButton)newToggle).getText().toLowerCase();
-                String route = routes.get(routeKey).path;
-                
-                try {
-                    loadView(route);
-                    pageTitle.setText(routes.get(routeKey).title);
-                    titleIcon.setGlyphName(routes.get(routeKey).icon);
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                    AlertUtils.showError("Error al cargar vista " + routeKey);
-                    menuGroup.selectToggle(oldToggle);
+                // Forzar selección anterior al deseleccionar (Evita que el menú quede vacío)
+                if (oldToggle != null) {
+                    // Usamos Platform.runLater para evitar colisiones en el bucle de eventos de JavaFX
+                    javafx.application.Platform.runLater(() -> menuGroup.selectToggle(oldToggle));
+                }
+                return;
+            }
+
+            var button = (ToggleButton) newToggle;
+            String routeKey = button.getText().trim().toLowerCase();
+        
+            // Validacion para evitar NullPointerException
+            if (!routes.containsKey(routeKey)) {
+                System.err.println("Error: No existe una ruta registrada para la clave: " + routeKey);
+                return;
+            }
+
+            Route currentRoute = routes.get(routeKey);
+            String routePath = currentRoute.path;
+        
+            try {
+                loadView(routePath);
+                pageTitle.setText(currentRoute.title);
+                titleIcon.setGlyphName(currentRoute.icon);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+                AlertUtils.showError("Error al cargar vista " + routeKey);
+                if (oldToggle != null) {
+                    javafx.application.Platform.runLater(() -> menuGroup.selectToggle(oldToggle));
                 }
             }
         });

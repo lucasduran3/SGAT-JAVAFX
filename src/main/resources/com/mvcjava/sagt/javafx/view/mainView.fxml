@@ -43,13 +43,12 @@
                     <ToggleGroup fx:id="menuGroup"/>
                 </fx:define>
 
-                <ToggleButton text="Dashboard"   toggleGroup="$menuGroup" styleClass="menu-button" selected="true"/>
+                <ToggleButton text="Dashboard"   toggleGroup="$menuGroup" styleClass="menu-button"/>
                 <ToggleButton text="Productos"   toggleGroup="$menuGroup" styleClass="menu-button"/>
                 <ToggleButton text="Ventas"      toggleGroup="$menuGroup" styleClass="menu-button"/>
                 <ToggleButton text="Clientes"    toggleGroup="$menuGroup" styleClass="menu-button"/>
                 <ToggleButton text="Proveedores" toggleGroup="$menuGroup" styleClass="menu-button"/>
                 <ToggleButton text="Categorias"  toggleGroup="$menuGroup" styleClass="menu-button"/>
-                <ToggleButton text="Reportes"    toggleGroup="$menuGroup" styleClass="menu-button"/>
             </VBox>
         </VBox>
     </left>

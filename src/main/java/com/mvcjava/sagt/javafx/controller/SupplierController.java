@@ -267,4 +267,21 @@ public class SupplierController {
             }
         });
     }
+    
+    @FXML
+    protected void handleRefresh() {
+        long newSuppliersCount = supplierViewModels.stream().filter(SupplierViewModel::getIsNew).count();
+        if (newSuppliersCount > 0 || !suppliersToUpdate.isEmpty() || !suppliersToDelete.isEmpty()) {
+            Optional<ButtonType> confirm = AlertUtils.showConfirmAlert("Hay cambios sin guardar", 
+                    "Si recargás, perderás los cambios no guardados. ¿Continuar?");
+            if (confirm.isEmpty() || confirm.get() != ButtonType.OK) return;
+        }
+        
+        suppliersTable.getSelectionModel().clearSelection();
+        supplierViewModels.clear();
+        suppliersToUpdate.clear();
+        suppliersToDelete.clear();
+        
+        loadData();
+    }
 }

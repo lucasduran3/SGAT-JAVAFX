@@ -176,6 +176,23 @@ public class CategoryController {
         });
     }
     
+    @FXML
+    protected void handleRefresh() {
+        long newCategoryCount = categoryViewModels.stream().filter(e -> e.getIsNew()).count();
+        if (newCategoryCount > 0 || !categoriesToUpdate.isEmpty() || !categoriesToDelete.isEmpty()) {
+            Optional<ButtonType> confirm = AlertUtils.showConfirmAlert("Hay cambios sin guardar", 
+                    "Si recargás, perderás los cambios no guardados. ¿Continuar?");
+            if (confirm.isEmpty() || confirm.get() != ButtonType.OK) return;
+        }
+        
+        categoriesTable.getSelectionModel().clearSelection();
+        categoryViewModels.clear();
+        categoriesToUpdate.clear();
+        categoriesToDelete.clear();
+        
+        loadData();
+    }
+    
     private void handleStringEdit(TableColumn.CellEditEvent<CategoryViewModel, String> e) {
         if (!e.getOldValue().equalsIgnoreCase(e.getNewValue())) {
             CategoryViewModel vm = e.getRowValue();

@@ -46,9 +46,6 @@ public class SaleDetail {
     }
     
     public void setProductId(UUID id) {
-        if (id == null) {
-            throw new IllegalArgumentException("El id de producto de venta no puede ser null.");
-        }
         this.productId = id;
     }
     

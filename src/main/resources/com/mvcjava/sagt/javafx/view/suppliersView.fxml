@@ -49,7 +49,7 @@
             </graphic>
         </Button>
         
-        <Button text="Recargar" styleClass="btnWarning">
+        <Button text="Recargar" styleClass="btnWarning" onAction="#handleRefresh">
             <graphic>
                 <FontAwesomeIconView glyphName="REFRESH" glyphSize="14"/>
             </graphic>
