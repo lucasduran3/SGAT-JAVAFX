@@ -150,3 +150,22 @@
         -fx-graphic-text-gap: 8px; /* Espaciado interno horizontal */
 }
 
+.hyperlink {
+    -fx-text-fill: -primary-color;
+    -fx-border: none;
+    -fx-border-color: transparent;
+    -fx-padding: 5px;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: -primary-dark;
+}
+
+.hyperlink:armed {
+    -fx-underline: false;
+}
+
+.hyperlink:focused {
+    -fx-border-color: transparent;
+}
+

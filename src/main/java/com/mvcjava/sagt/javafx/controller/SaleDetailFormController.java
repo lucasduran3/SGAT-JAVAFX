@@ -8,17 +8,18 @@ import com.mvcjava.sagt.javafx.dao.model.Product;
 import com.mvcjava.sagt.javafx.dto.SaleDetailFormData;
 import com.mvcjava.sagt.javafx.util.AlertUtils;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
@@ -28,7 +29,7 @@ import javafx.stage.Window;
  */
 public class SaleDetailFormController {
     @FXML
-    private ComboBox<Product> productComboBox;
+    private Hyperlink productLink;
     @FXML
     private TextField unitPriceField;
     @FXML
@@ -43,6 +44,10 @@ public class SaleDetailFormController {
     @FXML
     private Label errorAmmount;
     
+    private List<Product> avaibleProducts;
+    private Window owner;
+    
+    
     public static SaleDetailFormData showForm(Window owner, List<Product> products, String billNumber) {
         try {
             FXMLLoader loader = new FXMLLoader(SaleDetailFormController.class.getResource("/com/mvcjava/sagt/javafx/view/saleDetailForm.fxml"));
@@ -56,7 +61,7 @@ public class SaleDetailFormController {
             dialog.initOwner(owner);
             dialog.setDialogPane(dialogPane);
             
-            controller.setData(products);
+            controller.setData(products, owner);
             
             Button btnOK = (Button) dialogPane.lookupButton(ButtonType.OK);
             btnOK.addEventFilter(ActionEvent.ACTION, e -> {
@@ -82,39 +87,10 @@ public class SaleDetailFormController {
     
     @FXML
     public void initialize() {
-        productComboBox.setCellFactory(lv -> new ListCell<Product>() {
-            @Override
-            protected void updateItem(Product item, boolean empty) {
-                super.updateItem(item, empty); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.getName() + " - " + item.getBrand() + " " + item.getModel());
-                }
-            }
-        });
-        productComboBox.setButtonCell(new ListCell<Product>() {
-            @Override
-            protected void updateItem(Product item, boolean empty) {
-                super.updateItem(item, empty); 
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    setText(item.getName() + " - " + item.getBrand() + " - " + item.getModel());
-                }
-            }
-            
-        });
+        this.avaibleProducts = new ArrayList<>();
         
-        productComboBox.getSelectionModel().selectedItemProperty().addListener(
-        (obs, oldVal, newVal) -> {
-           if (newVal != null) {
-               unitPriceField.setText(String.format("%.2f", newVal.getSalePrice()));
-               recalcSubtotal();
-           } else {
-               unitPriceField.clear();
-               subtotalField.clear();
-           } 
+        productLink.setOnAction(e -> {
+            openProductSelectDialog();
         });
         
         ammountField.textProperty().addListener((obs, oldVal, newVal) -> recalcSubtotal());
@@ -122,8 +98,35 @@ public class SaleDetailFormController {
         clearErrors();
     }
     
-    private void setData(List<Product> products) {
-        productComboBox.getItems().setAll(products);
+    private void openProductSelectDialog() {
+        if (avaibleProducts.isEmpty()) {
+            AlertUtils.showError("No hay productos disponibles para mostrar.");
+            return;
+        }
+        
+        UUID currentProductId = null;
+        
+        Product chosen = RadioDialogController.showDialog(
+                owner,
+                "Seleccionar Producto",
+                avaibleProducts,
+                Product::getName,
+                Product::getId,
+                currentProductId
+        );
+        
+        if (chosen == null) return;
+        
+        productLink.setUserData(chosen);
+        productLink.setText(chosen.getName() + " - " + chosen.getBrand() + " - " + chosen.getModel());
+        
+        unitPriceField.setText(String.format("%.2f", chosen.getSalePrice()));
+        recalcSubtotal();
+    }
+    
+    private void setData(List<Product> products, Window owner) {
+        this.avaibleProducts.addAll(products);
+        this.owner = owner;
     }
     
     private void recalcSubtotal() {
@@ -149,8 +152,8 @@ public class SaleDetailFormController {
         clearErrors();
         boolean valid = true;
         
-        if (productComboBox.getValue() == null) {
-            errorProduct.setText("Seleccione un producto.");
+        if (productLink.getUserData() == null || !(productLink.getUserData() instanceof Product)) {
+            errorProduct.setText("Seleccione un producto válido.");
             valid = false;
         }
         
@@ -183,7 +186,7 @@ public class SaleDetailFormController {
     }
     
     private SaleDetailFormData buildResult() {
-        Product product = productComboBox.getValue();
+        Product product = (Product)productLink.getUserData();
         float price = Float.parseFloat(unitPriceField.getText().replace(".", "").replace(",", ".").trim());
         int ammount = Integer.parseInt(ammountField.getText().trim());
         float subtotal = price * ammount;

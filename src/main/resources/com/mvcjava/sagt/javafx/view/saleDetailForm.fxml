@@ -30,7 +30,8 @@
                 <!-- Producto -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2">
                     <Label text="* Producto" styleClass="fieldLabel"/>
-                    <ComboBox fx:id="productComboBox" maxWidth="Infinity" promptText="Seleccione un producto..." styleClass="formField"/>
+                    <!--<ComboBox fx:id="productComboBox" maxWidth="Infinity" promptText="Seleccione un producto..." styleClass="formField"/>-->
+                    <Hyperlink fx:id="productLink" maxWidth="Infinity" text="Click aquí para seleccionar un producto"></Hyperlink>
                     <Label fx:id="errorProduct" styleClass="error"/>
                 </VBox>
 
