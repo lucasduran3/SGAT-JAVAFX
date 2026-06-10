@@ -48,7 +48,8 @@ public final class ClientFilterConfig {
         return contains(vm.companyNameProperty().get(), query)
             || contains(vm.cuitCuilProperty().get(),    query)
             || contains(vm.emailProperty().get(),       query)
-            || contains(vm.locationProperty().get(),    query);
+            || contains(vm.locationProperty().get(),    query)
+            || contains(vm.provinceProperty().get(),    query);
     }
 
     private static boolean contains(String field, String query) {

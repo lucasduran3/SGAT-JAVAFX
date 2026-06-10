@@ -3,6 +3,9 @@ package com.mvcjava.sagt.javafx.controller;
 import com.mvcjava.sagt.javafx.async.SupplierLoadService;
 import com.mvcjava.sagt.javafx.async.SupplierSaveService;
 import com.mvcjava.sagt.javafx.dao.model.Supplier;
+import com.mvcjava.sagt.javafx.filter.FilterState;
+import com.mvcjava.sagt.javafx.filter.FilterableTableHelper;
+import com.mvcjava.sagt.javafx.filter.SupplierFilterConfig;
 import com.mvcjava.sagt.javafx.util.AlertUtils;
 import com.mvcjava.sagt.javafx.util.BasicStringValidator;
 import com.mvcjava.sagt.javafx.viewmodel.SupplierViewModel;
@@ -21,6 +24,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
 
@@ -28,6 +32,9 @@ public class SupplierController {
 
     @FXML
     private TableView<SupplierViewModel> suppliersTable;
+    
+    @FXML
+    private TextField searchField;
 
     private TableColumn<SupplierViewModel, Boolean> selectColumn;
     private TableColumn<SupplierViewModel, UUID> idColumn;
@@ -46,6 +53,10 @@ public class SupplierController {
 
     private SupplierLoadService loadService;
     private SupplierSaveService saveService;
+    
+    //filter
+    private FilterState<SupplierViewModel> filterState;
+    private FilterableTableHelper<SupplierViewModel> filterHelper;
 
     public SupplierController() {}
 
@@ -66,6 +77,13 @@ public class SupplierController {
     private void initializeDependencies() {
         this.loadService = new SupplierLoadService();
         this.saveService = new SupplierSaveService();
+    }
+    
+    private void initFilterSystem() {
+        filterState = new FilterState<>();
+        
+        filterHelper = new FilterableTableHelper<>(supplierViewModels, searchField, filterState, SupplierFilterConfig::textMatch);
+        suppliersTable.setItems(filterHelper.getFilteredList());
     }
 
     private void setupTableColumns() {
@@ -159,9 +177,14 @@ public class SupplierController {
 
         loadService.setOnSucceeded(e -> {
             java.util.List<Supplier> suppliers = loadService.getValue();
-            supplierViewModels.setAll(
-                    suppliers.stream().map(SupplierViewModel::new).collect(Collectors.toList())
-            );
+            List<SupplierViewModel> viewModels = suppliers.stream().map(SupplierViewModel::new).collect(Collectors.toList());
+            
+            if (filterHelper != null) {
+                filterHelper.setAll(viewModels);
+            } else {
+                supplierViewModels.setAll(viewModels);
+                initFilterSystem();
+            }
         });
 
         loadService.setOnFailed(e ->

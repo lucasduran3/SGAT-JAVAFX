@@ -23,12 +23,8 @@
     </stylesheets>
     
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <TextField promptText="Buscar ...." prefWidth="250" styleClass="searchInput"/>
-        <Button text="Filtrar" styleClass="ghostBtn">
-            <graphic>
-                <FontAwesomeIconView glyphName="FILTER" glyphSize="14"/> 
-            </graphic>    
-        </Button>
+        <TextField fx:id="searchField" promptText="Buscar ...." prefWidth="250" styleClass="searchInput"/>
+
         <Region HBox.hgrow="ALWAYS" />
                             
         <Button text="Agregar Categoria" styleClass="btnPrimary" onAction="#handleAddCategory">

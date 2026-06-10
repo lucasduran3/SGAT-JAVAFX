@@ -24,6 +24,7 @@ import com.mvcjava.sagt.javafx.service.impl.CategoryServiceImpl;
 import com.mvcjava.sagt.javafx.service.interfaces.CategoryService;
 import com.mvcjava.sagt.javafx.util.AlertUtils;
 import com.mvcjava.sagt.javafx.util.EditableCellFactory;
+import java.io.IOException;
 
 import java.sql.Timestamp;
 import java.time.Instant;
@@ -99,6 +100,7 @@ public class ProductController {
     private ProductLoadService loadService;
     private ProductSaveService saveService;
     
+    //filter
     private FilterState<ProductViewModel> filterState;
     private FilterableTableHelper<ProductViewModel> filterHelper;
     private FilterPanelController<ProductViewModel> filterPanel;
@@ -142,7 +144,7 @@ public class ProductController {
             filterPanel.getRoot().setVisible(false);
             filterPanel.getRoot().setManaged(false);
             tableAndFilterContainer.getChildren().add(filterPanel.getRoot());
-        } catch (java.io.IOException ex) {
+        } catch (IOException ex) {
             ex.printStackTrace();
             AlertUtils.showError("Error al cargar el panel de filtros.");
             return;

@@ -8,12 +8,18 @@ import com.mvcjava.sagt.javafx.async.ClientLoadService;
 import com.mvcjava.sagt.javafx.async.ClientSaveService;
 import com.mvcjava.sagt.javafx.dao.model.Client;
 import com.mvcjava.sagt.javafx.enums.ClientType;
+import com.mvcjava.sagt.javafx.filter.ClientFilterConfig;
+import com.mvcjava.sagt.javafx.filter.FilterGroup;
+import com.mvcjava.sagt.javafx.filter.FilterState;
+import com.mvcjava.sagt.javafx.filter.FilterableTableHelper;
 import com.mvcjava.sagt.javafx.util.AlertUtils;
 import com.mvcjava.sagt.javafx.util.BasicStringValidator;
 import com.mvcjava.sagt.javafx.viewmodel.ClientViewModel;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -27,9 +33,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
+import javafx.scene.layout.HBox;
 
 /**
  *
@@ -38,6 +46,12 @@ import javafx.scene.control.cell.TextFieldTableCell;
 public class ClientController {
     @FXML
     private TableView<ClientViewModel> clientsTable;
+    
+    @FXML
+    private TextField searchField;
+    
+    @FXML
+    private HBox tableAndFilterContainer;
 
     private TableColumn<ClientViewModel, Boolean> selectColumn;
     private TableColumn<ClientViewModel, UUID> idColumn;
@@ -58,6 +72,12 @@ public class ClientController {
     
     private ClientLoadService loadService;
     private ClientSaveService saveService;
+    
+    //filter
+    private FilterState<ClientViewModel> filterState;
+    private FilterableTableHelper<ClientViewModel> filterHelper;
+    private FilterPanelController<ClientViewModel> filterPanel;
+    private boolean filterPanelVisible = false;
 
     public ClientController() {}
 
@@ -78,6 +98,26 @@ public class ClientController {
     private void initializeDependencies() {
         this.loadService = new ClientLoadService();
         this.saveService = new ClientSaveService();
+    }
+    
+    private void initFilterSystem() {
+        List<FilterGroup<ClientViewModel>> groups = ClientFilterConfig.buildGroups();
+        filterState = new FilterState<>();
+        
+        try {
+            filterPanel = FilterPanelController.create(groups, filterState);
+            filterPanel.getRoot().setVisible(false);
+            filterPanel.getRoot().setManaged(false);
+            tableAndFilterContainer.getChildren().add(filterPanel.getRoot());
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            AlertUtils.showError("Error al cargar el panel de filtros.");
+            return;
+        }
+        
+        filterHelper = new FilterableTableHelper<>(clientViewModels, searchField, filterState, ClientFilterConfig::textMatch);
+        clientsTable.setItems(filterHelper.getFilteredList());
     }
 
     private void setupTableColumns() {
@@ -201,7 +241,14 @@ public class ClientController {
             
             loadService.setOnSucceeded(e -> {
                 Set<Client> clients = loadService.getValue();
-                clientViewModels.setAll(clients.stream().map(ClientViewModel::new).collect(Collectors.toList()));
+                List<ClientViewModel> viewModels = clients.stream().map(ClientViewModel::new).collect(Collectors.toList());
+                
+                if (filterHelper != null) {
+                    filterHelper.setAll(viewModels);
+                } else {
+                    clientViewModels.setAll(viewModels);
+                    initFilterSystem();
+                }
             });
             
             loadService.setOnFailed(e -> {
@@ -239,6 +286,15 @@ public class ClientController {
 
     private String normalize(String value) {
         return value == null ? "" : value.trim();
+    }
+    
+    @FXML
+    protected void handleFilterToggle() {
+        if (filterPanel == null) return;
+        
+        filterPanelVisible = !filterPanelVisible;
+        filterPanel.getRoot().setVisible(filterPanelVisible);
+        filterPanel.getRoot().setManaged(filterPanelVisible);
     }
     
     @FXML
@@ -299,13 +355,20 @@ public class ClientController {
                     "Si recargás, perderás los cambios no guardados. ¿Continuar?");
             
             if (confirm.isEmpty() || confirm.get() != ButtonType.OK) return;
-            
-            clientsTable.getSelectionModel().clearSelection();
-            clientViewModels.clear();
-            clientsToUpdate.clear();
-            clientsToDelete.clear();
-            
-            loadData();
         }
+        
+        clientsTable.getSelectionModel().clearSelection();
+        clientViewModels.clear();
+        clientsToUpdate.clear();
+        clientsToDelete.clear();
+            
+        if (filterPanel != null) filterPanel.clearAll();
+            filterPanelVisible = false;
+        if (filterPanel != null) {
+            filterPanel.getRoot().setVisible(false);
+            filterPanel.getRoot().setManaged(false);
+        }
+            
+        loadData();
     }
 }

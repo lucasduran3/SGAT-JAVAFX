@@ -7,10 +7,14 @@ package com.mvcjava.sagt.javafx.controller;
 import com.mvcjava.sagt.javafx.async.CategoryLoadService;
 import com.mvcjava.sagt.javafx.async.CategorySaveService;
 import com.mvcjava.sagt.javafx.dao.model.Category;
+import com.mvcjava.sagt.javafx.filter.CategoryFilterConfig;
+import com.mvcjava.sagt.javafx.filter.FilterState;
+import com.mvcjava.sagt.javafx.filter.FilterableTableHelper;
 import com.mvcjava.sagt.javafx.util.AlertUtils;
 import com.mvcjava.sagt.javafx.util.EditableCellFactory;
 import com.mvcjava.sagt.javafx.viewmodel.CategoryViewModel;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -23,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 
 /**
@@ -32,6 +37,9 @@ import javafx.scene.control.cell.CheckBoxTableCell;
 public class CategoryController {
     @FXML
     private TableView<CategoryViewModel> categoriesTable;
+    
+    @FXML
+    private TextField searchField;
     
     private TableColumn<CategoryViewModel, Boolean> selectColumn;
     private TableColumn<CategoryViewModel, UUID> idColumn;
@@ -44,6 +52,10 @@ public class CategoryController {
     
     private CategoryLoadService loadService;
     private CategorySaveService saveService;
+    
+    //filter
+    private FilterState<CategoryViewModel> filterState;
+    private FilterableTableHelper<CategoryViewModel> filterHelper;
     
     public CategoryController() {}
     
@@ -61,6 +73,12 @@ public class CategoryController {
         
         categoriesToUpdate = new HashSet<>();
         categoriesToDelete = new HashSet<>();
+    }
+    
+    private void initFilterSystem() {
+        filterState = new FilterState<>();
+        filterHelper = new FilterableTableHelper<>(categoryViewModels, searchField, filterState, CategoryFilterConfig::textMatch);
+        categoriesTable.setItems(filterHelper.getFilteredList());
     }
     
     private void setupTableColumns() {
@@ -95,7 +113,14 @@ public class CategoryController {
             loadService.reset();
             loadService.setOnSucceeded(e -> {
                 Set<Category> categories = loadService.getValue();
-                categoryViewModels.setAll(categories.stream().map(CategoryViewModel::new).collect(Collectors.toList()));
+                List<CategoryViewModel> viewModels = categories.stream().map(CategoryViewModel::new).collect(Collectors.toList());
+                
+                if (filterHelper != null) {
+                    filterHelper.setAll(viewModels);
+                } else {
+                    categoryViewModels.setAll(viewModels);
+                    initFilterSystem();
+                }
             });
             loadService.setOnFailed(e -> {
                 AlertUtils.showError(e.getSource().getException().getMessage());
