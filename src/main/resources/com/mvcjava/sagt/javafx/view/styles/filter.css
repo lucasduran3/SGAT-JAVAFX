@@ -1,0 +1,114 @@
+@import "variables.css";
+
+/* ── Panel shell ────────────────────────────────────────────────────────── */
+
+.filter-panel {
+    -fx-background-color: -primary-bg-color;
+    -fx-border-color: -border-color;
+    -fx-border-width: 0 0 0 1;   /* left border only — sits beside the table */
+    -fx-effect: -soft-shadow-sm;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+
+.filter-header {
+    -fx-padding: 14 16 14 16;
+    -fx-background-color: -base-bg-color;
+}
+
+.filter-title {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -base-text-color;
+}
+
+/* ── Active-filters badge ────────────────────────────────────────────────── */
+
+.filter-badge {
+    -fx-font-size: 11px;
+    -fx-text-fill: -text-muted-light;
+    -fx-font-style: italic;
+}
+
+.filter-badge-active {
+    -fx-text-fill: -primary-color;
+    -fx-font-style: normal;
+    -fx-font-weight: bold;
+}
+
+/* ── Groups container (the scroll area) ─────────────────────────────────── */
+
+.filter-groups-container {
+    -fx-background-color: -primary-bg-color;
+}
+
+/* ── Individual section ──────────────────────────────────────────────────── */
+
+.filter-section {
+    -fx-padding: 10 0 10 0;
+    -fx-border-color: transparent transparent -border-color transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.filter-section:last-child {
+    -fx-border-color: transparent;
+}
+
+.filter-section-title {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -text-muted;
+    -fx-padding: 0 0 6 0;
+    -fx-text-transform: uppercase;  /* visual cue that it's a heading */
+}
+
+/* ── Radio buttons ───────────────────────────────────────────────────────── */
+
+.filter-radio {
+    -fx-font-size: 13px;
+    -fx-text-fill: -base-text-color;
+    -fx-padding: 4 0 4 0;
+    -fx-cursor: hand;
+}
+
+.filter-radio:selected {
+    -fx-text-fill: -primary-color;
+    -fx-font-weight: bold;
+}
+
+.filter-radio:hover {
+    -fx-text-fill: -primary-dark;
+}
+
+/* ── Check boxes ─────────────────────────────────────────────────────────── */
+
+.filter-checkbox {
+    -fx-font-size: 13px;
+    -fx-text-fill: -base-text-color;
+    -fx-padding: 4 0 4 0;
+    -fx-cursor: hand;
+}
+
+.filter-checkbox:selected {
+    -fx-text-fill: -primary-color;
+}
+
+.filter-checkbox:hover {
+    -fx-text-fill: -primary-dark;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────────────── */
+
+.filter-footer {
+    -fx-background-color: -base-bg-color;
+}
+
+/* ── ScrollPane overrides ────────────────────────────────────────────────── */
+
+.filter-panel .scroll-pane {
+    -fx-background-color: -primary-bg-color;
+}
+
+.filter-panel .scroll-pane .viewport {
+    -fx-background-color: -primary-bg-color;
+}

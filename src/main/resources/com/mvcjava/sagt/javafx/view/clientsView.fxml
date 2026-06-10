@@ -23,8 +23,9 @@
     </stylesheets>
     
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <TextField promptText="Buscar ...." prefWidth="250" styleClass="searchInput"/>
-        <Button text="Filtrar" styleClass="ghostBtn">
+        <TextField fx:id="searchField" promptText="Buscar ...." prefWidth="250" styleClass="searchInput"/>
+        
+        <Button text="Filtrar" styleClass="ghostBtn" onAction="#handleFilterToggle">
             <graphic>
                 <FontAwesomeIconView glyphName="FILTER" glyphSize="14"/> 
             </graphic>    
@@ -56,8 +57,13 @@
         </Button>
     </HBox>
 
-    <TableView fx:id="clientsTable" VBox.vgrow="ALWAYS" styleClass="table">
-        <columns>
-        </columns>
-    </TableView>
+
+    <HBox fx:id="tableAndFilterContainer" spacing="0" VBox.vgrow="ALWAYS">
+
+        <TableView fx:id="clientsTable" HBox.hgrow="ALWAYS">
+            <columns/>
+        </TableView>
+
+    </HBox>
+    
 </VBox>

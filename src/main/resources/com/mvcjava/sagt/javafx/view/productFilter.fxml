@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+
+<DialogPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            styleClass="formDialogPane"
+            prefWidth="800">
+
+    <stylesheets>
+        <URL value="@styles/form.css" />    
+    </stylesheets>
+    
+    <headerText>
+        Filtrar Productos
+    </headerText>
+
+    <content>
+        <VBox styleClass="formContainer">
+            <Label styleClass="formSubtitle" text="Complete solo los campos que desea filtrar." 
+                   wrapText="true"/>
+
+            <GridPane hgap="30" vgap="15">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+                    <ColumnConstraints percentWidth="50" hgrow="ALWAYS"/>
+                </columnConstraints>
+
+                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                    <Label text="Nombre" styleClass="fieldLabel"/>
+                    <TextField fx:id="nameField" styleClass="formField"/>                    
+                </VBox>
+
+                <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.rowSpan="4">
+                    <Label text="Categorias" styleClass="fieldLabel"/>
+                    <ScrollPane fx:id="categoriesScrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="formField">
+                        <content>
+                            <VBox fx:id="categoriesContainer" spacing="5">
+                                <padding>
+                                    <Insets top="5" right="5" bottom="5" left="5"/>
+                                </padding>
+                            </VBox>
+                        </content>
+                    </ScrollPane>
+                </VBox>
+
+                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <Label text="Marca" styleClass="fieldLabel"/>
+                    <TextField fx:id="brandField" styleClass="formField"/>
+                </VBox>
+
+                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                    <Label text="Proveedor" styleClass="fieldLabel"/>
+                    <ComboBox fx:id="supplierComboBox" maxWidth="Infinity" styleClass="formField"/>
+                </VBox>
+                
+                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                    <Label text="Stock crítico" styleClass="fieldLabel"/>
+                    <Checkbox fx:id="stockField"/>
+                </VBox>
+                
+                <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="4">
+                    <Label text="Precio de compra" styleClass="fieldLabel"/>
+                    <TextField fx:id="minPurchasePriceField" styleClass="formField"/>
+                    <TextField fx:id="maxPurchasePriceField" styleClass="formField"/>
+                    <Label fx:id="errorPurchasePrice" styleClass="error"></Label>
+                </VBox>
+
+                <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <Label text="Precio de venta" styleClass="fieldLabel"/>
+                    <TextField fx:id="minSalePriceField" styleClass="formField"/>
+                    <TextField fx:id="maxSalePriceField" styleClass="formField"/>
+                    <Label fx:id="errorSalePrice" styleClass="error"></Label>
+                </VBox>
+                
+                </GridPane>
+        </VBox>
+    </content>
+
+    <buttonTypes>
+        <ButtonType fx:constant="OK"/>
+        <ButtonType fx:constant="CANCEL"/>
+    </buttonTypes>
+
+</DialogPane>

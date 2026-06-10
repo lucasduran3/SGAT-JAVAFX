@@ -23,14 +23,16 @@
     </stylesheets>
     
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <TextField promptText="Buscar ...." prefWidth="250" styleClass="searchInput"/>
-        <Button text="Filtrar" styleClass="ghostBtn">
+        <TextField fx:id="searchField" promptText="Buscar ...." prefWidth="250" styleClass="searchInput"/>
+        
+        <Button text="Filtrar" styleClass="ghostBtn" onAction="#handleFilterToggle">
             <graphic>
                 <FontAwesomeIconView glyphName="FILTER" glyphSize="14"/> 
             </graphic>
         </Button>
-        <Region HBox.hgrow="ALWAYS" />
-                        
+        
+        <Region HBox.hgrow="ALWAYS" />      
+                  
         <Button text="Agregar producto" styleClass="btnPrimary" onAction="#handleAddProduct">
             <graphic>
                 <FontAwesomeIconView glyphName="PLUS" glyphSize="14"/>
@@ -55,9 +57,10 @@
             </graphic>
         </Button>
     </HBox>
-
-    <TableView fx:id="productsTable" VBox.vgrow="ALWAYS" styleClass="table">
-        <columns>
-        </columns>
-    </TableView>
+    
+    <HBox fx:id="tableAndFilterContainer" spacing="0" VBox.vgrow="ALWAYS">
+        <TableView fx:id="productsTable" HBox.hgrow="ALWAYS" styleClass="table">
+            <columns/>
+        </TableView>
+    </HBox>
 </VBox>

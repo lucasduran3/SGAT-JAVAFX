@@ -25,7 +25,12 @@
 
     <!-- ── Barra de herramientas MASTER ──────────────────────────────────── -->
     <HBox spacing="10" alignment="CENTER_LEFT">
-        <TextField promptText="Buscar venta..." prefWidth="250" styleClass="searchInput"/>
+        <TextField fx:id="searchField" promptText="Buscar venta..." prefWidth="250" styleClass="searchInput"/>
+        
+        <Button text="Filtrar" styleClass="ghostBtn" onAction="#handleFilterToggle">
+            <graphic><FontAwesomeIconView glyphName="FILTER" glyphSize="14"/></graphic>
+        </Button>
+        
         <Region HBox.hgrow="ALWAYS"/>
         <Button text="Agregar venta"   styleClass="btnPrimary" onAction="#handleAddSale">
             <graphic>
@@ -53,58 +58,61 @@
         
     </HBox>
 
-    <SplitPane orientation="VERTICAL" VBox.vgrow="ALWAYS" dividerPositions="0.5" styleClass="splitTableContainer">
+    <HBox fx:id="tableAndFilterContainer" spacing="0" VBox.vgrow="ALWAYS">
+        <SplitPane orientation="VERTICAL" HBox.hgrow="ALWAYS" dividerPositions="0.5" styleClass="splitTableContainer">
 
-        <!-- ── MASTER ──────────────────────────────────────────────────────── -->
-        <TableView fx:id="salesTable" VBox.vgrow="ALWAYS">
-            <placeholder>
-                <Label text="No hay ventas registradas"/>
-            </placeholder>
-        </TableView>
-
-        <!-- ── DETAIL ──────────────────────────────────────────────────────── -->
-        <VBox>
-            <!-- Barra de herramientas DETAIL -->
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <padding>
-                    <Insets top="20" right="10" bottom="20" left="10"/>
-                </padding>
-                
-                <Label fx:id="detailsLabel"
-                       text="Seleccioná una venta para ver su detalle"
-                       styleClass="sectionTitle"
-                       HBox.hgrow="ALWAYS"/>
-                <Region HBox.hgrow="ALWAYS"/>
-                <!--
-                    El botón "Agregar detalle" sólo se habilita cuando hay una venta
-                    seleccionada; la lógica se maneja en SalesController.
-                -->
-                <Button fx:id="addDetailBtn"
-                        text="Agregar ítem"
-                        styleClass="btnPrimary"
-                        onAction="#handleAddDetail"
-                        disable="true">
-                    <graphic>
-                        <FontAwesomeIconView glyphName="PLUS" glyphSize="14"/>
-                    </graphic>    
-                </Button>
-                
-                <Button fx:id="deleteDetailBtn"
-                        text="Eliminar ítem"
-                        styleClass="btnDanger"
-                        onAction="#handleDeleteDetail"
-                        disable="true">
-                    <graphic>
-                        <FontAwesomeIconView glyphName="TRASH" glyphSize="14"/>
-                    </graphic>
-                </Button>
-                
-            </HBox>
-
-            <TableView fx:id="detailTable" VBox.vgrow="ALWAYS">
+            <!-- ── MASTER ──────────────────────────────────────────────────────── -->
+            <TableView fx:id="salesTable">
+                <placeholder>
+                    <Label text="No hay ventas registradas"/>
+                </placeholder>
             </TableView>
-        </VBox>
+
+            <!-- ── DETAIL ──────────────────────────────────────────────────────── -->
+            <VBox>
+                <!-- Barra de herramientas DETAIL -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <padding>
+                        <Insets top="20" right="10" bottom="20" left="10"/>
+                    </padding>
+                
+                    <Label fx:id="detailsLabel"
+                        text="Seleccioná una venta para ver su detalle"
+                        styleClass="sectionTitle"
+                        HBox.hgrow="ALWAYS"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <!--
+                        El botón "Agregar detalle" sólo se habilita cuando hay una venta
+                        seleccionada; la lógica se maneja en SalesController.
+                    -->
+                    <Button fx:id="addDetailBtn"
+                            text="Agregar ítem"
+                            styleClass="btnPrimary"
+                            onAction="#handleAddDetail"
+                            disable="true">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="PLUS" glyphSize="14"/>
+                        </graphic>    
+                    </Button>
+                
+                    <Button fx:id="deleteDetailBtn"
+                            text="Eliminar ítem"
+                            styleClass="btnDanger"
+                            onAction="#handleDeleteDetail"
+                            disable="true">
+                        <graphic>
+                            <FontAwesomeIconView glyphName="TRASH" glyphSize="14"/>
+                        </graphic>
+                    </Button>
+                
+                </HBox>
+
+                <TableView fx:id="detailTable" VBox.vgrow="ALWAYS">
+                </TableView>
+            </VBox>
 
     </SplitPane>
+    
+    </HBox>
 
 </VBox>

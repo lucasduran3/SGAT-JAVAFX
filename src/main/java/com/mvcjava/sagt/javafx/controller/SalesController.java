@@ -19,6 +19,10 @@ import com.mvcjava.sagt.javafx.dto.HeaderSaleWithClient;
 import com.mvcjava.sagt.javafx.dto.SaleDetailFormData;
 import com.mvcjava.sagt.javafx.dto.SaleHeaderFormData;
 import com.mvcjava.sagt.javafx.enums.PaymentMethod;
+import com.mvcjava.sagt.javafx.filter.FilterGroup;
+import com.mvcjava.sagt.javafx.filter.FilterState;
+import com.mvcjava.sagt.javafx.filter.FilterableTableHelper;
+import com.mvcjava.sagt.javafx.filter.SaleFilterConfig;
 import com.mvcjava.sagt.javafx.util.AlertUtils;
 import com.mvcjava.sagt.javafx.util.DatePickerTableCell;
 import com.mvcjava.sagt.javafx.util.EditableCellFactory;
@@ -47,6 +51,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.control.cell.TextFieldTableCell;
@@ -67,6 +72,10 @@ public class SalesController {
     private Button addDetailBtn;
     @FXML
     private Button deleteDetailBtn;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private HBox tableAndFilterContainer;
     
     //Columnas Master
     private TableColumn<SaleViewModel, Boolean> selectSaleColumn;
@@ -104,6 +113,12 @@ public class SalesController {
     
     //Estado
     private SaleViewModel currentSale;
+    
+    //Filtro
+    private FilterState<SaleViewModel> filterState;
+    private FilterableTableHelper<SaleViewModel> filterHelper;
+    private FilterPanelController<SaleViewModel> filterPanel;
+    private boolean filterPanelVisible = false;
     
     @FXML
     public void initialize() {
@@ -149,6 +164,30 @@ public class SalesController {
                 });
         
         loadClients();
+    }
+    
+    private void initFilterSystem() {
+        List<FilterGroup<SaleViewModel>> groups = SaleFilterConfig.buildGroups();
+        filterState = new FilterState<>();
+ 
+        try {
+            filterPanel = FilterPanelController.create(groups, filterState);
+            filterPanel.getRoot().setVisible(false);
+            filterPanel.getRoot().setManaged(false);
+            tableAndFilterContainer.getChildren().add(filterPanel.getRoot());
+        } catch (java.io.IOException ex) {
+            ex.printStackTrace();
+            AlertUtils.showError("Error al cargar el panel de filtros.");
+            return;
+        }
+ 
+        filterHelper = new FilterableTableHelper<>(
+                saleViewModels,
+                searchField,
+                filterState,
+                SaleFilterConfig::textMatch);
+ 
+        salesTable.setItems(filterHelper.getFilteredList());
     }
     
     private void setupMasterColumns() {
@@ -373,6 +412,14 @@ public class SalesController {
         vm.productNameProperty().set(chosen.getName());
         vm.getDetail().setProductId(chosen.getId());
         registerDetailUpdate(vm, "id_producto", chosen.getId());
+    }
+    
+    @FXML
+    protected void handleFilterToggle() {
+        if (filterPanel == null) return;
+        filterPanelVisible = !filterPanelVisible;
+        filterPanel.getRoot().setVisible(filterPanelVisible);
+        filterPanel.getRoot().setManaged(filterPanelVisible);
     }
     
     @FXML
@@ -602,7 +649,13 @@ public class SalesController {
             List<SaleViewModel> vms = cabeceras.stream()
                     .map(SaleViewModel::new)
                     .collect(Collectors.toList());
-            saleViewModels.setAll(vms);
+            
+            if (filterHelper != null) {
+                filterHelper.setAll(vms);
+            } else {
+                saleViewModels.setAll(vms);
+                initFilterSystem();
+            }
         });
  
         saleLoadService.setOnFailed(e ->

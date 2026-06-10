@@ -16,6 +16,10 @@ import com.mvcjava.sagt.javafx.service.impl.ProductServiceImpl;
 import com.mvcjava.sagt.javafx.service.impl.SupplierServiceImpl;
 import com.mvcjava.sagt.javafx.viewmodel.ProductViewModel;
 import com.mvcjava.sagt.javafx.dto.ProductWithRelations;
+import com.mvcjava.sagt.javafx.filter.FilterGroup;
+import com.mvcjava.sagt.javafx.filter.FilterState;
+import com.mvcjava.sagt.javafx.filter.FilterableTableHelper;
+import com.mvcjava.sagt.javafx.filter.ProductFilterConfig;
 import com.mvcjava.sagt.javafx.service.impl.CategoryServiceImpl;
 import com.mvcjava.sagt.javafx.service.interfaces.CategoryService;
 import com.mvcjava.sagt.javafx.util.AlertUtils;
@@ -45,6 +49,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.layout.HBox;
@@ -60,6 +65,12 @@ public class ProductController {
     
     @FXML 
     private TableView<ProductViewModel> productsTable;
+    
+    @FXML
+    private TextField searchField;
+    
+    @FXML
+    private HBox tableAndFilterContainer;
     
     private TableColumn<ProductViewModel, Boolean> selectColumn;
     private TableColumn<ProductViewModel, UUID> idColumn;
@@ -88,6 +99,11 @@ public class ProductController {
     private ProductLoadService loadService;
     private ProductSaveService saveService;
     
+    private FilterState<ProductViewModel> filterState;
+    private FilterableTableHelper<ProductViewModel> filterHelper;
+    private FilterPanelController<ProductViewModel> filterPanel;
+    private boolean filterPanelVisible = false;
+    
     public ProductController() {}
     
     @FXML
@@ -113,6 +129,32 @@ public class ProductController {
         this.categoryService = new CategoryServiceImpl();
         this.loadService = new ProductLoadService(productService, supplierService, categoryService);
         this.saveService = new ProductSaveService(productService);
+    }
+    
+    private void initFilterSystem() {
+        List<FilterGroup<ProductViewModel>> groups =
+            ProductFilterConfig.buildGroups(avaibleCategories);
+ 
+        filterState = new FilterState<>();
+ 
+        try {
+            filterPanel = FilterPanelController.create(groups, filterState);
+            filterPanel.getRoot().setVisible(false);
+            filterPanel.getRoot().setManaged(false);
+            tableAndFilterContainer.getChildren().add(filterPanel.getRoot());
+        } catch (java.io.IOException ex) {
+            ex.printStackTrace();
+            AlertUtils.showError("Error al cargar el panel de filtros.");
+            return;
+        }
+ 
+        filterHelper = new FilterableTableHelper<>(
+            productViewModels,
+            searchField,
+            filterState,
+            ProductFilterConfig::textMatch);
+ 
+        productsTable.setItems(filterHelper.getFilteredList());
     }
     
     private void setupTableColumns() {
@@ -367,6 +409,13 @@ public class ProductController {
         productsToDelete.clear();
         categoriesToUpdate.clear();
         
+        if (filterPanel != null) filterPanel.clearAll(); 
+            filterPanelVisible = false;    
+        if (filterPanel != null) {
+            filterPanel.getRoot().setVisible(false);
+            filterPanel.getRoot().setManaged(false);
+        }
+        
         loadData();
     }
     
@@ -380,6 +429,15 @@ public class ProductController {
                 saveData();
             }
         });
+    }
+    
+    @FXML
+    protected void handleFilterToggle() {
+        if (filterPanel == null) return;
+        
+        filterPanelVisible = !filterPanelVisible;
+        filterPanel.getRoot().setVisible(filterPanelVisible);
+        filterPanel.getRoot().setManaged(filterPanelVisible);
     }
     
     private void saveData() {
@@ -433,8 +491,13 @@ public class ProductController {
                     viewModels.add(productVm);
                 }
            
-                productViewModels.setAll(viewModels);
-                });
+                if (filterHelper != null) {
+                    filterHelper.setAll(viewModels);
+                } else {
+                    productViewModels.setAll(viewModels);
+                    initFilterSystem();
+                }
+            });
         
             loadService.setOnFailed(e -> {
                 AlertUtils.showError(e.getSource().getException().getMessage());
