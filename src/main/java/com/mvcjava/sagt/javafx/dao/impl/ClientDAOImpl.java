@@ -22,7 +22,7 @@ import java.util.UUID;
  *
  * @author lucas
  */
-public class ClientDAOImpl implements ClientDAO{
+public class ClientDAOImpl implements ClientDAO {
 
     @Override
     public Set<Client> findAll() {
@@ -108,7 +108,11 @@ public class ClientDAOImpl implements ClientDAO{
         int idx = 0;
         for (Map.Entry<String, Object> e : updates.entrySet()) {
             if (idx++ > 0) sql.append(", ");
-            sql.append(e.getKey()).append(" = ? ");
+            if (e.getKey().equals("tipo")) {
+                sql.append("tipo = ?::app.e_tipo_cliente ");
+            } else {
+                sql.append(e.getKey()).append(" = ? ");
+            }
         }
         sql.append(" WHERE id = ?");
         
@@ -122,6 +126,7 @@ public class ClientDAOImpl implements ClientDAO{
             
             stmt.executeUpdate();
         } catch (SQLException ex) {
+            ex.printStackTrace();
             throw new DataAccessException("Error al actualizar cliente: " + id, ex);
         }
     }

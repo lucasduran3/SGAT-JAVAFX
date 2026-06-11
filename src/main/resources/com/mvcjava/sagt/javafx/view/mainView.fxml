@@ -70,9 +70,12 @@
                     </left>
 
                     <right>
-                        <!-- fx:id en el MenuButton para exponer el label al controlador -->
                         <MenuButton fx:id="userMenuLabel" text="Mi Perfil"
                                     styleClass="userMenu, ghostBtn">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="USER" glyphSize="18"/> 
+                            </graphic>
+                             
                             <items>
                                 <MenuItem fx:id="menuItemPerfil" text="Ver perfil"/>
                                 <MenuItem fx:id="menuItemLogout" text="Cerrar sesión"

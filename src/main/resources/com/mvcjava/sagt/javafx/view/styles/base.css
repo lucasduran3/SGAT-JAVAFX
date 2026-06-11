@@ -146,8 +146,8 @@
     -fx-text-fill: -secondary-bg-color;
 }
 
-.button {
-        -fx-graphic-text-gap: 8px; /* Espaciado interno horizontal */
+.button, .menu-button {
+    -fx-graphic-text-gap: 8px;
 }
 
 .hyperlink {
