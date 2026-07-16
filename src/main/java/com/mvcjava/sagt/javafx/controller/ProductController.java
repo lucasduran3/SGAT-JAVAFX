@@ -54,7 +54,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
-import javafx.scene.control.cell.ComboBoxTableCell;
 import javafx.scene.layout.HBox;
 
 /**
@@ -284,26 +283,35 @@ public class ProductController {
         supplierColumn.setCellValueFactory(cellData -> 
             cellData.getValue().supplierProperty()
         );
-        
-        //configurar comboBox
         supplierColumn.setCellFactory(col -> {
-            ComboBoxTableCell<ProductViewModel, Supplier> cell = 
-                    new ComboBoxTableCell<ProductViewModel, Supplier>() {
+            return new TableCell<ProductViewModel, Supplier>() {
+                private final Label label = new Label();
+                private final HBox container = new HBox(10, label);
+                {
+                    container.setAlignment(Pos.CENTER_LEFT);
+                    container.setPadding(new Insets(2,5,2,5));
                     
-                        @Override
-                        public void updateItem(Supplier item, boolean empty) {
-                            super.updateItem(item, empty);
-                            
-                            if (empty || item == null) {
-                                setText(null);
-                            } else {
-                                setText(item.getName());
+                    container.setOnMouseClicked(event -> {
+                        if (event.getClickCount() == 2 && !isEmpty()) { // Doble click
+                            ProductViewModel vm = getTableRow().getItem();
+                            if (vm != null) {
+                                openSuppliersDialog(vm);
                             }
                         }
-                    };
-            cell.getItems().setAll(avaibleSuppliers);
-            
-            return cell;
+                    });
+                }
+                
+                @Override
+                protected void updateItem(Supplier item, boolean empty) {
+                    super.updateItem(item, empty);
+                    if (empty || item == null) {
+                        setGraphic(null);
+                    } else {
+                        label.setText(item.getName());
+                        setGraphic(container);
+                    }
+                }
+            };
         });
         supplierColumn.setEditable(true);
         supplierColumn.setOnEditCommit(col -> handleSupplierEdit(col));
@@ -544,31 +552,62 @@ public class ProductController {
                 .orElse(null);
     }
     
-    private void openCategoriesDialog(ProductViewModel viewModel) {
+    private void openCategoriesDialog(ProductViewModel vm) {
+        if (avaibleCategories.isEmpty()) {
+            AlertUtils.showError("No hay categorias disponibles para seleccionar.");
+            return;
+        }
+        
         Set<Category> result = new HashSet<>(CheckBoxDialogController.showDialog(
                 productsTable.getScene().getWindow(),
                 "Gestionar categorias",
-                "Producto: " + viewModel.nameProperty().getValue(),
+                "Producto: " + vm.nameProperty().getValue(),
                 "Seleccione las categorias que desea agregar a este producto: ",
                 new ArrayList<>(avaibleCategories),
-                new ArrayList<>(viewModel.getCategories())
+                new ArrayList<>(vm.getCategories()),
+                Category::getName
         ));
         
         if (result != null) {
-            if (!viewModel.getCategories().equals(result)) {
-                viewModel.setCategories(new HashSet(result));
+            if (!vm.getCategories().equals(result)) {
+                vm.setCategories(new HashSet(result));
                 
-                if (!viewModel.getIsNew()) {
+                if (!vm.getIsNew()) {
                     Set<UUID> idsCategories = result.stream().map(Category::getId).collect(Collectors.toSet());
-                    categoriesToUpdate.put(viewModel.getId(), idsCategories);
+                    categoriesToUpdate.put(vm.getId(), idsCategories);
                 
-                    productsToUpdate.computeIfAbsent(viewModel.getId(), v -> new HashMap<>())
+                    productsToUpdate.computeIfAbsent(vm.getId(), v -> new HashMap<>())
                             .put("fecha_actualizacion", Timestamp.from(Instant.now()));  
                 }
-            } else {
-                System.out.println("El resultado es el mismo");
             }
         }     
+    }
+    
+    private void openSuppliersDialog(ProductViewModel vm) {
+        if (avaibleSuppliers.isEmpty()) {
+            AlertUtils.showError("No hay proveedores disponibles para seleccionar.");
+            return;
+        }
+        
+        UUID currentSupplierId = vm.getIdSupplier();
+        Supplier chosen = RadioDialogController.showDialog(
+                productsTable.getScene().getWindow(),
+                "Seleccionar proveedor",
+                avaibleSuppliers,
+                Supplier::getName,
+                Supplier::getId,
+                currentSupplierId
+        );
+        
+        if (chosen == null) return;
+        if (chosen.getId().equals(currentSupplierId)) return;
+        
+        vm.supplierProperty().set(chosen);
+        
+        if(!vm.getIsNew()) {
+            productsToUpdate.computeIfAbsent(vm.getId(), v -> new HashMap<>()).put("proveedor", chosen.getId());
+            productsToUpdate.get(vm.getId()).put("fecha_actualizacion", Timestamp.from(Instant.now()));
+        }
     }
     
     private void handleStringEdit(TableColumn.CellEditEvent<ProductViewModel, String> e) {

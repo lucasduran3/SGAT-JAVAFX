@@ -38,6 +38,13 @@
                 <VBox fx:id="listContainer" spacing="0"/>
             </ScrollPane>
 
+            <HBox alignment="CENTER" spacing="10" styleClass="dialogPagination">
+                <Button fx:id="previousPageButton" text="Anterior" styleClass="ghostBtn" />
+                <Label fx:id="pageLabel" styleClass="paginationLabel" />
+                <Button fx:id="nextPageButton" text="Siguiente" styleClass="ghostBtn" />
+                <Region HBox.hgrow="ALWAYS" />
+            </HBox>
+            
             <!-- Selection indicator -->
             <Label fx:id="selectionLabel"
                    text="Ningún cliente seleccionado"

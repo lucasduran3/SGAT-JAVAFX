@@ -5,10 +5,15 @@
 package com.mvcjava.sagt.javafx.controller;
 
 import com.mvcjava.sagt.javafx.util.AlertUtils;
+import com.mvcjava.sagt.javafx.util.ListPaginationHelper;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -37,12 +42,19 @@ public class RadioDialogController <T> {
     private VBox listContainer;
     @FXML
     private Label selectionLabel;
-    
+    @FXML
+    private Button previousPageButton;
+    @FXML
+    private Button nextPageButton;
+    @FXML
+    private Label pageLabel;
     
     private ToggleGroup toggleGroup;
-    private List<T> allItems;
+    private List<T> allItems = Collections.emptyList();
     private Function<T, String> nameExtractor;
     private Function<T, UUID> idExtractor;
+    private UUID currentItemId;
+    private ListPaginationHelper<T> paginationHelper;
 
     private RadioDialogController() {}
     
@@ -93,25 +105,36 @@ public class RadioDialogController <T> {
    @FXML
    public void initialize() {
        toggleGroup = new ToggleGroup();
-       
+       paginationHelper = new ListPaginationHelper<>(
+               this::renderPage,
+               previousPageButton,
+               nextPageButton,
+               pageLabel,
+               10);
+
        searchField.textProperty().addListener((obs, oldText, newText) -> {
            filterRows(newText == null ? "" : newText.trim().toLowerCase());
        });
    }
    
    private void populate(List<T> items, UUID currentItemId) {
-       this.allItems = items;
-       listContainer.getChildren().clear();
-       
-       for (T item: items) {
-           HBox row = buildRow(item, currentItemId);
-           listContainer.getChildren().add(row);
+       this.allItems = new ArrayList<>(items);
+       this.currentItemId = currentItemId;
+       paginationHelper.setItems(allItems);
+       if (currentItemId != null) {
+           paginationHelper.showPageContaining(item -> currentItemId.equals(idExtractor.apply(item)));
        }
-       
        updateSelectionLabel();
    }
-   
-   private HBox buildRow(T item, UUID currentItemId) {
+
+   private void renderPage(List<T> pageItems) {
+       listContainer.getChildren().clear();
+       for (T item : pageItems) {
+           listContainer.getChildren().add(buildRow(item));
+       }
+   }
+
+   private HBox buildRow(T item) {
        String name = nameExtractor.apply(item);
        UUID id = idExtractor.apply(item);
        
@@ -121,7 +144,7 @@ public class RadioDialogController <T> {
        radio.setMaxWidth(40);
        radio.setMinWidth(40);
        
-       if (currentItemId != null && currentItemId.equals(id)) {
+       if (isSelectedItem(item, id)) {
            radio.setSelected(true);
            updateSelectionLabel(name);
        }
@@ -152,19 +175,19 @@ public class RadioDialogController <T> {
    }
    
    private void filterRows(String query) {
-       listContainer.getChildren().forEach(node -> {
-            if (!(node instanceof HBox)) return;
+       List<T> filteredItems = allItems.stream()
+               .filter(item -> query.isEmpty()
+               || nameExtractor.apply(item).toLowerCase().contains(query)
+               || String.valueOf(idExtractor.apply(item)).toLowerCase().contains(query))
+               .collect(Collectors.toList());
+       paginationHelper.setItems(filteredItems);
+   }
 
-           HBox row = (HBox) node;
-           
-           Object data = row.getUserData();
-           boolean matches = query.isEmpty() ||
-                   nameExtractor.apply((T) data).toLowerCase().contains(query) ||
-                   idExtractor.apply((T) data).toString().toLowerCase().contains(query);
-           
-           row.setVisible(matches);
-           row.setManaged(matches);
-       });
+   private boolean isSelectedItem(T item, UUID itemId) {
+       T selected = getSelected();
+       return selected != null
+               ? Objects.equals(selected, item)
+               : currentItemId != null && currentItemId.equals(itemId);
    }
    
    private void updateSelectionLabel() {

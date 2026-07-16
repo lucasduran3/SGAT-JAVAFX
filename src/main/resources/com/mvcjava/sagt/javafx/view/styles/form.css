@@ -57,3 +57,22 @@
     -fx-background-color: -primary-bg-color;
     -fx-padding: 0 20 20 20;
 }
+
+.dialogPagination {
+    -fx-padding: 0 0 5 0;
+}
+
+.paginationButton {
+    -fx-background-color: transparent;
+    -fx-border-color: -primary-color;
+    -fx-border-radius: 4px;
+    -fx-text-fill: -primary-color;
+}
+
+.paginationLabel {
+    -fx-font-weight: bold;
+}
+
+.paginationSummary {
+    -fx-text-fill: -text-muted;
+}

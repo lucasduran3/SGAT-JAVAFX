@@ -12,6 +12,7 @@ import com.mvcjava.sagt.javafx.util.BasicStringValidator;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,8 +22,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
@@ -36,7 +37,7 @@ public class SaleHeaderFormController {
     @FXML
     private DatePicker datePicker;
     @FXML
-    private ComboBox<Client> clientComboBox;
+    private Hyperlink clientLink;
     @FXML
     private ComboBox<PaymentMethod> paymentMethodComboBox;
     
@@ -48,6 +49,9 @@ public class SaleHeaderFormController {
     private Label errorClient;
     @FXML
     private Label errorPaymentMethod;
+    
+    private List<Client> avaibleClients;
+    private Window owner;
     
     public static SaleHeaderFormData showForm(Window owner, List<Client> clients) {
         try {
@@ -64,7 +68,7 @@ public class SaleHeaderFormController {
             dialog.initOwner(owner);
             dialog.setDialogPane(dialogPane);
             
-            controller.setData(clients);
+            controller.setData(clients, owner);
             
             Button btnOK = (Button) dialogPane.lookupButton(ButtonType.OK);
             btnOK.addEventFilter(ActionEvent.ACTION, e -> {
@@ -91,19 +95,8 @@ public class SaleHeaderFormController {
     
     @FXML
     public void initialize() {
-        clientComboBox.setCellFactory(lv -> new ListCell<Client>() {
-            @Override
-            protected void updateItem(Client item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getCompanyName());
-            }
-        });
-        clientComboBox.setButtonCell(new ListCell<Client>() {
-            @Override
-            protected void updateItem(Client item, boolean empty) {
-                super.updateItem(item, empty);
-                setText(empty || item == null ? null : item.getCompanyName());
-            }
+        clientLink.setOnAction(e -> {
+            openClientsDialog();
         });
         
         paymentMethodComboBox.getItems().setAll(PaymentMethod.values());
@@ -113,8 +106,31 @@ public class SaleHeaderFormController {
         clearErrors();
     }
     
-    private void setData(List<Client> clients) {
-        clientComboBox.getItems().setAll(clients);
+    private void openClientsDialog() {
+        if (avaibleClients.isEmpty()) {
+            AlertUtils.showError("No hay clientes disponibles para seleccionar.");
+            return;
+        }
+        
+        UUID currentClientId = null;
+        
+        Client chosen = RadioDialogController.showDialog(
+                owner, "Seleccionar Cliente",
+                avaibleClients,
+                Client::getCompanyName,
+                Client::getId,
+                currentClientId
+        );
+        
+        if (chosen == null) return;
+        
+        clientLink.setUserData(chosen);
+        clientLink.setText(chosen.getCompanyName() + " - " + chosen.getCuitCuil());
+    }
+    
+    private void setData(List<Client> avaibleClients, Window owner) {
+        this.avaibleClients = avaibleClients;
+        this.owner = owner;
     }
     
     private void clearErrors() {
@@ -143,11 +159,6 @@ public class SaleHeaderFormController {
             valid = false;
         }
         
-        if (clientComboBox.getValue() == null) {
-            errorClient.setText("Seleccione un cliente");
-            valid = false;
-        }
-        
         if (paymentMethodComboBox.getValue() == null) {
             errorPaymentMethod.setText("Seleccione un método de pago.");
             valid = false;
@@ -160,7 +171,7 @@ public class SaleHeaderFormController {
         return new SaleHeaderFormData(
                 billNumberField.getText().trim(),
                 datePicker.getValue(),
-                clientComboBox.getValue(),
+                (Client)clientLink.getUserData(),
                 paymentMethodComboBox.getValue()
         );
     }

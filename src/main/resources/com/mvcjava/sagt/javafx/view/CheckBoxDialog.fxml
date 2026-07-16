@@ -3,6 +3,7 @@
 <?import javafx.scene.control.DialogPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.ButtonType?>
 <?import javafx.geometry.Insets?>
@@ -20,6 +21,9 @@
     <content>
         <VBox styleClass="formContainer" alignment="TOP_LEFT">
             <Label fx:id="instructionLabel" />
+            <TextField fx:id="searchField"
+                    promptText="Buscar por nombre..."
+                    styleClass="searchInput"/>
 
             <ScrollPane fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="AS_NEEDED" prefHeight="200">
                 <VBox fx:id="checkBoxContainer" spacing="8">
@@ -28,6 +32,10 @@
                     </padding>
                 </VBox>
             </ScrollPane>
+            
+            <Label fx:id="selectionLabel"
+                text=""
+                style="-fx-text-fill: #a0a0a0; -fx-font-style: italic;"/>
         </VBox>
     </content>
 

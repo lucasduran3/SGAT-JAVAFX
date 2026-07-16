@@ -44,7 +44,7 @@
                 <!-- Cliente -->
                 <VBox spacing="5" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
                     <Label text="* Cliente" styleClass="fieldLabel"/>
-                    <ComboBox fx:id="clientComboBox" maxWidth="Infinity" promptText="Seleccione un cliente..." styleClass="formField"/>
+                    <Hyperlink fx:id="clientLink" maxWidth="Infinity" text="Click aquí para seleccionar un cliente"/>
                     <Label fx:id="errorClient" styleClass="error"/>
                 </VBox>
 
