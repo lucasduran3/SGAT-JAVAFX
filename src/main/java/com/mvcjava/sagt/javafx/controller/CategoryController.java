@@ -12,6 +12,7 @@ import com.mvcjava.sagt.javafx.filter.FilterState;
 import com.mvcjava.sagt.javafx.filter.FilterableTableHelper;
 import com.mvcjava.sagt.javafx.util.AlertUtils;
 import com.mvcjava.sagt.javafx.util.EditableCellFactory;
+import com.mvcjava.sagt.javafx.util.TablePaginationHelper;
 import com.mvcjava.sagt.javafx.viewmodel.CategoryViewModel;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +25,9 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -41,6 +44,18 @@ public class CategoryController {
     @FXML
     private TextField searchField;
     
+    @FXML
+    private Button previousPageButton;
+    
+    @FXML
+    private Button nextPageButton;
+    
+    @FXML
+    private Label pageLabel;
+    
+    @FXML
+    private Label paginationSummaryLabel;
+    
     private TableColumn<CategoryViewModel, Boolean> selectColumn;
     private TableColumn<CategoryViewModel, UUID> idColumn;
     private TableColumn<CategoryViewModel, String> nameColumn;
@@ -56,6 +71,7 @@ public class CategoryController {
     //filter
     private FilterState<CategoryViewModel> filterState;
     private FilterableTableHelper<CategoryViewModel> filterHelper;
+    private TablePaginationHelper<CategoryViewModel> paginationHelper;
     
     public CategoryController() {}
     
@@ -78,7 +94,15 @@ public class CategoryController {
     private void initFilterSystem() {
         filterState = new FilterState<>();
         filterHelper = new FilterableTableHelper<>(categoryViewModels, searchField, filterState, CategoryFilterConfig::textMatch);
-        categoriesTable.setItems(filterHelper.getFilteredList());
+        paginationHelper = new TablePaginationHelper<>(
+                filterHelper.getFilteredList(),
+                categoriesTable,
+                previousPageButton,
+                nextPageButton,
+                pageLabel,
+                paginationSummaryLabel,
+                20
+        );
     }
     
     private void setupTableColumns() {
@@ -117,6 +141,7 @@ public class CategoryController {
                 
                 if (filterHelper != null) {
                     filterHelper.setAll(viewModels);
+                    paginationHelper.resetToFirstPage();
                 } else {
                     categoryViewModels.setAll(viewModels);
                     initFilterSystem();

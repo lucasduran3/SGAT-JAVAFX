@@ -24,6 +24,7 @@ import com.mvcjava.sagt.javafx.service.impl.CategoryServiceImpl;
 import com.mvcjava.sagt.javafx.service.interfaces.CategoryService;
 import com.mvcjava.sagt.javafx.util.AlertUtils;
 import com.mvcjava.sagt.javafx.util.EditableCellFactory;
+import com.mvcjava.sagt.javafx.util.TablePaginationHelper;
 import java.io.IOException;
 
 import java.sql.Timestamp;
@@ -47,6 +48,7 @@ import javafx.collections.ObservableSet;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -60,10 +62,6 @@ import javafx.scene.layout.HBox;
  * @author lucas
  */
 public class ProductController {
-    private ProductService productService;
-    private SupplierService supplierService;
-    private CategoryService categoryService;
-    
     @FXML 
     private TableView<ProductViewModel> productsTable;
     
@@ -72,6 +70,18 @@ public class ProductController {
     
     @FXML
     private HBox tableAndFilterContainer;
+    
+    @FXML
+    private Button previousPageButton;
+    
+    @FXML
+    private Button nextPageButton;
+    
+    @FXML
+    private Label pageLabel;
+    
+    @FXML
+    private Label paginationSummaryLabel;
     
     private TableColumn<ProductViewModel, Boolean> selectColumn;
     private TableColumn<ProductViewModel, UUID> idColumn;
@@ -96,6 +106,11 @@ public class ProductController {
     private Map<UUID, Set<UUID>> categoriesToUpdate;
     private Set<ProductViewModel> productsToDelete;
     
+    //Service layer
+    private ProductService productService;
+    private SupplierService supplierService;
+    private CategoryService categoryService;
+    
     //Async helpers
     private ProductLoadService loadService;
     private ProductSaveService saveService;
@@ -105,6 +120,7 @@ public class ProductController {
     private FilterableTableHelper<ProductViewModel> filterHelper;
     private FilterPanelController<ProductViewModel> filterPanel;
     private boolean filterPanelVisible = false;
+    private TablePaginationHelper<ProductViewModel> paginationHelper;
     
     public ProductController() {}
     
@@ -155,8 +171,15 @@ public class ProductController {
             searchField,
             filterState,
             ProductFilterConfig::textMatch);
- 
-        productsTable.setItems(filterHelper.getFilteredList());
+        paginationHelper = new TablePaginationHelper<>(
+                filterHelper.getFilteredList(),
+                productsTable,
+                previousPageButton,
+                nextPageButton,
+                pageLabel,
+                paginationSummaryLabel,
+                20
+        );
     }
     
     private void setupTableColumns() {
@@ -495,6 +518,7 @@ public class ProductController {
            
                 if (filterHelper != null) {
                     filterHelper.setAll(viewModels);
+                    paginationHelper.resetToFirstPage();
                 } else {
                     productViewModels.setAll(viewModels);
                     initFilterSystem();

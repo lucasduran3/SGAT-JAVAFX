@@ -8,6 +8,7 @@ import com.mvcjava.sagt.javafx.filter.FilterableTableHelper;
 import com.mvcjava.sagt.javafx.filter.SupplierFilterConfig;
 import com.mvcjava.sagt.javafx.util.AlertUtils;
 import com.mvcjava.sagt.javafx.util.BasicStringValidator;
+import com.mvcjava.sagt.javafx.util.TablePaginationHelper;
 import com.mvcjava.sagt.javafx.viewmodel.SupplierViewModel;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,7 +22,9 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -35,6 +38,18 @@ public class SupplierController {
     
     @FXML
     private TextField searchField;
+    
+    @FXML
+    private Button previousPageButton;
+    
+    @FXML
+    private Button nextPageButton;
+    
+    @FXML
+    private Label pageLabel;
+    
+    @FXML
+    private Label paginationSummaryLabel;
 
     private TableColumn<SupplierViewModel, Boolean> selectColumn;
     private TableColumn<SupplierViewModel, UUID> idColumn;
@@ -57,6 +72,7 @@ public class SupplierController {
     //filter
     private FilterState<SupplierViewModel> filterState;
     private FilterableTableHelper<SupplierViewModel> filterHelper;
+    private TablePaginationHelper<SupplierViewModel> paginationHelper;
 
     public SupplierController() {}
 
@@ -83,7 +99,15 @@ public class SupplierController {
         filterState = new FilterState<>();
         
         filterHelper = new FilterableTableHelper<>(supplierViewModels, searchField, filterState, SupplierFilterConfig::textMatch);
-        suppliersTable.setItems(filterHelper.getFilteredList());
+        paginationHelper = new TablePaginationHelper<>(
+                filterHelper.getFilteredList(),
+                suppliersTable,
+                previousPageButton,
+                nextPageButton,
+                pageLabel,
+                paginationSummaryLabel,
+                20
+        );
     }
 
     private void setupTableColumns() {
@@ -181,6 +205,7 @@ public class SupplierController {
             
             if (filterHelper != null) {
                 filterHelper.setAll(viewModels);
+                paginationHelper.resetToFirstPage();
             } else {
                 supplierViewModels.setAll(viewModels);
                 initFilterSystem();

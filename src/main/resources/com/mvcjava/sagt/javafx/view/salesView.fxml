@@ -62,11 +62,21 @@
         <SplitPane orientation="VERTICAL" HBox.hgrow="ALWAYS" dividerPositions="0.5" styleClass="splitTableContainer">
 
             <!-- ── MASTER ──────────────────────────────────────────────────────── -->
-            <TableView fx:id="salesTable">
-                <placeholder>
-                    <Label text="No hay ventas registradas"/>
-                </placeholder>
-            </TableView>
+            <VBox>
+                <TableView fx:id="salesTable">
+                    <placeholder>
+                        <Label text="No hay ventas registradas"/>
+                    </placeholder>
+                </TableView>
+                
+                <HBox alignment="CENTER" spacing="12" styleClass="paginationBar">
+                    <Button fx:id="previousPageButton" text="Anterior" styleClass="ghostBtn" />
+                    <Label fx:id="pageLabel" styleClass="paginationLabel" />
+                    <Button fx:id="nextPageButton" text="Siguiente" styleClass="ghostBtn" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Label fx:id="paginationSummaryLabel" styleClass="paginationSummary" />
+                </HBox>
+            </VBox>
 
             <!-- ── DETAIL ──────────────────────────────────────────────────────── -->
             <VBox>
@@ -114,5 +124,6 @@
     </SplitPane>
     
     </HBox>
+    
 
 </VBox>

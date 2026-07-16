@@ -22,8 +22,8 @@
 
         <!-- Logo / Título de la app -->
         <VBox styleClass="authBrand" alignment="CENTER">
-            <Label text="SAGT" styleClass="authBrandTitle"/>
-            <Label text="Sistema de Administración y Gestión" styleClass="authBrandSubtitle" wrapText="true"/>
+            <Label text="SGAT" styleClass="authBrandTitle"/>
+            <Label text="Sistema de Gestión de almacen tecnológico" styleClass="authBrandSubtitle" wrapText="true"/>
         </VBox>
 
         <!-- Tabs LOGIN / REGISTRO -->

@@ -14,6 +14,7 @@ import com.mvcjava.sagt.javafx.filter.FilterState;
 import com.mvcjava.sagt.javafx.filter.FilterableTableHelper;
 import com.mvcjava.sagt.javafx.util.AlertUtils;
 import com.mvcjava.sagt.javafx.util.BasicStringValidator;
+import com.mvcjava.sagt.javafx.util.TablePaginationHelper;
 import com.mvcjava.sagt.javafx.viewmodel.ClientViewModel;
 import java.io.IOException;
 import java.sql.Date;
@@ -33,6 +34,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.ComboBoxTableCell;
@@ -52,6 +55,18 @@ public class ClientController {
     
     @FXML
     private HBox tableAndFilterContainer;
+
+    @FXML
+    private Button previousPageButton;
+
+    @FXML
+    private Button nextPageButton;
+
+    @FXML
+    private Label pageLabel;
+
+    @FXML
+    private Label paginationSummaryLabel;
 
     private TableColumn<ClientViewModel, Boolean> selectColumn;
     private TableColumn<ClientViewModel, UUID> idColumn;
@@ -78,6 +93,7 @@ public class ClientController {
     private FilterableTableHelper<ClientViewModel> filterHelper;
     private FilterPanelController<ClientViewModel> filterPanel;
     private boolean filterPanelVisible = false;
+    private TablePaginationHelper<ClientViewModel> paginationHelper;
 
     public ClientController() {}
 
@@ -117,7 +133,14 @@ public class ClientController {
         }
         
         filterHelper = new FilterableTableHelper<>(clientViewModels, searchField, filterState, ClientFilterConfig::textMatch);
-        clientsTable.setItems(filterHelper.getFilteredList());
+        paginationHelper = new TablePaginationHelper<>(
+                filterHelper.getFilteredList(),
+                clientsTable,
+                previousPageButton,
+                nextPageButton,
+                pageLabel,
+                paginationSummaryLabel,
+                20);
     }
 
     private void setupTableColumns() {
@@ -245,6 +268,7 @@ public class ClientController {
                 
                 if (filterHelper != null) {
                     filterHelper.setAll(viewModels);
+                    paginationHelper.resetToFirstPage();
                 } else {
                     clientViewModels.setAll(viewModels);
                     initFilterSystem();

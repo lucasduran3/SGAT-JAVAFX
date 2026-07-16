@@ -145,3 +145,15 @@
     -fx-background-color: transparent;
     -fx-effect: -soft-shadow-sm;    
 }
+
+.paginationBar {
+    -fx-padding: 5 0 0 0;
+}
+
+.paginationLabel {
+    -fx-font-weight: 600;
+}
+
+.paginationSummary {
+    -fx-text-fill: -text-muted;
+}

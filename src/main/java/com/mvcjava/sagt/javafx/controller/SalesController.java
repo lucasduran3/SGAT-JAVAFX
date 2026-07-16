@@ -26,6 +26,7 @@ import com.mvcjava.sagt.javafx.filter.SaleFilterConfig;
 import com.mvcjava.sagt.javafx.util.AlertUtils;
 import com.mvcjava.sagt.javafx.util.DatePickerTableCell;
 import com.mvcjava.sagt.javafx.util.EditableCellFactory;
+import com.mvcjava.sagt.javafx.util.TablePaginationHelper;
 import com.mvcjava.sagt.javafx.viewmodel.DetailSaleViewModel;
 import com.mvcjava.sagt.javafx.viewmodel.SaleViewModel;
 import java.sql.Date;
@@ -77,6 +78,15 @@ public class SalesController {
     @FXML
     private HBox tableAndFilterContainer;
     
+    @FXML
+    private Button previousPageButton;
+    @FXML
+    private Button nextPageButton;
+    @FXML
+    private Label pageLabel;
+    @FXML
+    private Label paginationSummaryLabel;
+    
     //Columnas Master
     private TableColumn<SaleViewModel, Boolean> selectSaleColumn;
     private TableColumn<SaleViewModel, String> colBillNumber;
@@ -119,6 +129,7 @@ public class SalesController {
     private FilterableTableHelper<SaleViewModel> filterHelper;
     private FilterPanelController<SaleViewModel> filterPanel;
     private boolean filterPanelVisible = false;
+    private TablePaginationHelper<SaleViewModel> paginationHelper;
     
     @FXML
     public void initialize() {
@@ -186,8 +197,15 @@ public class SalesController {
                 searchField,
                 filterState,
                 SaleFilterConfig::textMatch);
- 
-        salesTable.setItems(filterHelper.getFilteredList());
+        paginationHelper = new TablePaginationHelper<>(
+                filterHelper.getFilteredList(),
+                salesTable,
+                previousPageButton,
+                nextPageButton,
+                pageLabel,
+                paginationSummaryLabel,
+                20
+        );
     }
     
     private void setupMasterColumns() {
@@ -652,6 +670,7 @@ public class SalesController {
             
             if (filterHelper != null) {
                 filterHelper.setAll(vms);
+                paginationHelper.resetToFirstPage();
             } else {
                 saleViewModels.setAll(vms);
                 initFilterSystem();
