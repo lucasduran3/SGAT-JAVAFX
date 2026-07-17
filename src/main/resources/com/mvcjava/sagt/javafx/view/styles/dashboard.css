@@ -1,0 +1,50 @@
+@import "variables.css";
+
+.dashboard {
+    -fx-background-color: -base-bg-color;
+}
+
+.dashboard-heading {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.dashboard-subtitle, .card-subtitle, .metric-detail {
+    -fx-text-fill: -text-muted-light;
+}
+
+.period-selector {
+    -fx-background-color: -primary-bg-color;
+    -fx-border-color: -border-color-dark;
+    -fx-border-radius: 7px;
+    -fx-background-radius: 7px;
+}
+
+.metric-card, .dashboard-card {
+    -fx-background-color: -primary-bg-color;
+    -fx-background-radius: 9px;
+    -fx-border-color: -border-color;
+    -fx-border-radius: 9px;
+    -fx-padding: 18px;
+    -fx-effect: -soft-shadow-sm;
+}
+
+.metric-card { -fx-min-height: 118px; }
+.metric-title { -fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: -text-muted; }
+.metric-value { -fx-font-size: 23px; -fx-font-weight: bold; }
+.critical-value { -fx-text-fill: -warning-primary; }
+.alert-metric-card { -fx-border-color: #FBE3C3; }
+.card-title { -fx-font-size: 16px; -fx-font-weight: bold; }
+
+.chart-card { -fx-min-height: 330px; }
+.chart { -fx-background-color: transparent; -fx-padding: 6 0 0 0; }
+.chart-plot-background { -fx-background-color: transparent; }
+.chart-vertical-grid-lines, .chart-horizontal-grid-lines { -fx-stroke: -border-color; }
+.chart-series-line { -fx-stroke: -primary-color; -fx-stroke-width: 2.2px; }
+.default-color0.chart-line-symbol { -fx-background-color: -primary-color, -primary-bg-color; -fx-background-insets: 0, 2; }
+.axis { -fx-tick-label-fill: -text-muted-light; }
+.axis-label { -fx-text-fill: -text-muted-light; }
+
+.dashboard .table-view { -fx-effect: null; -fx-border-color: -border-color; -fx-border-radius: 6px; }
+.dashboard .table-view .column-header { -fx-size: 36px; }
+.dashboard-status { -fx-text-fill: -danger-primary; -fx-padding: 8 0 0 0; }

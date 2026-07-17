@@ -94,11 +94,4 @@ public final class ListPaginationHelper<T> {
         nextButton.setDisable(currentPage == pageCount || sourceItems.isEmpty());
         pageLabel.setText("Pagina " + currentPage + " de " + pageCount);
     }
-
-    private String createSummary(int fromIndex, int toIndex) {
-        if (sourceItems.isEmpty()) {
-            return "Sin resultados";
-        }
-        return "Mostrando " + (fromIndex + 1) + "-" + toIndex + " de " + sourceItems.size();
-    }
 }

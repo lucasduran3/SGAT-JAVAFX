@@ -53,7 +53,7 @@ public class MainController {
     
     private void initializeRoutes() {
         routes = new HashMap<>();
-        routes.put("dashboard", new Route("/com/mvcjava/sagt/javafx/view/productsView.fxml", "Productos", "ARCHIVE"));
+        routes.put("dashboard", new Route("/com/mvcjava/sagt/javafx/view/dashboardView.fxml", "Dashboard", "BAR_CHART"));
         routes.put("productos", new Route("/com/mvcjava/sagt/javafx/view/productsView.fxml", "Productos", "ARCHIVE"));
         routes.put("clientes", new Route("/com/mvcjava/sagt/javafx/view/clientsView.fxml", "Clientes", "USER"));
         routes.put("ventas", new Route("/com/mvcjava/sagt/javafx/view/salesView.fxml", "Ventas", "DOLLAR"));

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.mvcjava.sagt.javafx.controller.DashboardController"
+      styleClass="dashboard" spacing="18">
+    <stylesheets>
+        <URL value="@styles/mainView.css" />
+        <URL value="@styles/dashboard.css" />
+    </stylesheets>
+
+    <HBox alignment="CENTER_LEFT" spacing="10">
+        <VBox spacing="3">
+            <Label text="Resumen del negocio" styleClass="dashboard-heading" />
+            <Label text="Información actualizada de ventas e inventario" styleClass="dashboard-subtitle" />
+        </VBox>
+        <Region HBox.hgrow="ALWAYS" />
+        <ComboBox fx:id="periodComboBox" prefWidth="150" styleClass="period-selector" />
+    </HBox>
+
+    <HBox spacing="16">
+        <VBox styleClass="metric-card" spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="Ganancias del día" styleClass="metric-title" />
+            <Label fx:id="dailyRevenueLabel" text="ARS 0" styleClass="metric-value" />
+            <Label fx:id="salesCountLabel" text="0 ventas registradas" styleClass="metric-detail" />
+        </VBox>
+        <VBox styleClass="metric-card" spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="Valor total del inventario" styleClass="metric-title" />
+            <Label fx:id="inventoryValueLabel" text="ARS 0" styleClass="metric-value" />
+            <Label fx:id="productCountLabel" text="0 productos en total" styleClass="metric-detail" />
+        </VBox>
+        <VBox styleClass="metric-card alert-metric-card" spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="Alertas de stock" styleClass="metric-title" />
+            <Label fx:id="criticalStockCountLabel" text="0 productos críticos" styleClass="metric-value critical-value" />
+            <Label text="Revisá los niveles mínimos definidos" styleClass="metric-detail" />
+        </VBox>
+    </HBox>
+
+    <GridPane hgap="16" vgap="16" VBox.vgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints percentWidth="62" hgrow="ALWAYS" />
+            <ColumnConstraints percentWidth="38" hgrow="ALWAYS" />
+        </columnConstraints>
+
+        <VBox GridPane.columnIndex="0" styleClass="dashboard-card chart-card" spacing="12" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT">
+                <VBox spacing="3">
+                    <Label text="Ganancias por período" styleClass="card-title" />
+                    <Label fx:id="chartDescriptionLabel" text="Ventas diarias" styleClass="card-subtitle" />
+                </VBox>
+            </HBox>
+            <LineChart fx:id="salesChart" animated="false" createSymbols="true" legendVisible="false" VBox.vgrow="ALWAYS">
+                <xAxis><CategoryAxis fx:id="chartXAxis" /></xAxis>
+                <yAxis><NumberAxis fx:id="chartYAxis" forceZeroInRange="true" /></yAxis>
+            </LineChart>
+        </VBox>
+
+        <VBox GridPane.columnIndex="1" styleClass="dashboard-card" spacing="12" VBox.vgrow="ALWAYS">
+            <HBox alignment="CENTER_LEFT">
+                <VBox spacing="3">
+                    <Label text="Productos con stock crítico" styleClass="card-title" />
+                    <Label text="Stock actual igual o inferior al mínimo" styleClass="card-subtitle" />
+                </VBox>
+            </HBox>
+            <TableView fx:id="criticalStockTable" VBox.vgrow="ALWAYS" >
+                <placeholder>
+                    <Label text="Sin productos con stock crítico"/>
+                </placeholder>
+                <columns>
+                    <TableColumn fx:id="productNameColumn" text="Producto" prefWidth="180" />
+                    <TableColumn fx:id="stockColumn" text="Stock" prefWidth="75" />
+                    <TableColumn fx:id="minimumStockColumn" text="Mínimo" prefWidth="75" />
+                </columns>
+            </TableView>
+        </VBox>
+    </GridPane>
+
+    <Label fx:id="statusLabel" managed="false" visible="false" styleClass="dashboard-status" />
+    <padding><Insets top="4" right="4" bottom="4" left="4" /></padding>
+</VBox>

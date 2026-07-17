@@ -10,6 +10,7 @@ module com.mvcjava.sagt.javafx {
     opens com.mvcjava.sagt.javafx.view         to javafx.fxml;
     opens com.mvcjava.sagt.javafx.controller   to javafx.fxml;
     opens com.mvcjava.sagt.javafx.auth         to javafx.fxml;
+    opens com.mvcjava.sagt.javafx.dao.model    to javafx.base;
 
     exports com.mvcjava.sagt.javafx;
 }
