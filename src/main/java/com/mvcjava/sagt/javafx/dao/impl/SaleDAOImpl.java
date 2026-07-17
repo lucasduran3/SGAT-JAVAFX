@@ -124,7 +124,6 @@ public class SaleDAOImpl implements SaleDAO {
         for (Map.Entry<String, Object> e : updates.entrySet()) {
             if (idx++ > 0) sql.append(", ");
             if (e.getKey().equals("metodo_pago")) {
-                System.out.println(e.getValue());
                 sql.append("metodo_pago = ?::app.e_metodo_pago ");
             } else {
                 sql.append(e.getKey()).append(" = ? ");
@@ -354,7 +353,6 @@ public class SaleDAOImpl implements SaleDAO {
         SaleDetail vd = new SaleDetail();
         vd.setId((UUID) rs.getObject("id"));
         vd.setSaleId((UUID) rs.getObject("id_venta"));
-        System.out.println(rs.getObject("id_producto"));
         vd.setProductId((UUID) rs.getObject("id_producto"));
         vd.setUnitPrice(rs.getFloat("precio_unitario"));
         vd.setSubtotal(rs.getFloat("subtotal"));

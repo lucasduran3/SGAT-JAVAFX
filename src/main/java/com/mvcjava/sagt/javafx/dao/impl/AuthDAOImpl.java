@@ -60,7 +60,6 @@ public class AuthDAOImpl implements AuthDAO {
             stmt.setString(4, lastname != null && !lastname.isBlank() ? lastname.trim() : null);
             
             stmt.execute();
-            System.out.println("st ejecutado en dao");
         } catch (SQLException ex) {
             if (ex.getSQLState() != null && ex.getSQLState().startsWith("23")) {
                 throw new DataAccessException("El email ya está registrado.", ex);
