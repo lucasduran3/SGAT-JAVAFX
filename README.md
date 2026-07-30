@@ -104,6 +104,22 @@ Los DAOs concentran el acceso a PostgreSQL mediante JDBC. Esta capa ejecuta cons
                     └── styles
 ```
 
+### Capturas de pantalla
+Login
+![Alt Text](docs/login.png)
+
+Dashboard
+![Alt Text](docs/dashboard.png)
+
+Productos
+![Alt Text](docs/productos.png)
+
+Ventas
+![Alt Text](docs/ventas.png)
+
+Crear Venta
+![Alt Text](docs/crear_venta.png)
+
 ## Autor
 
 Desarrollado por [Lucas Durán](https://github.com/lucasduran3) como proyecto de práctica y portfolio.
